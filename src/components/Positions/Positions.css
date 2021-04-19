@@ -1,0 +1,26 @@
+.Positions {
+
+}
+
+.Positions-body {
+  margin-left: 20px;
+}
+
+.Position-table {
+  width: 70%;
+  text-align: left;
+  display: table;
+}
+
+.Position-tr {
+    display: table-row;
+}
+
+.Position-th {
+  font-weight: bold;
+    display: table-cell;
+}
+
+.Position-td {
+    display: table-cell;
+}
