@@ -1,9 +1,12 @@
 import React from 'react';
 import './Positions.css';
 import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid';
 
 let source = axios.CancelToken.source();
+
+interface IObjectKeys {
+  [key: string]: string | number;
+}
 
 interface Response {
   data: Position[];
@@ -11,7 +14,7 @@ interface Response {
   status: number
 }
 
-interface Position {
+interface Position extends IObjectKeys {
   costBasis: number;
   positionId: number;
   shares: number;
@@ -66,24 +69,25 @@ class Positions extends React.Component<Props, State> {
   }
 
   handleChange(e: any, position: Position) {
-    console.log(e.target.value);
-    console.log(e.target.name);
-  }
-
-  sharesUpdated(e: any, position: Position) {
     let tempPosition = this.state.rowsInEdit.get(position.positionId);
     if (e.target.value) {
-      tempPosition.shares = e.target.value;
+      tempPosition[e.target.name] = e.target.value;
       this.setState({ });
     }
+  }
 
+  getEditObject(position: Position) {
+    return this.state.rowsInEdit.get(position.positionId);
+  }
+
+  isInEdit(position: Position) {
+    return this.state.rowsInEdit.has(position.positionId) === true;
   }
 
   render() {
     let positions = null;
     if (this.state.done) {
       positions = this.state.response.data;
-      console.log(positions);
     }
 
     return (
@@ -98,7 +102,7 @@ class Positions extends React.Component<Props, State> {
               <div className="Position-th">Cost Basis</div>
             </div>
             { positions != null && positions.map((position: Position, index: number) =>
-              this.state.rowsInEdit.has(position.positionId) === false ?
+              !this.isInEdit(position) ?
               (<div className="Position-tr" key={position.positionId}>
                 <div className="Position-td">{position.symbol}</div>
                 <div className="Position-td">{position.shares}</div>
@@ -110,15 +114,15 @@ class Positions extends React.Component<Props, State> {
               </div>) :
               (<div className="Position-tr" key={position.positionId}>
                 <div className="Position-td">
-                  <input type="text" value={this.state.rowsInEdit.get(position.positionId).symbol}
+                  <input type="text" value={this.getEditObject(position).symbol}
                   onChange={(e) => this.handleChange(e, position)} name="symbol"/>
                 </div>
                 <div className="Position-td">
-                  <input type="number" value={this.state.rowsInEdit.get(position.positionId).shares} onChange={(e) =>
-                    this.sharesUpdated(e, position)}  name="shares"/>
+                  <input type="text" value={this.getEditObject(position).shares} onChange={(e) =>
+                    this.handleChange(e, position)}  name="shares"/>
                 </div>
                 <div className="Position-td">
-                  <input type="number" value={this.state.rowsInEdit.get(position.positionId).costBasis} onChange={(e) =>
+                  <input type="text" value={this.getEditObject(position).costBasis} onChange={(e) =>
                     this.handleChange(e, position)}  name="costBasis"/>
                 </div>
                 <div className="Position-td">
