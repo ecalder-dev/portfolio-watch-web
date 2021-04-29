@@ -7,20 +7,35 @@
 }
 
 .Position-table {
-  width: 70%;
+  table-layout: fixed ;
+  margin-bottom: 20px;
+  width: 100% ;
   text-align: left;
-  display: table;
 }
 
 .Position-tr {
-    display: table-row;
+  width: 100%;
 }
 
 .Position-th {
   font-weight: bold;
-    display: table-cell;
 }
 
 .Position-td {
-    display: table-cell;
+  width: 25%;
+}
+
+.Position-td input {
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  width: 80%;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.Position-td input:focus {
+  outline: none;
 }
