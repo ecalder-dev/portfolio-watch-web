@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Toolbar from '../Toolbar/Toolbar';
 import Positions from '../Positions/Positions';
+import Dashboard from '../Dashboard/Dashboard';
 
 class App extends Component {
   render() {
@@ -21,8 +22,8 @@ class App extends Component {
           </div>
           <div className = "App-view">
             <Switch>
-            <Route path = "*" component = {Positions}/>
-
+            <Route path = "/positions" component = {Positions}/>
+            <Route path = "*" component = {Dashboard}/>
             </Switch>
           </div>
       </div>

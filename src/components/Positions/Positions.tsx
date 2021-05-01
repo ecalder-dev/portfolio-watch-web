@@ -1,8 +1,14 @@
 import React from 'react';
 import './Positions.css';
 import Position from '../../models/Position';
-import State from '../../models/State';
 import PositionService from '../../services/PositionService';
+
+interface State<T> {
+  data: T[];
+  done: boolean;
+  rowsInEdit: Map<number, T>;
+  newPosition: T;
+}
 
 let formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -19,7 +25,7 @@ class Positions extends React.Component<any, State<Position>> {
   positions: Position[];
   positionService: PositionService;
 
-  constructor(props: any, positionService1: PositionService) {
+  constructor(props: any) {
     super(props);
     this.rowsInEdit = new Map<number, Position>();
     this.positionService = new PositionService();
@@ -190,7 +196,7 @@ class Positions extends React.Component<any, State<Position>> {
               {newPosition != null ?
                 <tr className="Position-tr" key={newPosition.positionId}>
                   <td className="Position-td">
-                    <input type="text" value={newPosition.newPosition}
+                    <input type="text" value={newPosition.symbol}
                     onChange={(e) => this.handleChange(e, newPosition)} name="symbol"/>
                   </td>
                   <td className="Position-td">

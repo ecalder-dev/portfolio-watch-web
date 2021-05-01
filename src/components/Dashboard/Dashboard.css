@@ -1,0 +1,32 @@
+.Dashboard {
+
+}
+
+.Dashboard-body {
+  margin-left: 20px;
+}
+
+.Dashboard-table {
+  table-layout: fixed ;
+  margin-bottom: 20px;
+  width: 90% ;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.Dashboard-tr {
+  width: 100%;
+}
+
+.Dashboard-th {
+  font-weight: bold;
+  color: white;
+  background-color: #05386B;
+  padding: 6px;
+}
+
+.Dashboard-td {
+  width: 20%;
+  padding: 6px;
+  border-bottom: 1px solid gray;
+}

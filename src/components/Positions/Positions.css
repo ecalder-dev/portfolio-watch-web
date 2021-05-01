@@ -9,7 +9,7 @@
 .Position-table {
   table-layout: fixed ;
   margin-bottom: 20px;
-  width: 100% ;
+  width: 80% ;
   text-align: left;
 }
 
@@ -19,9 +19,11 @@
 
 .Position-th {
   font-weight: bold;
+  padding: 6px;
 }
 
 .Position-td {
+  padding: 6px;
   width: 25%;
 }
 
