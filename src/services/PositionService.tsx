@@ -17,13 +17,13 @@ class PositionService {
     });
   }
 
-  postPostion(position: Position) {
+  postPosition(position: Position) {
     return axios.post('https://localhost:9200/api/position', position, {
       cancelToken: source.token
     });
   }
 
-  deletePostion(position: Position) {
+  deletePosition(position: Position) {
     return axios.delete('https://localhost:9200/api/position', {data: position,
       cancelToken: source.token
     });

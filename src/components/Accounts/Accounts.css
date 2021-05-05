@@ -1,0 +1,43 @@
+.Accounts {
+
+}
+
+.Accounts-body {
+  margin-left: 20px;
+}
+
+.Account-table {
+  table-layout: fixed ;
+  margin-bottom: 20px;
+  width: 80% ;
+  text-align: left;
+}
+
+.Account-tr {
+  width: 100%;
+}
+
+.Account-th {
+  font-weight: bold;
+  padding: 6px;
+}
+
+.Account-td {
+  padding: 6px;
+  width: 25%;
+}
+
+.Account-td input {
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  width: 80%;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.Account-td input:focus {
+  outline: none;
+}

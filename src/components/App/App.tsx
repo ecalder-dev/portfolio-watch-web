@@ -5,6 +5,7 @@ import './App.css';
 import Toolbar from '../Toolbar/Toolbar';
 import Positions from '../Positions/Positions';
 import Dashboard from '../Dashboard/Dashboard';
+import Accounts from '../Accounts/Accounts';
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
           <div className = "App-view">
             <Switch>
             <Route path = "/positions" component = {Positions}/>
+            <Route path = "/accounts" component = {Accounts}/>
             <Route path = "*" component = {Dashboard}/>
             </Switch>
           </div>

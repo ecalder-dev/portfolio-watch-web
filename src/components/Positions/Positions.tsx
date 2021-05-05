@@ -13,10 +13,6 @@ interface State<T> {
 let formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
-
-  // These options are needed to round to whole numbers if that's what you want.
-  //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-  //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 class Positions extends React.Component<any, State<Position>> {
 
@@ -81,7 +77,7 @@ class Positions extends React.Component<any, State<Position>> {
 
   deleteRow(position: Position) {
     if (window.confirm('Are you sure you want to delete this position?')) {
-      this.positionService.deletePostion(position)
+      this.positionService.deletePosition(position)
       .then(json => {
         this.positions = this.positions.filter(p => p.positionId !== position.positionId);
         this.setState({ data: this.positions, done: true });
@@ -103,7 +99,7 @@ class Positions extends React.Component<any, State<Position>> {
   }
 
   saveNewRow(position: Position) {
-    this.positionService.postPostion(position).then(json => {
+    this.positionService.postPosition(position).then(json => {
       if (json.data) {
         this.positions.push(json.data);
         this.setState({ newPosition: null, done: true });
