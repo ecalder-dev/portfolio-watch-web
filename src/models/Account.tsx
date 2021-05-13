@@ -5,8 +5,8 @@ interface Account extends IObjectKeys {
   accountName: string;
   accountNumber: string;
   dateOpened: Date;
-  datetimeInserted: string;
-  datetimeUpdated: string;
+  datetimeInserted: Date;
+  datetimeUpdated: Date;
 }
 
 export default Account;

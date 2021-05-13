@@ -2,29 +2,30 @@ import axios from 'axios';
 import Position from '../models/Position';
 
 let source = axios.CancelToken.source();
+let serviceUrl = 'https://localhost:9200';
 
 class PositionService {
 
   getPositions() {
-    return axios.get('https://localhost:9200/api/positions', {
+    return axios.get(serviceUrl + '/api/positions', {
         cancelToken: source.token
     });
   }
 
   putPosition(position: Position) {
-    return axios.put('https://localhost:9200/api/position', position, {
+    return axios.put(serviceUrl + '/api/position', position, {
       cancelToken: source.token
     });
   }
 
   postPosition(position: Position) {
-    return axios.post('https://localhost:9200/api/position', position, {
+    return axios.post(serviceUrl + '/api/position', position, {
       cancelToken: source.token
     });
   }
 
   deletePosition(position: Position) {
-    return axios.delete('https://localhost:9200/api/position', {data: position,
+    return axios.delete(serviceUrl + '/api/position', {data: position,
       cancelToken: source.token
     });
   }

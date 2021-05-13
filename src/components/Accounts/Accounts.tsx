@@ -93,8 +93,8 @@ class Accounts extends React.Component<any, State<Account>> {
       accountName: '',
       accountNumber: '',
       dateOpened: new Date(),
-      datetimeInserted: '',
-      datetimeUpdated: ''
+      datetimeInserted: null,
+      datetimeUpdated: null
     }
     this.setState({newAccount: newAccount});
   }
@@ -223,8 +223,6 @@ class Accounts extends React.Component<any, State<Account>> {
                       onChange={date => this.handleDateChange(date, newAccount, "dateOpened")}
                       dateFormat='M/d/yyyy'
                     />
-                  </td>
-                  <td>
                   </td>
                   <td>
                     <button onClick={() => this.saveNewRow(newAccount)}>Save</button>

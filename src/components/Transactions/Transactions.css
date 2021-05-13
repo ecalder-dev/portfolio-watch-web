@@ -1,0 +1,43 @@
+.Transactions {
+
+}
+
+.Transactions-body {
+  margin-left: 20px;
+}
+
+.Transaction-table {
+  table-layout: fixed ;
+  margin-bottom: 20px;
+  width: 80% ;
+  text-align: left;
+}
+
+.Transaction-tr {
+  width: 100%;
+}
+
+.Transaction-th {
+  font-weight: bold;
+  padding: 6px;
+}
+
+.Transaction-td {
+  padding: 6px;
+  width: 14%;
+}
+
+.Transaction-td input {
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  width: 80%;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.Transaction-td input:focus {
+  outline: none;
+}

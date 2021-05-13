@@ -14,6 +14,7 @@ let formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 });
+
 class Positions extends React.Component<any, State<Position>> {
 
   state: State<Position>;
@@ -202,8 +203,6 @@ class Positions extends React.Component<any, State<Position>> {
                   <td className="Position-td">
                     <input type="text" value={newPosition.costBasis} onChange={(e) =>
                       this.handleChange(e, newPosition)} name="costBasis" pattern="^\d*(\.\d{0,5})?$"/>
-                  </td>
-                  <td>
                   </td>
                   <td>
                     <button onClick={() => this.saveNewRow(newPosition)}>Save</button>

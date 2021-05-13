@@ -29,3 +29,24 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0;
 }
+
+button {
+  display: inline;
+  font-family: inherit;
+  font-size: 14px;
+  -webkit-appearance: none !important;
+  color: black;
+  background-color: lightgray;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: #05386b;
+  border: 1px solid #05386b;
+  color: white;
+  cursor: pointer;
+}

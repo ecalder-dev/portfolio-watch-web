@@ -46,8 +46,8 @@ class Dashboard extends React.Component<any, State> {
     .then(json => {
       this.summaries = json.data;
       this.summaries.sort(function(a, b) {
-        if (a.percentChange > b.percentChange) return 1;
-        if (b.percentChange > a.percentChange) return -1;
+        if (a.percentChange > b.percentChange) return -1;
+        if (b.percentChange > a.percentChange) return 1;
         return 0;
       });
       this.setState({ summaries: this.summaries, done: true });

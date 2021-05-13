@@ -6,6 +6,8 @@ import Toolbar from '../Toolbar/Toolbar';
 import Positions from '../Positions/Positions';
 import Dashboard from '../Dashboard/Dashboard';
 import Accounts from '../Accounts/Accounts';
+import Transactions from '../Transactions/Transactions';
+import TransactionForm from '../Transactions/TransactionForm/TransactionForm';
 
 class App extends Component {
   render() {
@@ -25,6 +27,9 @@ class App extends Component {
             <Switch>
             <Route path = "/positions" component = {Positions}/>
             <Route path = "/accounts" component = {Accounts}/>
+            <Route path = "/transactions/form/:id" component = {TransactionForm}/>
+            <Route path = "/transactions/form" component = {TransactionForm}/>
+            <Route path = "/transactions" component = {Transactions}/>
             <Route path = "*" component = {Dashboard}/>
             </Switch>
           </div>

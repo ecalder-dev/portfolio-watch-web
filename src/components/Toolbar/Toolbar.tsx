@@ -8,6 +8,7 @@ class Toolbar extends Component {
         <div className="Toolbar-item"><a href="/">Dashboard</a></div>
         <div className="Toolbar-item"><a href="/positions">Positions</a></div>
         <div className="Toolbar-item"><a href="/accounts">Accounts</a></div>
+        <div className="Toolbar-item"><a href="/transactions">Transactions</a></div>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 interface IObjectKeys {
-  [key: string]: string | number | boolean | Date;
+  [key: string]: any;
 }
 
 export default IObjectKeys;
