@@ -18,6 +18,7 @@ interface State {
   dateTransacted: Date;
   dateSettled: Date;
   accountList: Account[];
+  datetimeInserted: Date;
 }
 
 class TransactionForm extends React.Component<any, State> {
@@ -28,20 +29,21 @@ class TransactionForm extends React.Component<any, State> {
 
   constructor(props: any) {
     super(props);
-    this.typeList = ["BUY", "SELL", "OUT TRANSFER", "IN TRANSFER", "GIFT"];
+    this.typeList = ['B', 'S', 'TO', 'TI', 'MT', 'MB', 'G'];
     this.accountService = new AccountService();
     this.transactionService = new TransactionService();
 
     this.state = {
       transactionId: null,
       type: this.typeList[0],
-      symbol: "",
+      symbol: '',
       shares: 0,
       price: 0,
       account: null,
       dateTransacted: null,
       dateSettled: null,
       accountList: [],
+      datetimeInserted: null,
     };
   }
 
@@ -65,9 +67,10 @@ class TransactionForm extends React.Component<any, State> {
                 account: transaction.account,
                 dateTransacted: transaction.dateTransacted,
                 dateSettled: transaction.dateSettled,
+                datetimeInserted: transaction.datetimeInserted,
               });
             } else {
-              this.props.history.push("/transactions");
+              this.props.history.push('/transactions');
             }
           });
         }
@@ -90,23 +93,23 @@ class TransactionForm extends React.Component<any, State> {
       return;
     } else {
       switch (name) {
-        case "type": {
+        case 'type': {
           this.setState({ type: value });
           break;
         }
-        case "symbol": {
-          this.setState({ symbol: value ? value.toUpperCase() : "" });
+        case 'symbol': {
+          this.setState({ symbol: value ? value.toUpperCase() : '' });
           break;
         }
-        case "shares": {
+        case 'shares': {
           this.setState({ shares: value });
           break;
         }
-        case "price": {
+        case 'price': {
           this.setState({ price: value });
           break;
         }
-        case "account": {
+        case 'account': {
           let found = this.state.accountList.filter(acct => acct.accountId == value);
           this.setState({
             account: found.length > 0 ? found[0] : null,
@@ -118,9 +121,9 @@ class TransactionForm extends React.Component<any, State> {
   }
 
   handleDateChange(date: any, name: string) {
-    if (name === "dateTransacted") {
+    if (name === 'dateTransacted') {
       this.setState({ dateTransacted: date });
-    } else if (name === "dateSettled") {
+    } else if (name === 'dateSettled') {
       this.setState({ dateSettled: date });
     }
   }
@@ -147,13 +150,13 @@ class TransactionForm extends React.Component<any, State> {
     if (transaction.transactionId) {
       this.transactionService.putTransaction(transaction).then((json) => {
         if (json.data) {
-          this.props.history.push("/transactions");
+          this.props.history.push('/transactions');
         }
       });
     } else {
       this.transactionService.postTransaction(transaction).then((json) => {
         if (json.data) {
-          this.props.history.push("/transactions");
+          this.props.history.push('/transactions');
         }
       });
     }
@@ -161,22 +164,22 @@ class TransactionForm extends React.Component<any, State> {
 
   validateNewTransaction(): boolean {
     if (!this.state) {
-      alert("State is invalid.");
+      alert('State is invalid.');
       return false;
     } else if (!this.state.account) {
-      alert("Account should be selected.");
+      alert('Account should be selected.');
       return false;
     } else if (!this.state.symbol) {
-      alert("Symbol should not be empty.");
+      alert('Symbol should not be empty.');
       return false;
     } else if (!this.state.shares || this.state.shares === 0) {
-      alert("Shares should should not be empty or 0.");
+      alert('Shares should should not be empty or 0.');
       return false;
-    } else if (!this.state.price || this.state.price === 0) {
-      alert("Price should not be empty or 0.");
+    } else if (!this.state.price) {
+      alert('Price should not be empty or 0.');
       return false;
     } else if (!this.state.dateTransacted) {
-      alert("Transaction date should not be null.");
+      alert('Transaction date should not be null.');
       return false;
     } else {
       return true;
@@ -201,7 +204,7 @@ class TransactionForm extends React.Component<any, State> {
 
       this.transactionService.deleteTransaction(transaction)
       .then(json => {
-        this.props.history.push("/transactions");
+        this.props.history.push('/transactions');
       } )
       .catch(err => {
         console.log(err.message);
@@ -211,7 +214,7 @@ class TransactionForm extends React.Component<any, State> {
   }
 
   goToTransactionList() {
-    this.props.history.push("/transactions");
+    this.props.history.push('/transactions');
   }
 
   toUpperCase(str: String) {
@@ -225,6 +228,27 @@ class TransactionForm extends React.Component<any, State> {
       return account.accountId;
     } else {
       return -1;
+    }
+  }
+
+  getDescriptionOfType(type: string) {
+    switch (type) {
+      case 'B':
+        return 'Buy';
+      case 'S':
+        return 'Sell';
+      case 'TO':
+        return 'Transfer Out';
+      case 'TI':
+        return 'Transfer In';
+      case 'MT':
+        return 'Merger Target';
+      case 'MB':
+        return 'Merger Buyer';
+      case 'G':
+        return 'Gift';
+      default:
+        return type;
     }
   }
 
@@ -262,7 +286,7 @@ class TransactionForm extends React.Component<any, State> {
               >
                 {this.typeList.map((type: string, index: number) => (
                   <option key={"type-" + index} value={type}>
-                    {type}
+                    {this.getDescriptionOfType(type)}
                   </option>
                 ))}
               </select>

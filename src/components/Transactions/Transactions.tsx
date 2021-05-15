@@ -16,7 +16,9 @@ let formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 });
-
+let decimalFormatter = new Intl.NumberFormat('en-US', {
+  maximumFractionDigits: 3
+});
 class Transactions extends React.Component<any, State<Transaction>> {
 
   state: State<Transaction>;
@@ -73,6 +75,27 @@ class Transactions extends React.Component<any, State<Transaction>> {
     this.props.history.push('/transactions/form/' + id);
   }
 
+  getDescriptionOfType(type: string) {
+    switch (type) {
+      case 'B':
+        return 'Buy';
+      case 'S':
+        return 'Sell';
+      case 'TO':
+        return 'Transfer Out';
+      case 'TI':
+        return 'Transfer In';
+      case 'MT':
+        return 'Merger Target';
+      case 'MB':
+        return 'Merger Buyer';
+      case 'G':
+        return 'Gift';
+      default:
+        return type;
+    }
+  }
+
   render() {
     let transactions = null;
     let newTransaction = this.state.newTransaction;
@@ -94,19 +117,17 @@ class Transactions extends React.Component<any, State<Transaction>> {
                 <th className="Transaction-th">Shares</th>
                 <th className="Transaction-th">Price</th>
                 <th className="Transaction-th">Date Transacted</th>
-                <th className="Transaction-th">Date Settled</th>
               </tr>
             </thead>
             <tbody>
               { transactions != null && transactions.map((transaction: Transaction, index: number) =>
                 (<tr className="Transaction-tr" key={transaction.transactionId}
                 onClick={() => this.goToEdit(transaction.transactionId)}>
-                  <td className="Transaction-td">{transaction.type}</td>
+                  <td className="Transaction-td">{this.getDescriptionOfType(transaction.type)}</td>
                   <td className="Transaction-td">{transaction.symbol}</td>
-                  <td className="Transaction-td">{transaction.shares}</td>
+                  <td className="Transaction-td">{decimalFormatter.format(transaction.shares)}</td>
                   <td className="Transaction-td">{formatter.format(transaction.price)}</td>
                   <td className="Transaction-td">{this.getFormattedDateStr(transaction.dateTransacted)}</td>
-                  <td className="Transaction-td">{this.getFormattedDateStr(transaction.dateSettled)}</td>
                 </tr>))
               }
             </tbody>
