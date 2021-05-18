@@ -25,14 +25,12 @@ class Transactions extends React.Component<any, State<Transaction>> {
   rowsInEdit: Map<number, Transaction>;
   transactions: Transaction[];
   transactionService: TransactionService;
-  typeList: string[];
 
   constructor(props: any) {
     super(props);
     this.rowsInEdit = new Map<number, Transaction>();
     this.transactionService = new TransactionService();
     this.transactions = [];
-    this.typeList = ['BUY', 'SELL', 'TRANSFER', 'GIFT'];
     this.state = {
       data: this.transactions,
       done: false,
@@ -45,6 +43,11 @@ class Transactions extends React.Component<any, State<Transaction>> {
     this.transactionService.getTransactions()
     .then(json => {
       this.transactions = json.data;
+      this.transactions.sort(function(a, b) {
+        if (a.dateTransacted > b.dateTransacted) return -1;
+        if (b.dateTransacted > a.dateTransacted) return 1;
+        return 0;
+      });
       this.setState({ data: this.transactions, done: true });
     })
     .catch(err => {
@@ -91,6 +94,8 @@ class Transactions extends React.Component<any, State<Transaction>> {
         return 'Merger Buyer';
       case 'G':
         return 'Gift';
+      case 'SP':
+        return 'Split';
       default:
         return type;
     }
@@ -113,6 +118,7 @@ class Transactions extends React.Component<any, State<Transaction>> {
             <thead>
               <tr className="Transaction-tr">
                 <th className="Transaction-th">Type</th>
+                <th className="Transaction-th">Account</th>
                 <th className="Transaction-th">Symbol</th>
                 <th className="Transaction-th">Shares</th>
                 <th className="Transaction-th">Price</th>
@@ -124,6 +130,8 @@ class Transactions extends React.Component<any, State<Transaction>> {
                 (<tr className="Transaction-tr" key={transaction.transactionId}
                 onClick={() => this.goToEdit(transaction.transactionId)}>
                   <td className="Transaction-td">{this.getDescriptionOfType(transaction.type)}</td>
+                  <td className="Transaction-td">{transaction.account.accountName
+                      +' (' + transaction.account.accountNumber + ')'}</td>
                   <td className="Transaction-td">{transaction.symbol}</td>
                   <td className="Transaction-td">{decimalFormatter.format(transaction.shares)}</td>
                   <td className="Transaction-td">{formatter.format(transaction.price)}</td>
