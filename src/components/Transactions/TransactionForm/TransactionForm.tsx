@@ -29,7 +29,7 @@ class TransactionForm extends React.Component<any, State> {
 
   constructor(props: any) {
     super(props);
-    this.typeList = ['B', 'S', 'TO', 'TI', 'MT', 'MB', 'G'];
+    this.typeList = ['B', 'S', 'TO', 'TI', 'MT', 'MB', 'G', 'SP'];
     this.accountService = new AccountService();
     this.transactionService = new TransactionService();
 
@@ -37,7 +37,7 @@ class TransactionForm extends React.Component<any, State> {
       transactionId: null,
       type: this.typeList[0],
       symbol: '',
-      shares: 0,
+      shares: 1,
       price: 0,
       account: null,
       dateTransacted: null,
@@ -52,7 +52,17 @@ class TransactionForm extends React.Component<any, State> {
       .getAccounts()
       .then((json) => {
         let firstAccount = null;
-        this.setState({ accountList: json.data });
+        let accountList = json.data;
+        accountList.sort(function(a, b) {
+          if (a.accountName > b.accountName) return -1;
+          if (b.accountName > a.accountName) return 1;
+          if (a.accountName == a.accountName) {
+            if (a.accountNumber < b.accountNumber) return -1;
+            if (b.accountNumber < a.accountNumber) return 1;
+          }
+          return 0;
+        });
+        this.setState({ accountList: accountList, account: firstAccount });
         const id = this.props.match.params.id;
         if (id) {
           this.transactionService.getTransaction(id).then((json) => {
@@ -175,9 +185,6 @@ class TransactionForm extends React.Component<any, State> {
     } else if (!this.state.shares || this.state.shares === 0) {
       alert('Shares should should not be empty or 0.');
       return false;
-    } else if (!this.state.price) {
-      alert('Price should not be empty or 0.');
-      return false;
     } else if (!this.state.dateTransacted) {
       alert('Transaction date should not be null.');
       return false;
@@ -247,6 +254,8 @@ class TransactionForm extends React.Component<any, State> {
         return 'Merger Buyer';
       case 'G':
         return 'Gift';
+      case 'SP':
+        return 'Split';
       default:
         return type;
     }
@@ -264,6 +273,7 @@ class TransactionForm extends React.Component<any, State> {
                 name="account"
                 onChange={(e) => this.handleInputChange(e)}
                 value={this.getAccountId(this.state.account)}
+                id="select-account"
               >
                 <option disabled value={-1}>
                   Select an Account
@@ -271,7 +281,7 @@ class TransactionForm extends React.Component<any, State> {
                 {this.state.accountList.map(
                   (account: Account, index: number) => (
                     <option key={index} value={account.accountId}>
-                      {account.accountName}
+                      {account.accountName +' (' + account.accountNumber + ')'}
                     </option>
                   )
                 )}
@@ -283,6 +293,7 @@ class TransactionForm extends React.Component<any, State> {
                 name="type"
                 onChange={(e) => this.handleInputChange(e)}
                 value={this.state.type}
+                id="select-type"
               >
                 {this.typeList.map((type: string, index: number) => (
                   <option key={"type-" + index} value={type}>
