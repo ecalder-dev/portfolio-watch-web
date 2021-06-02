@@ -29,7 +29,7 @@ class TransactionForm extends React.Component<any, State> {
 
   constructor(props: any) {
     super(props);
-    this.typeList = ['B', 'S', 'TO', 'TI', 'MT', 'MB', 'G', 'SP'];
+    this.typeList = ['B', 'S', 'TO', 'TI', 'M', 'G', 'SP'];
     this.accountService = new AccountService();
     this.transactionService = new TransactionService();
 
@@ -49,7 +49,7 @@ class TransactionForm extends React.Component<any, State> {
 
   componentDidMount() {
     this.accountService
-      .getAccounts()
+      .getAccounts(false)
       .then((json) => {
         let firstAccount = null;
         let accountList = json.data;

@@ -88,10 +88,8 @@ class Transactions extends React.Component<any, State<Transaction>> {
         return 'Transfer Out';
       case 'TI':
         return 'Transfer In';
-      case 'MT':
-        return 'Merger Target';
-      case 'MB':
-        return 'Merger Buyer';
+      case 'M':
+        return 'Merger';
       case 'G':
         return 'Gift';
       case 'SP':
