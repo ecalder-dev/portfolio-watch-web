@@ -33,7 +33,7 @@ class Accounts extends React.Component<any, State<Account>> {
   }
 
   componentDidMount() {
-    this.accountService.getAccounts()
+    this.accountService.getAccounts(false)
     .then(json => {
       this.accounts = json.data;
       this.setState({ data: this.accounts, done: true });

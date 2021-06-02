@@ -6,8 +6,8 @@ let serviceUrl = 'https://localhost:9200';
 
 class AccountService {
 
-  getAccounts() {
-    return axios.get(serviceUrl + '/api/accounts', {
+  getAccounts(withDetails: boolean) {
+    return axios.get(serviceUrl + '/api/accounts?withDetails=' + withDetails, {
         cancelToken: source.token
     });
   }
