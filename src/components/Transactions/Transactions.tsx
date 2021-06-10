@@ -2,7 +2,6 @@ import React from 'react';
 import './Transactions.css';
 import Transaction from '../../models/Transaction';
 import TransactionService from '../../services/TransactionService';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 interface State<T> {
@@ -101,7 +100,6 @@ class Transactions extends React.Component<any, State<Transaction>> {
 
   render() {
     let transactions = null;
-    let newTransaction = this.state.newTransaction;
     if (this.state.done) {
       transactions = this.state.data;
     }

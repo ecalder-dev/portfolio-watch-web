@@ -1,0 +1,71 @@
+.CostBasisListing {
+  margin-bottom: 50px;
+}
+
+.CostBasisListing-body {
+  margin-left: 20px;
+  margin-top: 20px;
+  width: 60%;
+}
+
+.CostBasisListing-body h2 {
+  padding: 5px 0px;
+  border-bottom: 5px solid black;
+}
+
+.CostBasisOverviewTable {
+  width: 100%;
+  display: block;
+}
+
+.CostBasisOverviewRow, .CostBasisOverviewSubRow {
+  display: flex;
+}
+
+.CostBasisOverviewRow {
+  cursor: pointer;
+}
+
+.CostBasisOverviewSubRow:hover {
+  background-color: #f0f0f0;
+}
+
+.CostBasisOverviewSubRow:last-child div {
+  border-bottom: 1px solid lightgray;
+}
+
+.CostBasisOverviewHeader {
+  font-weight: normal;
+  text-align: left;
+  width: 33%;
+  padding-bottom: 5px;
+  font-size: 16px;
+  border-bottom: 1px solid lightgray;
+}
+
+.CostBasisOverviewHeader:hover{
+  cursor: default !important;
+}
+
+.CostBasisOverviewColumn {
+  font-weight: normal;
+  width: 33%;
+  align-items:center;
+  display: flex;
+  font-size: 14px;
+  border-bottom: 1px solid lightgray;
+  padding: 5px 0px;
+}
+
+.CostBasisOverviewSubColumn {
+  font-weight: normal;
+  width: 33%;
+  align-items:center;
+  display: flex;
+  font-size: 12px;
+  padding: 5px 0px;
+}
+
+.hide {
+  display: none;
+}

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Position from '../models/Position';
+import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
-let serviceUrl = 'https://localhost:9200';
+let serviceUrl = config.serviceUrl;
 
 class PositionService {
 

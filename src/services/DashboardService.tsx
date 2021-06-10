@@ -1,7 +1,8 @@
 import axios from 'axios';
+import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
-let serviceUrl = 'https://localhost:9200';
+let serviceUrl = config.serviceUrl;
 
 class DashboardService {
 

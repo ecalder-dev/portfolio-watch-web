@@ -14,11 +14,13 @@
   flex-grow: 0;
 }
 
-.App-header > label {
+.App-header > div {
   margin-left: 10px;
   font-size: 24px;
   color: white;
   vertical-align: middle;
+  margin-top: 3px;
+
 }
 
 .App-toolbar {

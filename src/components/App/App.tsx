@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import logo from './logo.svg';
 import './App.css';
-import Toolbar from '../Toolbar/Toolbar';
-import Positions from '../Positions/Positions';
-import Dashboard from '../Dashboard/Dashboard';
 import Accounts from '../Accounts/Accounts';
+import CostBasisListing from '../CostBasisListing/CostBasisListing'
+import Dashboard from '../Dashboard/Dashboard';
+import Positions from '../Positions/Positions';
+import Toolbar from '../Toolbar/Toolbar';
 import Transactions from '../Transactions/Transactions';
 import TransactionForm from '../Transactions/TransactionForm/TransactionForm';
 
@@ -15,9 +15,9 @@ class App extends Component {
       <Router>
       <div className = "App">
         <div className = "App-header">
-          <label>
+          <div>
             PortfolioWatch
-          </label>
+          </div>
         </div>
         <div className = "break"></div>
           <div className = "App-toolbar">
@@ -27,6 +27,7 @@ class App extends Component {
             <Switch>
             <Route path = "/positions" component = {Positions}/>
             <Route path = "/accounts" component = {Accounts}/>
+            <Route path = "/cost-basis" component = {CostBasisListing}/>
             <Route path = "/transactions/form/:id" component = {TransactionForm}/>
             <Route path = "/transactions/form" component = {TransactionForm}/>
             <Route path = "/transactions" component = {Transactions}/>

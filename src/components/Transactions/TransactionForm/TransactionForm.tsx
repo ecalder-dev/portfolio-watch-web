@@ -56,7 +56,7 @@ class TransactionForm extends React.Component<any, State> {
         accountList.sort(function(a, b) {
           if (a.accountName > b.accountName) return -1;
           if (b.accountName > a.accountName) return 1;
-          if (a.accountName == a.accountName) {
+          if (a.accountName === b.accountName) {
             if (a.accountNumber < b.accountNumber) return -1;
             if (b.accountNumber < a.accountNumber) return 1;
           }
@@ -120,7 +120,8 @@ class TransactionForm extends React.Component<any, State> {
           break;
         }
         case 'account': {
-          let found = this.state.accountList.filter(acct => acct.accountId == value);
+          let valInt = parseInt(value, 0);
+          let found = this.state.accountList.filter(acct => acct.accountId === valInt);
           this.setState({
             account: found.length > 0 ? found[0] : null,
           });
