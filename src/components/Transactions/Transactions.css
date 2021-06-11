@@ -11,33 +11,35 @@
   margin-bottom: 20px;
   width: 90% ;
   text-align: left;
+  border-collapse: collapse;
 }
 
 .Transaction-tr {
   width: 100%;
+  border-bottom: 1px solid lightgray;
+}
+
+tbody .Transaction-tr:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
 }
 
 .Transaction-th {
-  font-weight: bold;
+  font-weight: normal;
+  font-size: 16px;
   padding: 6px;
+  border-bottom: 1px solid lightgray;
 }
 
 .Transaction-td {
+  font-size: 14px;
   padding: 6px;
   width: 16.67%;
+  border-bottom: 1px solid lightgray;
 }
 
-.Transaction-td input {
-  border: none;
-  display: inline;
-  font-family: inherit;
-  font-size: inherit;
-  padding: none;
-  width: 80%;
-  border: none;
-  border-bottom: 1px solid black;
-}
-
-.Transaction-td input:focus {
-  outline: none;
+.TransactionsAddNew {
+  text-align: left;
+  width: 90%;
+  margin-bottom: 10px;
 }

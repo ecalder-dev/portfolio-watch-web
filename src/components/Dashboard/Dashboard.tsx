@@ -2,6 +2,7 @@ import React from 'react';
 import './Dashboard.css';
 import DashboardService from '../../services/DashboardService';
 import Summary from '../../models/Summary';
+import Formatter from '../../utils/Formatter';
 
 interface State {
   summaries: Summary[];
@@ -10,19 +11,6 @@ interface State {
   sortDirection: string;
 }
 
-
-let formatter = new Intl.NumberFormat('en-US');
-
-let currencyFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
-
-let percentFormatter = new Intl.NumberFormat('en-US', {
-  style: 'percent',
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-});
 class Dashboard extends React.Component<any, State> {
 
   state: State;
@@ -84,9 +72,9 @@ class Dashboard extends React.Component<any, State> {
                   && this.summaries.map((summary: Summary, index: number) =>
                 <tr className="Dashboard-tr" key={index}>
                   <td className="Dashboard-td">{summary.symbol}</td>
-                  <td className="Dashboard-td">{currencyFormatter.format(summary.currentPrice)}</td>
-                  <td className="Dashboard-td">{percentFormatter.format(summary.percentChange)}</td>
-                  <td className="Dashboard-td">{formatter.format(summary.averageVolume)}</td>
+                  <td className="Dashboard-td">{Formatter.formatDollar(summary.currentPrice)}</td>
+                  <td className="Dashboard-td">{Formatter.formatPerc(summary.percentChange)}</td>
+                  <td className="Dashboard-td">{Formatter.formatNumber(summary.averageVolume)}</td>
                   <td className="Dashboard-td">{summary.sector}</td>
                 </tr>
               )}

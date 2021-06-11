@@ -18,11 +18,12 @@
   display: block;
 }
 
-.CostBasisOverviewRow, .CostBasisOverviewSubRow {
+.CostBasisOverviewHeaderRow, .CostBasisOverviewRow, .CostBasisOverviewSubRow {
   display: flex;
 }
 
-.CostBasisOverviewRow {
+.CostBasisOverviewRow:hover {
+  background-color: #f0f0f0;
   cursor: pointer;
 }
 

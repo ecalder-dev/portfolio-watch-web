@@ -11,11 +11,6 @@ let percentFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-let dateFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
-
 class Formatter {
 
   public static formatNumber(num: number) {

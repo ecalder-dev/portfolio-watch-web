@@ -1,10 +1,31 @@
 .Toolbar {
   height: 100%;
-  background: #8ee4af;
   color: #05386B;
+  border-right: 1px solid darkgray;
 }
 
-.Toolbar-item {
- padding-left: 10px;
- padding-top: 20px;
+.Toolbar-item button {
+  width: 100%;
+  margin: 0px;
+  border-radius: 0px;
+  padding: 10px;
+  background-color: white;
+  border-color: white;
+  color: black;
+  font-weight: normal;
+}
+
+.Toolbar-item button:hover {
+  background-color: #d9f6e4;
+  border-color: #d9f6e4;
+}
+
+.Toolbar-item button:active {
+  background-color: #8ee4af;
+  border-color: #8ee4af;
+}
+
+.isActive {
+  background-color: #8ee4af !important;
+  border-color: #8ee4af !important;
 }

@@ -3,6 +3,7 @@ import './Transactions.css';
 import Transaction from '../../models/Transaction';
 import TransactionService from '../../services/TransactionService';
 import 'react-datepicker/dist/react-datepicker.css';
+import Formatter from '../../utils/Formatter';
 
 interface State<T> {
   data: T[];
@@ -11,13 +12,6 @@ interface State<T> {
   newTransaction: T;
 }
 
-let formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
-let decimalFormatter = new Intl.NumberFormat('en-US', {
-  maximumFractionDigits: 3
-});
 class Transactions extends React.Component<any, State<Transaction>> {
 
   state: State<Transaction>;
@@ -56,17 +50,6 @@ class Transactions extends React.Component<any, State<Transaction>> {
 
   componentWillUnmount() {
     //this.transactionService.cancelRequest();
-  }
-
-  getFormattedDateStr(date: Date) {
-    if (date) {
-      if (typeof date === 'number') {
-        date = new Date(date);
-      }
-      return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-    } else {
-      return '';
-    }
   }
 
   goToAddNew() {
@@ -108,8 +91,9 @@ class Transactions extends React.Component<any, State<Transaction>> {
       <div className="Transactions">
         <div className="Transactions-body">
           <h1 className="title">Here are your transactions.</h1>
-          <p>You can add, update and remove your transactions here.</p>
-          <button className="align-right" onClick={() => this.goToAddNew()}>Add New</button>
+          <div className="TransactionsAddNew">
+            <button onClick={() => this.goToAddNew()}>Add New Transaction</button>
+          </div>
           <table className="Transaction-table">
             <thead>
               <tr className="Transaction-tr">
@@ -129,9 +113,9 @@ class Transactions extends React.Component<any, State<Transaction>> {
                   <td className="Transaction-td">{transaction.account.accountName
                       +' (' + transaction.account.accountNumber + ')'}</td>
                   <td className="Transaction-td">{transaction.symbol}</td>
-                  <td className="Transaction-td">{decimalFormatter.format(transaction.shares)}</td>
-                  <td className="Transaction-td">{formatter.format(transaction.price)}</td>
-                  <td className="Transaction-td">{this.getFormattedDateStr(transaction.dateTransacted)}</td>
+                  <td className="Transaction-td">{Formatter.formatNumber(transaction.shares)}</td>
+                  <td className="Transaction-td">{Formatter.formatDollar(transaction.price)}</td>
+                  <td className="Transaction-td">{Formatter.formatDate(transaction.dateTransacted)}</td>
                 </tr>))
               }
             </tbody>

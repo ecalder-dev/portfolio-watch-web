@@ -52,7 +52,7 @@ class CostBasisListing extends React.Component<any, State> {
             <div key={'account' + index}>
               <h2>{account.accountName} ({account.accountNumber})</h2>
               <div className="CostBasisOverviewTable">
-                <div className="CostBasisOverviewRow">
+                <div className="CostBasisOverviewHeaderRow">
                   <div className="CostBasisOverviewHeader">Symbol</div>
                   <div className="CostBasisOverviewHeader">Total Shares</div>
                   <div className="CostBasisOverviewHeader">Adjusted Price</div>
