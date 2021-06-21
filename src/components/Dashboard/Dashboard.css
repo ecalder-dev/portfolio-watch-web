@@ -2,14 +2,25 @@
 
 }
 
+
 .Dashboard-body {
   margin-left: 20px;
+  margin-right: 20px;
+}
+
+.Summaries {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Positions {
+  width: 47%;
 }
 
 .Dashboard-table {
-  table-layout: fixed ;
+  table-layout: fixed;
   margin-bottom: 20px;
-  width: 90% ;
+  width: 100% ;
   text-align: left;
   border-collapse: collapse;
 }
@@ -34,4 +45,61 @@ tbody .Dashboard-tr:hover {
   padding: 6px;
   font-size: 14px;
   border-bottom: 1px solid lightgray;
+}
+
+.News {
+  width: 50%;
+}
+
+.NewsContent {
+  overflow-y: auto;
+  height: 750px;
+}
+
+.NewsItem {
+  width: 100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.NewsTitle {
+  font-size: 16px;
+}
+
+.NewsDate {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.NewsText {
+  font-size: 12px;
+}
+
+.Indices {
+  width: 100%;
+  display: flex;
+  justify-content:space-between;
+  margin-bottom: 10px;
+}
+
+.IndexCard {
+  text-align: left;
+}
+
+.IndexCard:not(:last-child){
+  padding-right: 10px;
+}
+
+.IndexName {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.IndexStatsLastPrice {
+  font-size: 24px;
+}
+
+.IndexStatsLastPrice:after{
+  content: " ";
 }

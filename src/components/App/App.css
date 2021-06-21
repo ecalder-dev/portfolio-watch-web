@@ -25,14 +25,14 @@
 
 .App-toolbar {
   height: calc(100% - 40px);
-  width: 160px;
+  width: 120px;
   overflow-x: hidden;
 }
 
 .App-view {
   height: calc(100% - 40px);
   overflow-y: auto;
-  width: calc(100% - 160px);
+  width: calc(100% - 120px);
 }
 
 .break {

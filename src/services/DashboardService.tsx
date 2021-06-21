@@ -11,6 +11,13 @@ class DashboardService {
         cancelToken: source.token
     });
   }
+
+  getIndices() {
+    return axios.get(serviceUrl + '/api/dashboard/indices', {
+        cancelToken: source.token
+    });
+  }
+
 }
 
 export default DashboardService;

@@ -35,6 +35,17 @@ class Formatter {
       return '';
     }
   }
+
+  public static formatDatetime(date: Date) {
+    if (date) {
+      if (typeof date === 'number') {
+        date = new Date(date);
+      }
+      return date.toLocaleString();
+    } else {
+      return '';
+    }
+  }
 }
 
 export default Formatter;
