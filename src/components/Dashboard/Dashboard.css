@@ -2,7 +2,6 @@
 
 }
 
-
 .Dashboard-body {
   margin-left: 20px;
   margin-right: 20px;
@@ -11,10 +10,11 @@
 .Summaries {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 50px;
 }
 
 .Positions {
-  width: 47%;
+  width: 65%;
 }
 
 .Dashboard-table {
@@ -48,12 +48,14 @@ tbody .Dashboard-tr:hover {
 }
 
 .News {
-  width: 50%;
+  width: 30%;
 }
 
 .NewsContent {
   overflow-y: auto;
   height: 750px;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
 .NewsItem {
@@ -63,8 +65,20 @@ tbody .Dashboard-tr:hover {
   border-bottom: 1px solid lightgray;
 }
 
+.NewsItem:last-child {
+  border-bottom: none;
+}
+
 .NewsTitle {
-  font-size: 16px;
+  font-size: 15px;
+  padding-right: 10px;
+}
+
+.NewsTitle a {
+  color: #484848;
+  font-weight: bold;
+  text-decoration: none;
+
 }
 
 .NewsDate {
@@ -74,9 +88,11 @@ tbody .Dashboard-tr:hover {
 
 .NewsText {
   font-size: 12px;
+  padding-right: 10px;
 }
 
 .Indices {
+  margin-top: 20px;
   width: 100%;
   display: flex;
   justify-content:space-between;
@@ -85,6 +101,7 @@ tbody .Dashboard-tr:hover {
 
 .IndexCard {
   text-align: left;
+  width: 25%;
 }
 
 .IndexCard:not(:last-child){
@@ -93,11 +110,12 @@ tbody .Dashboard-tr:hover {
 
 .IndexName {
   font-size: 20px;
+  font-weight: bold;
   margin-bottom: 5px;
 }
 
 .IndexStatsLastPrice {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .IndexStatsLastPrice:after{

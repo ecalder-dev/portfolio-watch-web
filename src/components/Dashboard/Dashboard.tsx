@@ -94,13 +94,12 @@ class Dashboard extends React.Component<any, State> {
     return (
       <div className="Dashboard">
         <div className="Dashboard-body">
-          <h1 className="title">Dashboard</h1>
           <div className="Indices">
           { this.indices != null
               && this.indices.map((marketIndex: Index, index: number) =>
             <div className="IndexCard" key={'index' + index}>
               <div className="IndexName">
-                {marketIndex.name}
+                {marketIndex.ticker}
               </div>
               <div className="IndexStats">
                 <span className="IndexStatsLastPrice">
@@ -141,7 +140,7 @@ class Dashboard extends React.Component<any, State> {
               </table>
             </div>
             <div className="News">
-              <h3>News</h3>
+              <h3>News Feed</h3>
               <div className="NewsContent">
               { this.news != null
                   && this.news.map((newsItem: News, index: number) =>
