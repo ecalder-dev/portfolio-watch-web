@@ -105,8 +105,8 @@ class Dashboard extends React.Component<any, State> {
                 <span className="IndexStatsLastPrice">
                   {Formatter.formatNumber(marketIndex.lastPrice)}
                 </span>
-                <span className="IndexStatsPercChange">
-                  ({marketIndex.percentChange}%)
+                <span className={`IndexStatsPercChange ${marketIndex.percentChange >= 0 ? "Green": "Red"}`}>
+                  {marketIndex.percentChange}%
                 </span>
               </div>
             </div>
@@ -129,11 +129,21 @@ class Dashboard extends React.Component<any, State> {
                   { this.summaries != null
                       && this.summaries.map((summary: Summary, index: number) =>
                     <tr className="Dashboard-tr" key={'summary' + index}>
-                      <td className="Dashboard-td">{summary.symbol}</td>
-                      <td className="Dashboard-td">{Formatter.formatDollar(summary.currentPrice)}</td>
-                      <td className="Dashboard-td">{Formatter.formatPerc(summary.percentChange)}</td>
-                      <td className="Dashboard-td">{Formatter.formatNumber(summary.averageVolume)}</td>
-                      <td className="Dashboard-td">{summary.sector}</td>
+                      <td className="Dashboard-td">
+                        {summary.symbol}
+                      </td>
+                      <td className="Dashboard-td">
+                        {Formatter.formatDollar(summary.currentPrice)}
+                      </td>
+                      <td className={`Dashboard-td ${summary.percentChange >= 0 ? "Green": "Red"}`}>
+                        {Formatter.formatPerc(summary.percentChange)}
+                      </td>
+                      <td className="Dashboard-td">
+                        {Formatter.formatNumber(summary.averageVolume)}
+                      </td>
+                      <td className="Dashboard-td">
+                        {summary.sector}
+                      </td>
                     </tr>
                   )}
                 </tbody>

@@ -47,6 +47,14 @@ tbody .Dashboard-tr:hover {
   border-bottom: 1px solid lightgray;
 }
 
+.Green {
+  color: green;
+}
+
+.Red {
+  color: red;
+}
+
 .News {
   width: 30%;
 }
