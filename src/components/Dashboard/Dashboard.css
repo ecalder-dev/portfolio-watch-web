@@ -31,6 +31,12 @@
 
 tbody .Dashboard-tr:hover {
   background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+tbody .Dashboard-tr.selected {
+  background-color: #f0f0f0;
+  cursor: pointer;
 }
 
 .Dashboard-th {
@@ -86,7 +92,6 @@ tbody .Dashboard-tr:hover {
   color: #484848;
   font-weight: bold;
   text-decoration: none;
-
 }
 
 .NewsDate {
@@ -97,7 +102,15 @@ tbody .Dashboard-tr:hover {
 .NewsText {
   font-size: 12px;
   padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
+
+.NewsMentionedSymbols {
+  font-size: 12px;
+  font-style: italic;
+}
+
 
 .Indices {
   margin-top: 20px;

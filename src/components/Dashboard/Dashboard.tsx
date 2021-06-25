@@ -23,6 +23,8 @@ class Dashboard extends React.Component<any, State> {
   news: News[];
   dashboardService: DashboardService;
   fmpService: FMPService;
+  newsDiv = React.createRef<HTMLDivElement>();
+  selectedSymbol: string | null;
 
   constructor(props: any) {
     super(props);
@@ -40,8 +42,16 @@ class Dashboard extends React.Component<any, State> {
     };
   }
 
-  goToUrl(url: string) {
-    console.log(url);
+  filterNews(symbol: string) {
+    if (this.selectedSymbol === symbol) {
+      this.selectedSymbol = null;
+      this.setState({ news: this.news });
+    } else {
+      let tempNews = this.news.filter(n => n.mentionedSymbols.includes(symbol));
+      this.selectedSymbol = symbol;
+      this.setState({ news: tempNews });
+    }
+    this.newsDiv.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   componentDidMount() {
@@ -90,7 +100,7 @@ class Dashboard extends React.Component<any, State> {
 
   render() {
     this.summaries = this.state.summaries;
-
+    let news = this.state.news;
     return (
       <div className="Dashboard">
         <div className="Dashboard-body">
@@ -128,7 +138,9 @@ class Dashboard extends React.Component<any, State> {
                 <tbody>
                   { this.summaries != null
                       && this.summaries.map((summary: Summary, index: number) =>
-                    <tr className="Dashboard-tr" key={'summary' + index}>
+                    <tr className={`Dashboard-tr ${this.selectedSymbol === summary.symbol ? "selected": ""}`}
+                      key={'summary' + index}
+                      onClick={() => this.filterNews(summary.symbol)}>
                       <td className="Dashboard-td">
                         {summary.symbol}
                       </td>
@@ -149,11 +161,11 @@ class Dashboard extends React.Component<any, State> {
                 </tbody>
               </table>
             </div>
-            <div className="News">
+            <div className="News" ref={this.newsDiv}>
               <h3>News Feed</h3>
               <div className="NewsContent">
-              { this.news != null
-                  && this.news.map((newsItem: News, index: number) =>
+              { news != null
+                  && news.map((newsItem: News, index: number) =>
                 <div className="NewsItem" key={'newsItem' + index}>
                   <div className="NewsTitle">
                     <a href={newsItem.url} target="_blank">
@@ -165,6 +177,9 @@ class Dashboard extends React.Component<any, State> {
                   </div>
                   <div className="NewsText">
                     {newsItem.text}
+                  </div>
+                  <div className="NewsMentionedSymbols">
+                    Mentioned: {newsItem.mentionedSymbols.join(', ')}
                   </div>
                 </div>
               )}
