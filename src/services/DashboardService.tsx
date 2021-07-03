@@ -6,8 +6,8 @@ let serviceUrl = config.serviceUrl;
 
 class DashboardService {
 
-  getSummaries() {
-    return axios.get(serviceUrl + '/api/dashboard/summaries', {
+  getQuotes() {
+    return axios.get(serviceUrl + '/api/dashboard/quotes', {
         cancelToken: source.token
     });
   }

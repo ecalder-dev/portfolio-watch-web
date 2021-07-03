@@ -1,6 +1,6 @@
 import IObjectKeys from './IObjectKeys';
 
-interface Summary extends IObjectKeys {
+interface QuoteDto extends IObjectKeys {
   symbol: string;
   shares: number;
   costBasis: number;
@@ -14,4 +14,4 @@ interface Summary extends IObjectKeys {
   isEtf: boolean;
 }
 
-export default Summary;
+export default QuoteDto;

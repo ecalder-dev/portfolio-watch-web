@@ -6,6 +6,12 @@ let serviceUrl = config.serviceUrl;
 
 class FMPService {
 
+  getProfiles(symbols: string[]) {
+    return axios.get(serviceUrl + '/api/fmp/profiles?symbols=' + symbols, {
+        cancelToken: source.token,
+    });
+  }
+
   getNews(symbols: string[]) {
     return axios.get(serviceUrl + '/api/fmp/news?symbols=' + symbols, {
         cancelToken: source.token,

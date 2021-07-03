@@ -2,13 +2,13 @@ import React from 'react';
 import './Dashboard.css';
 import DashboardService from '../../services/DashboardService';
 import FMPService from '../../services/FMPService';
-import Summary from '../../models/Summary';
+import QuoteDto from '../../models/QuoteDto';
 import Index from '../../models/Index';
 import News from '../../models/News';
 import Formatter from '../../utils/Formatter';
 
 interface State {
-  summaries: Summary[];
+  quoteDtos: QuoteDto[];
   indices: Index[];
   news: News[];
   sortBy: string;
@@ -18,7 +18,7 @@ interface State {
 class Dashboard extends React.Component<any, State> {
 
   state: State;
-  summaries: Summary[];
+  quoteDtos: QuoteDto[];
   indices: Index[];
   news: News[];
   dashboardService: DashboardService;
@@ -30,11 +30,11 @@ class Dashboard extends React.Component<any, State> {
     super(props);
     this.dashboardService = new DashboardService();
     this.fmpService = new FMPService();
-    this.summaries = [];
+    this.quoteDtos = [];
     this.indices = [];
     this.news = [];
     this.state = {
-      summaries: this.summaries,
+      quoteDtos: this.quoteDtos,
       indices: this.indices,
       news: this.news,
       sortBy: null,
@@ -55,17 +55,17 @@ class Dashboard extends React.Component<any, State> {
   }
 
   componentDidMount() {
-    this.dashboardService.getSummaries()
+    this.dashboardService.getQuotes()
     .then(json => {
-      this.summaries = json.data;
-      this.summaries.sort(function(a, b) {
+      this.quoteDtos = json.data;
+      this.quoteDtos.sort(function(a, b) {
         if (a.percentChange > b.percentChange) return -1;
         if (b.percentChange > a.percentChange) return 1;
         return 0;
       });
-      this.setState({ summaries: this.summaries });
+      this.setState({ quoteDtos: this.quoteDtos });
 
-      let symbols = this.summaries.map(summary => summary.symbol);
+      let symbols = this.quoteDtos.map(quoteDto => quoteDto.symbol);
       this.fmpService.getNews(symbols)
       .then(json => {
         this.news = json.data;
@@ -99,7 +99,7 @@ class Dashboard extends React.Component<any, State> {
   }
 
   render() {
-    this.summaries = this.state.summaries;
+    this.quoteDtos = this.state.quoteDtos;
     let news = this.state.news;
     return (
       <div className="Dashboard">
@@ -136,25 +136,25 @@ class Dashboard extends React.Component<any, State> {
                   </tr>
                 </thead>
                 <tbody>
-                  { this.summaries != null
-                      && this.summaries.map((summary: Summary, index: number) =>
-                    <tr className={`Dashboard-tr ${this.selectedSymbol === summary.symbol ? "selected": ""}`}
-                      key={'summary' + index}
-                      onClick={() => this.filterNews(summary.symbol)}>
+                  { this.quoteDtos != null
+                      && this.quoteDtos.map((quoteDto: QuoteDto, index: number) =>
+                    <tr className={`Dashboard-tr ${this.selectedSymbol === quoteDto.symbol ? "selected": ""}`}
+                      key={'quoteDto' + index}
+                      onClick={() => this.filterNews(quoteDto.symbol)}>
                       <td className="Dashboard-td">
-                        {summary.symbol}
+                        {quoteDto.symbol}
                       </td>
                       <td className="Dashboard-td">
-                        {Formatter.formatDollar(summary.currentPrice)}
+                        {Formatter.formatDollar(quoteDto.currentPrice)}
                       </td>
-                      <td className={`Dashboard-td ${summary.percentChange >= 0 ? "Green": "Red"}`}>
-                        {Formatter.formatPerc(summary.percentChange)}
-                      </td>
-                      <td className="Dashboard-td">
-                        {Formatter.formatNumber(summary.averageVolume)}
+                      <td className={`Dashboard-td ${quoteDto.percentChange >= 0 ? "Green": "Red"}`}>
+                        {Formatter.formatPerc(quoteDto.percentChange)}
                       </td>
                       <td className="Dashboard-td">
-                        {summary.sector}
+                        {Formatter.formatNumber(quoteDto.averageVolume)}
+                      </td>
+                      <td className="Dashboard-td">
+                        {quoteDto.sector}
                       </td>
                     </tr>
                   )}
