@@ -133,6 +133,7 @@ class Portfolio extends React.Component<any, State> {
             <div className="CostBasisOverviewSubColumn">{Formatter.formatDate(lot.dateTransacted)}</div>
             <div className="CostBasisOverviewSubColumn">{Formatter.formatNumber(lot.shares)}</div>
             <div className="CostBasisOverviewSubColumn">{Formatter.formatDollar(lot.price)}</div>
+            <div className="CostBasisOverviewSubColumn"></div>
           </div>
         )
       });
