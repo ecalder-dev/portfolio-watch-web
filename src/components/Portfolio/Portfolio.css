@@ -8,9 +8,8 @@
   width: 60%;
 }
 
-.CostBasisListing-body h2 {
+.CostBasisListing-body.accountName {
   padding: 5px 0px;
-  border-bottom: 5px solid black;
 }
 
 .CostBasisOverviewTable {
@@ -54,8 +53,8 @@
   align-items:center;
   display: flex;
   font-size: 14px;
-  border-bottom: 1px solid lightgray;
   padding: 5px 0px;
+  border-bottom: 1px solid lightgray;
 }
 
 .CostBasisOverviewSubColumn {

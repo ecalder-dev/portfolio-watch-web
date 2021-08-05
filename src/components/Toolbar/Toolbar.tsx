@@ -28,13 +28,13 @@ class Toolbar extends React.Component<any, State>  {
         <div className="Toolbar-item">
           <button onClick={() => this.goTo('/dashboard')}
             className={`${page === '/dashboard' ? "isActive": ""}`}>
-            Dashboard
+            Current Events
           </button>
         </div>
         <div className="Toolbar-item">
           <button onClick={() => this.goTo('/cost-basis')}
           className={`${page === '/cost-basis' ? "isActive": ""}`}>
-            Cost Basis
+            Portfolio
           </button>
         </div>
         <div className="Toolbar-item">

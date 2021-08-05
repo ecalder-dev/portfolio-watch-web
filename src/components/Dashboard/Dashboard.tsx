@@ -124,7 +124,7 @@ class Dashboard extends React.Component<any, State> {
           </div>
           <div className="Summaries">
             <div className="Positions">
-              <h3>Positions</h3>
+              <h3>Watching</h3>
               <table className="Dashboard-table">
                 <thead>
                   <tr className="Dashboard-tr">
