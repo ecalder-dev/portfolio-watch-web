@@ -10,7 +10,6 @@ import Formatter from '../../utils/Formatter';
 interface State {
   quoteDtos: QuoteDto[];
   indices: Index[];
-  news: News[];
   sortBy: string;
   sortDirection: string;
 }
@@ -20,11 +19,8 @@ class Dashboard extends React.Component<any, State> {
   state: State;
   quoteDtos: QuoteDto[];
   indices: Index[];
-  news: News[];
   dashboardService: DashboardService;
   fmpService: FMPService;
-  newsDiv = React.createRef<HTMLDivElement>();
-  selectedSymbol: string | null;
 
   constructor(props: any) {
     super(props);
@@ -32,26 +28,12 @@ class Dashboard extends React.Component<any, State> {
     this.fmpService = new FMPService();
     this.quoteDtos = [];
     this.indices = [];
-    this.news = [];
     this.state = {
       quoteDtos: this.quoteDtos,
       indices: this.indices,
-      news: this.news,
       sortBy: null,
       sortDirection: null
     };
-  }
-
-  filterNews(symbol: string) {
-    if (this.selectedSymbol === symbol) {
-      this.selectedSymbol = null;
-      this.setState({ news: this.news });
-    } else {
-      let tempNews = this.news.filter(n => n.mentionedSymbols.includes(symbol));
-      this.selectedSymbol = symbol;
-      this.setState({ news: tempNews });
-    }
-    this.newsDiv.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   componentDidMount() {
@@ -64,22 +46,6 @@ class Dashboard extends React.Component<any, State> {
         return 0;
       });
       this.setState({ quoteDtos: this.quoteDtos });
-
-      let symbols = this.quoteDtos.map(quoteDto => quoteDto.symbol);
-      this.fmpService.getNews(symbols)
-      .then(json => {
-        this.news = json.data;
-        this.news.sort(function(a, b) {
-          if (a.publishedDate > b.publishedDate) return -1;
-          if (b.publishedDate > a.publishedDate) return 1;
-          return 0;
-        });
-        this.setState({ news: this.news });
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-
     })
     .catch(err => {
       console.log(err.message);
@@ -100,7 +66,6 @@ class Dashboard extends React.Component<any, State> {
 
   render() {
     this.quoteDtos = this.state.quoteDtos;
-    let news = this.state.news;
     return (
       <div className="Dashboard">
         <div className="Dashboard-body">
@@ -138,9 +103,7 @@ class Dashboard extends React.Component<any, State> {
                 <tbody>
                   { this.quoteDtos != null
                       && this.quoteDtos.map((quoteDto: QuoteDto, index: number) =>
-                    <tr className={`Dashboard-tr ${this.selectedSymbol === quoteDto.symbol ? "selected": ""}`}
-                      key={'quoteDto' + index}
-                      onClick={() => this.filterNews(quoteDto.symbol)}>
+                    <tr className="Dashboard-tr" key={'quoteDto' + index}>
                       <td className="Dashboard-td">
                         {quoteDto.symbol}
                       </td>
@@ -160,30 +123,6 @@ class Dashboard extends React.Component<any, State> {
                   )}
                 </tbody>
               </table>
-            </div>
-            <div className="News" ref={this.newsDiv}>
-              <h3>News Feed</h3>
-              <div className="NewsContent">
-              { news != null
-                  && news.map((newsItem: News, index: number) =>
-                <div className="NewsItem" key={'newsItem' + index}>
-                  <div className="NewsTitle">
-                    <a href={newsItem.url} target="_blank">
-                      {newsItem.title}
-                    </a>
-                  </div>
-                  <div className="NewsDate">
-                    {Formatter.formatDatetime(newsItem.publishedDate)}
-                  </div>
-                  <div className="NewsText">
-                    {newsItem.text}
-                  </div>
-                  <div className="NewsMentionedSymbols">
-                    Mentioned: {newsItem.mentionedSymbols.join(', ')}
-                  </div>
-                </div>
-              )}
-              </div>
             </div>
           </div>
         </div>
