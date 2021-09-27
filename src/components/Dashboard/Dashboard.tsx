@@ -81,7 +81,7 @@ class Dashboard extends React.Component<any, State> {
                   {Formatter.formatNumber(marketIndex.lastPrice)}
                 </span>
                 <span className={`IndexStatsPercChange ${marketIndex.percentChange >= 0 ? "Green": "Red"}`}>
-                  {marketIndex.percentChange}%
+                  {marketIndex.percentChange} %
                 </span>
               </div>
             </div>
@@ -111,7 +111,7 @@ class Dashboard extends React.Component<any, State> {
                         {Formatter.formatDollar(quoteDto.currentPrice)}
                       </td>
                       <td className={`Dashboard-td ${quoteDto.percentChange >= 0 ? "Green": "Red"}`}>
-                        {Formatter.formatPerc(quoteDto.percentChange)}
+                        {Formatter.formatNumber(quoteDto.percentChange)} %
                       </td>
                       <td className="Dashboard-td">
                         {Formatter.formatNumber(quoteDto.averageVolume)}
