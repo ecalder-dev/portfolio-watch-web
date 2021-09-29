@@ -93,30 +93,30 @@ class Dashboard extends React.Component<any, State> {
               <table className="Dashboard-table">
                 <thead>
                   <tr className="Dashboard-tr">
-                    <th className="Dashboard-th">Symbol</th>
-                    <th className="Dashboard-th">Current Price</th>
-                    <th className="Dashboard-th">Changes %</th>
-                    <th className="Dashboard-th">Volume</th>
-                    <th className="Dashboard-th">Sector</th>
+                    <th className="Dashboard-th symbol">Symbol</th>
+                    <th className="Dashboard-th price">Current Price</th>
+                    <th className="Dashboard-th percent">Changes %</th>
+                    <th className="Dashboard-th volume">Volume</th>
+                    <th className="Dashboard-th sector">Sector</th>
                   </tr>
                 </thead>
                 <tbody>
                   { this.quoteDtos != null
                       && this.quoteDtos.map((quoteDto: QuoteDto, index: number) =>
                     <tr className="Dashboard-tr" key={'quoteDto' + index}>
-                      <td className="Dashboard-td">
+                      <td className="Dashboard-td symbol">
                         {quoteDto.symbol}
                       </td>
-                      <td className="Dashboard-td">
+                      <td className="Dashboard-td price">
                         {Formatter.formatDollar(quoteDto.currentPrice)}
                       </td>
-                      <td className={`Dashboard-td ${quoteDto.percentChange >= 0 ? "Green": "Red"}`}>
+                      <td className={`Dashboard-td percent ${quoteDto.percentChange >= 0 ? "Green": "Red"}`}>
                         {Formatter.formatNumber(quoteDto.percentChange)} %
                       </td>
-                      <td className="Dashboard-td">
+                      <td className="Dashboard-td volume">
                         {Formatter.formatNumber(quoteDto.averageVolume)}
                       </td>
-                      <td className="Dashboard-td">
+                      <td className="Dashboard-td sector">
                         {quoteDto.sector}
                       </td>
                     </tr>

@@ -18,6 +18,7 @@ class Toolbar extends React.Component<any, State>  {
   goTo(page: string) {
     this.props.history.push(page);
     this.setState({page: page});
+    this.props.collapseToolBar();
   }
 
   render() {
