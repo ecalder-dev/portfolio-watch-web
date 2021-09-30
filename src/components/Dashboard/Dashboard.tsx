@@ -111,7 +111,7 @@ class Dashboard extends React.Component<any, State> {
                         {Formatter.formatDollar(quoteDto.currentPrice)}
                       </td>
                       <td className={`Dashboard-td percent ${quoteDto.percentChange >= 0 ? "Green": "Red"}`}>
-                        {Formatter.formatNumber(quoteDto.percentChange)} %
+                        {Formatter.formatPerc(quoteDto.percentChange / 100)}
                       </td>
                       <td className="Dashboard-td volume">
                         {Formatter.formatNumber(quoteDto.averageVolume)}

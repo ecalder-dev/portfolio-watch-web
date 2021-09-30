@@ -89,6 +89,9 @@ class Portfolio extends React.Component<any, State> {
                 </div>
                 {this.createCostBasisList(account.accountName, account.costBasisList)}
               </div>
+              <div>
+                <p>Total annual dividends: {Formatter.formatDollar(this.totalAnnualDividendCalculated)}</p>
+              </div>
             </div>
           )
         } else {
@@ -147,9 +150,6 @@ class Portfolio extends React.Component<any, State> {
         <div className="CostBasisListing-body">
           <div>
             {this.createAccountHeader(accounts)}
-          </div>
-          <div>
-            <p>Total annual dividends: {Formatter.formatDollar(this.totalAnnualDividendCalculated)}</p>
           </div>
         </div>
       </div>
