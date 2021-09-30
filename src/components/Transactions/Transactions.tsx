@@ -98,11 +98,11 @@ class Transactions extends React.Component<any, State<Transaction>> {
             <thead>
               <tr className="Transaction-tr">
                 <th className="Transaction-th">Type</th>
-                <th className="Transaction-th">Account</th>
+                <th className="Transaction-th account">Account</th>
                 <th className="Transaction-th">Symbol</th>
                 <th className="Transaction-th">Shares</th>
                 <th className="Transaction-th">Price</th>
-                <th className="Transaction-th">Date Transacted</th>
+                <th className="Transaction-th dateTransacted">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -110,12 +110,12 @@ class Transactions extends React.Component<any, State<Transaction>> {
                 (<tr className="Transaction-tr" key={transaction.transactionId}
                 onClick={() => this.goToEdit(transaction.transactionId)}>
                   <td className="Transaction-td">{this.getDescriptionOfType(transaction.type)}</td>
-                  <td className="Transaction-td">{transaction.account.accountName
+                  <td className="Transaction-td account">{transaction.account.accountName
                       +' (' + transaction.account.accountNumber + ')'}</td>
                   <td className="Transaction-td">{transaction.symbol}</td>
                   <td className="Transaction-td">{Formatter.formatNumber(transaction.shares)}</td>
                   <td className="Transaction-td">{Formatter.formatDollar(transaction.price)}</td>
-                  <td className="Transaction-td">{Formatter.formatDate(transaction.dateTransacted)}</td>
+                  <td className="Transaction-td dateTransacted">{Formatter.formatDate(transaction.dateTransacted)}</td>
                 </tr>))
               }
             </tbody>

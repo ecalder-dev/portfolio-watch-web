@@ -9,7 +9,7 @@
 .Transaction-table {
   table-layout: fixed ;
   margin-bottom: 20px;
-  width: 90% ;
+  width:  95% ;
   text-align: left;
   border-collapse: collapse;
 }
@@ -42,4 +42,15 @@ tbody .Transaction-tr:hover {
   text-align: left;
   width: 90%;
   margin-bottom: 10px;
+}
+
+@media (max-width:640px) {
+
+  .Transaction-th {
+    font-size: 15px;
+  }
+
+	.account {
+		display: none;
+	}
 }
