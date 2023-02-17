@@ -9,6 +9,8 @@ interface Account extends IObjectKeys {
   dateOpened: Date;
   datetimeInserted: Date;
   datetimeUpdated: Date;
+  totalAnnualDividends?: number;
+  isInEdit?: boolean;
 }
 
 export default Account;

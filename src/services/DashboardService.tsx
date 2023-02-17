@@ -4,20 +4,28 @@ import config from '../resources/config.json';
 let source = axios.CancelToken.source();
 let serviceUrl = config.serviceUrl;
 
-class DashboardService {
-
-  getQuotes() {
-    return axios.get(serviceUrl + '/api/dashboard/quotes', {
-        cancelToken: source.token
-    });
-  }
-
-  getIndices() {
-    return axios.get(serviceUrl + '/api/dashboard/indices', {
-        cancelToken: source.token
-    });
-  }
-
+const getQuote = (quote: string) => {
+  return axios.get(serviceUrl + '/api/quote/' + quote, {
+      cancelToken: source.token
+  });
 }
 
-export default DashboardService;
+const getQuotes = (quotes: Array<string>) => {
+  return axios.get(serviceUrl + '/api/quotes?symbols=' + quotes.join(','), {
+      cancelToken: source.token
+  });
+}
+
+const getIndices = () => {
+  return axios.get(serviceUrl + '/api/indices', {
+      cancelToken: source.token
+  });
+}
+
+const dashboardService = {
+  getQuote,
+  getQuotes,
+  getIndices
+}
+
+export default dashboardService;

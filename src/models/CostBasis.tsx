@@ -6,6 +6,7 @@ interface CostBasis extends IObjectKeys {
  lotList: Lot[];
  adjustedPrice: number;
  totalShare: number;
+ latestTransactionDate: Date;
 }
 
 export default CostBasis;

@@ -5,31 +5,28 @@ import config from '../resources/config.json';
 let source = axios.CancelToken.source();
 let serviceUrl = config.serviceUrl;
 
-class WatchlistService {
-
-  getWatchedSymbols() {
-    return axios.get(serviceUrl + '/api/watching', {
-        cancelToken: source.token
-    });
-  }
-
-  postWatchedSymbol(watchedSymbol: WatchedSymbol) {
-    return axios.post(serviceUrl + '/api/watching?symbol=' + watchedSymbol, {
+const getWatchedSymbols = () => {
+  return axios.get(serviceUrl + '/api/watching', {
       cancelToken: source.token
-    });
-  }
-
-  deleteWatchedSymbol(watchedSymbol: WatchedSymbol) {
-    return axios.delete(serviceUrl + '/api/watching?symbol=' + watchedSymbol, {
-      cancelToken: source.token
-    });
-  }
-
-  cancelRequest() {
-    if (source) {
-      source.cancel("Cancelling request.");
-    }
-  }
+  });
 }
 
-export default WatchlistService;
+const postWatchedSymbol = (watchedSymbol: WatchedSymbol) => {
+  return axios.post(serviceUrl + '/api/watching?symbol=' + watchedSymbol, {
+    cancelToken: source.token
+  });
+}
+
+const deleteWatchedSymbol = (watchedSymbol: WatchedSymbol) => {
+  return axios.delete(serviceUrl + '/api/watching?symbol=' + watchedSymbol, {
+    cancelToken: source.token
+  });
+}
+
+const watchlistService = {
+  getWatchedSymbols,
+  postWatchedSymbol,
+  deleteWatchedSymbol
+}
+
+export default watchlistService;

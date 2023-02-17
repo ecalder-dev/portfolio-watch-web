@@ -1,51 +1,68 @@
-let numberFormatter = new Intl.NumberFormat('en-US');
+const numberFormatter = new Intl.NumberFormat('en-US');
 
-let currencyFormatter = new Intl.NumberFormat('en-US', {
+const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 });
 
-let percentFormatter = new Intl.NumberFormat('en-US', {
+const percentFormatter = new Intl.NumberFormat('en-US', {
   style: 'percent',
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 });
 
-class Formatter {
-
-  public static formatNumber(num: number) {
-    return numberFormatter.format(num);
-  }
-
-  public static formatDollar(num: number) {
-    return currencyFormatter.format(num);
-  }
-
-  public static formatPerc(num: number) {
-    return percentFormatter.format(num);
-  }
-
-  public static formatDate(date: Date) {
-    if (date) {
-      if (typeof date === 'number') {
-        date = new Date(date);
-      }
-      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    } else {
-      return '';
+const getFormattedDateStr = (date: Date) => {
+  if (date) {
+    if (typeof date === 'number') {
+      date = new Date(date);
     }
-  }
-
-  public static formatDatetime(date: Date) {
-    if (date) {
-      if (typeof date === 'number') {
-        date = new Date(date);
-      }
-      return date.toLocaleString();
-    } else {
-      return '';
-    }
+    return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+  } else {
+    return '';
   }
 }
 
-export default Formatter;
+const formatNumber = (num: number) => {
+  return numberFormatter.format(num);
+}
+
+const formatDollar = (num: number) => {
+  return currencyFormatter.format(num);
+}
+
+const formatPerc = (num: number) => {
+  return percentFormatter.format(num);
+}
+
+const formatDate = (date: Date) => {
+  if (date) {
+    if (typeof date === 'number') {
+      date = new Date(date);
+    }
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+  } else {
+    return '';
+  }
+}
+
+const formatDatetime = (date: Date) => {
+  if (date) {
+    if (typeof date === 'number') {
+      date = new Date(date);
+    }
+    return date.toLocaleString();
+  } else {
+    return '';
+  }
+}
+
+const formatter = {
+  getFormattedDateStr,
+  formatNumber,
+  formatDollar,
+  formatPerc,
+  formatDate,
+  formatDatetime
+}
+
+export default formatter;

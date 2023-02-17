@@ -1,40 +1,29 @@
 import React from 'react';
 import './Portfolio.css';
-import AccountService from '../../services/AccountService';
-import DividendService from '../../services/DividendService';
 import Account from '../../models/Account';
 import CostBasis from '../../models/CostBasis';
 import Lot from '../../models/Lot';
-import Formatter from '../../utils/Formatter';
-import DividendProfile from '../../models/DividendProfile';
+import formatter from '../../utils/Formatter';
+import accountService from '../../services/AccountService';
 
 interface State {
   accounts: Account[];
-  dividendProfileMap: Map<String, DividendProfile>;
   detailsInDisplay: Set<string>;
 }
 
 class Portfolio extends React.Component<any, State> {
-
-  accountService: AccountService;
-  dividendService: DividendService
   detailsInDisplay: Set<string>;
-  totalAnnualDividendCalculated: number = 0;
 
   constructor(props: any) {
     super(props);
     this.state = {
       accounts: [],
-      detailsInDisplay: new Set<string>(),
-      dividendProfileMap: new Map<String, DividendProfile>()
+      detailsInDisplay: new Set<string>()
     };
   }
 
   componentDidMount() {
-    this.accountService = new AccountService();
-    this.dividendService = new DividendService();
-
-    this.accountService.getAccounts(true).then(json => {
+    accountService.getAccounts(true).then(json => {
       const accountData = json.data ? json.data : [];
       let symbols = new Set<string>();
       accountData.forEach(account => {
@@ -44,10 +33,6 @@ class Portfolio extends React.Component<any, State> {
           });
         }
       });
-
-      this.dividendService.getDividendProfiles(Array.from(symbols)).then(json2 => {
-        this.setState({ accounts: accountData, dividendProfileMap: json2.data});
-      })
     })
     .catch(err => {
       console.log(err.message);
@@ -62,16 +47,6 @@ class Portfolio extends React.Component<any, State> {
         temp.add(key);
       }
       this.setState({detailsInDisplay: temp});
-  }
-
-  calcTotalAnnualDividend(costBasis: CostBasis, dividendProfile: DividendProfile): string {
-    if (!dividendProfile || !costBasis) {
-      return '--';
-    } else {
-      const calculated = costBasis.totalShares * dividendProfile.annualizedDividend;
-      this.totalAnnualDividendCalculated += calculated;
-      return Formatter.formatDollar(calculated);
-    }
   }
 
   createAccountHeader(accounts: Account[]) {
@@ -90,7 +65,7 @@ class Portfolio extends React.Component<any, State> {
                 {this.createCostBasisList(account.accountName, account.costBasisList)}
               </div>
               <div>
-                <p>Total annual dividends: {Formatter.formatDollar(this.totalAnnualDividendCalculated)}</p>
+                <p>Total annual dividends: {formatter.formatDollar(account.totalAnnualDividends)}</p>
               </div>
             </div>
           )
@@ -102,7 +77,6 @@ class Portfolio extends React.Component<any, State> {
   }
 
   createCostBasisList(accountName: string, costBases: CostBasis[]) {
-    this.totalAnnualDividendCalculated = 0;
     var items = costBases.map((costBasis: CostBasis, index: number) => {
         const key = accountName + '-' + costBasis.symbol;
         return (
@@ -116,10 +90,10 @@ class Portfolio extends React.Component<any, State> {
                 {costBasis.totalShares}
               </div>
               <div className="CostBasisOverviewColumn" key={'cost-basis-' + index+ '-adjustedPrice'}>
-                {Formatter.formatDollar(costBasis.adjustedPrice)}
+                {formatter.formatDollar(costBasis.adjustedPrice)}
               </div>
               <div className="CostBasisOverviewColumn" key={'cost-basis-' + index+ '-totalAnnualDividend'}>
-                {this.calcTotalAnnualDividend(costBasis, this.state.dividendProfileMap[costBasis.symbol])}
+                {formatter.formatDollar(costBasis.totalAnnualDividends)}
               </div>
             </div>
             {this.createLotList(key, costBasis.symbol, costBasis.lotList)}
@@ -133,9 +107,9 @@ class Portfolio extends React.Component<any, State> {
     var items = lots.map((lot, index) => {
         return (
           <div className={`CostBasisOverviewSubRow ${this.state.detailsInDisplay.has(key) ? "": "hide"}`} key={symbol + '_lot' + index}>
-            <div className="CostBasisOverviewSubColumn">{Formatter.formatDate(lot.dateTransacted)}</div>
-            <div className="CostBasisOverviewSubColumn">{Formatter.formatNumber(lot.shares)}</div>
-            <div className="CostBasisOverviewSubColumn">{Formatter.formatDollar(lot.price)}</div>
+            <div className="CostBasisOverviewSubColumn">{formatter.formatDate(lot.dateTransacted)}</div>
+            <div className="CostBasisOverviewSubColumn">{formatter.formatNumber(lot.shares)}</div>
+            <div className="CostBasisOverviewSubColumn">{formatter.formatDollar(lot.price)}</div>
             <div className="CostBasisOverviewSubColumn"></div>
           </div>
         )
