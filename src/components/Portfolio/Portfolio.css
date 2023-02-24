@@ -1,6 +1,7 @@
 .Portfolio {
   margin-left: 20px;
   margin-top: 20px;
+  margin-bottom: 50px;
   width: 750px;
 }
 
@@ -8,8 +9,11 @@
   display: flex;
   width: 100%;
   border: solid 1px black;
-  margin-bottom: 10px;
   padding: 10px 0px;
+}
+
+.CostBasisCard:not(:last-child) {
+  border-bottom: 0px;
 }
 
 .CostBasisCard > div:nth-child(1) {
@@ -17,7 +21,7 @@
   width: 20%;
   margin-top: auto;
   margin-bottom: auto;
-  font-size: 20px;
+  font-size: 24px;
   text-align: center;
 }
 .CostBasisCard > div:nth-child(2) {
