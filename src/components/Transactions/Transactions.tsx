@@ -40,6 +40,7 @@ const Transactions = () => {
   }
 
   useEffect(() => {
+    let isSubscribed = true;
     transactionService.getTransactions()
       .then(json => {
         const temp = json.data;
@@ -48,12 +49,13 @@ const Transactions = () => {
           if (b.dateTransacted > a.dateTransacted) return 1;
           return 0;
         });
-        setTransactions(temp);
+        if (isSubscribed) setTransactions(temp);
       })
       .catch(err => {
         setTransactions([]);
         console.log(err.message);
       });
+    return () => { isSubscribed = false };
   }, []);
 
   return (

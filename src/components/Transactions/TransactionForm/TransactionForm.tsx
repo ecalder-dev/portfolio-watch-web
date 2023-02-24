@@ -51,7 +51,7 @@ const validateNewTransaction = (transaction: Transaction): boolean => {
   }
 }
 
-const TransactionForm = ({ }: RouteComponentProps<{ id?: string; }>) => {
+const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
   const { id } = useParams<{ id }>()
   const [transactionId, setTransactionId] = useState(undefined);
   const [type, setType] = useState(undefined);
@@ -129,7 +129,6 @@ const TransactionForm = ({ }: RouteComponentProps<{ id?: string; }>) => {
     }
   }
 
-
   const deleteTransaction = () => {
     if (window.confirm('Are you sure you want to delete this account?')) {
       let transaction: Transaction;
@@ -157,6 +156,7 @@ const TransactionForm = ({ }: RouteComponentProps<{ id?: string; }>) => {
   }
 
   useEffect(() => {
+    let isSubscribed = true;
     accountService
       .getAccounts()
       .then((json) => {
@@ -170,15 +170,22 @@ const TransactionForm = ({ }: RouteComponentProps<{ id?: string; }>) => {
           }
           return 0;
         });
-        setAccountList(accountList);
-        setAccount(accountList.length > 0 ? accountList[0] : null);
+        if (isSubscribed) {
+          setAccountList(accountList);
+          setAccount(accountList.length > 0 ? accountList[0] : null);
+        }
       })
       .catch((err) => {
         console.log(err.message);
       });
-    if (id) {
+      return () => { isSubscribed = false };
+  }, []);
+
+  useEffect(() => {  
+    let isSubscribed = true;
+    if (id && accountList && accountList.length > 0) {
       transactionService.getTransaction(id).then((json) => {
-        if (json.data) {
+        if (json.data && isSubscribed) {
           let transaction: Transaction = json.data;
           setTransactionId(transaction.transactionId);
           setType(transaction.type);
@@ -187,14 +194,16 @@ const TransactionForm = ({ }: RouteComponentProps<{ id?: string; }>) => {
           setPrice(transaction.price);
           setDateTransacted(transaction.dateTransacted);
           setDateSettled(transaction.dateSettled);
+          setAccount(transaction.account);
         } else {
           history.push('/transactions');
         }
       }).catch((err) => {
         console.log(err.message);
-      });;
+      });
     }
-  }, []);
+    return () => { isSubscribed = false };
+  }, [id, accountList, history]);
 
   return (
     <div className="TransactionForms">

@@ -1,16 +1,17 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import QuoteDto from '../models/QuoteDto';
 import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
 let serviceUrl = config.serviceUrl;
 
-const getQuote = (quote: string) => {
+const getQuote = (quote: string) : Promise<AxiosResponse<QuoteDto>> => {
   return axios.get(serviceUrl + '/api/quote/' + quote, {
       cancelToken: source.token
   });
 }
 
-const getQuotes = (quotes: Array<string>) => {
+const getQuotes = (quotes: Array<string>) : Promise<AxiosResponse<Array<QuoteDto>>>  => {
   return axios.get(serviceUrl + '/api/quotes?symbols=' + quotes.join(','), {
       cancelToken: source.token
   });

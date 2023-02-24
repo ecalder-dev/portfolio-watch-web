@@ -21,14 +21,15 @@ const AccountsPage = () => {
   }
 
   useEffect(() => {
+    let isSubscribed = true;
     accountService.getAccounts()
       .then(json => {
-        setAccounts(json.data.map(account => ({ ...account, isInEdit: false })));
+        if (isSubscribed) setAccounts(json.data.map(account => ({ ...account, isInEdit: false })));
       })
       .catch(err => {
-        setAccounts([]);
         console.log(err.message);
       });
+    return () => { isSubscribed = false };
   }, []);
 
   return (

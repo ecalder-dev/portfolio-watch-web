@@ -5,7 +5,7 @@ interface CostBasis extends IObjectKeys {
  symbol: string;
  lotList: Lot[];
  adjustedPrice: number;
- totalShare: number;
+ totalShares: number;
  latestTransactionDate: Date;
 }
 

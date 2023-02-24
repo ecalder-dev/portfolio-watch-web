@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Toolbar.css';
 import { RouteComponentProps, useHistory, withRouter} from "react-router-dom";
 
-const Toolbar = ({} : RouteComponentProps) => {
+const Toolbar = (props : RouteComponentProps) => {
   const [page, setPage] = useState('');
   const history = useHistory();
 

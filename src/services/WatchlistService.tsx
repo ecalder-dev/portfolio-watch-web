@@ -1,24 +1,24 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import WatchedSymbol from '../models/WatchedSymbol';
 import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
 let serviceUrl = config.serviceUrl;
 
-const getWatchedSymbols = () => {
-  return axios.get(serviceUrl + '/api/watching', {
+const getWatchedSymbols = () : Promise<AxiosResponse<Array<WatchedSymbol>>> => {
+  return axios.get(serviceUrl + '/api/watch', {
       cancelToken: source.token
   });
 }
 
-const postWatchedSymbol = (watchedSymbol: WatchedSymbol) => {
-  return axios.post(serviceUrl + '/api/watching?symbol=' + watchedSymbol, {
+const postWatchedSymbol = (watchedSymbol: WatchedSymbol) : Promise<AxiosResponse<Array<WatchedSymbol>>>  => {
+  return axios.post(serviceUrl + '/api/watch?symbol=' + watchedSymbol, {
     cancelToken: source.token
   });
 }
 
-const deleteWatchedSymbol = (watchedSymbol: WatchedSymbol) => {
-  return axios.delete(serviceUrl + '/api/watching?symbol=' + watchedSymbol, {
+const deleteWatchedSymbol = (watchedSymbol: WatchedSymbol) : Promise<AxiosResponse<Array<boolean>>>  => {
+  return axios.delete(serviceUrl + '/api/watch?symbol=' + watchedSymbol, {
     cancelToken: source.token
   });
 }
