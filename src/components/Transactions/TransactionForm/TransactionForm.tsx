@@ -33,18 +33,21 @@ const getDescriptionOfType = (type: string) => {
   }
 }
 
-const validateNewTransaction = (transaction: Transaction): boolean => {
-  if (transaction.account) {
+const isValidNewTransaction = (transaction: Transaction): boolean => {
+  if (!transaction.account) {
     alert('Account should be selected.');
     return false;
-  } else if (transaction.symbol) {
+  } else if (!transaction.symbol || transaction.symbol.length === 0) {
     alert('Symbol should not be empty.');
     return false;
-  } else if (transaction.shares || transaction.shares === 0) {
+  } else if (!transaction.shares || transaction.shares === 0) {
     alert('Shares should should not be empty or 0.');
     return false;
-  } else if (transaction.dateTransacted) {
+  } else if (!transaction.dateTransacted) {
     alert('Transaction date should not be null.');
+    return false;
+  } else if (!transaction.type) {
+    alert('Type should not be null.');
     return false;
   } else {
     return true;
@@ -54,8 +57,8 @@ const validateNewTransaction = (transaction: Transaction): boolean => {
 const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
   const { id } = useParams<{ id }>()
   const [transactionId, setTransactionId] = useState(undefined);
-  const [type, setType] = useState(undefined);
-  const [symbol, setSymbol] = useState('B');
+  const [type, setType] = useState('B');
+  const [symbol, setSymbol] = useState('');
   const [shares, setShares] = useState(0);
   const [price, setPrice] = useState(0);
   const [account, setAccount] = useState(undefined);
@@ -97,6 +100,7 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
 
   const handleSubmit = () => {
     let transaction: Transaction;
+
     transaction = {
       transactionId: transactionId,
       type: type,
@@ -110,7 +114,7 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
       datetimeUpdated: null,
     };
 
-    if (validateNewTransaction(transaction)) {
+    if (!isValidNewTransaction(transaction)) {
       return;
     }
 
@@ -215,7 +219,7 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
             <select
               name="account"
               onChange={(e) => handleInputChange(e)}
-              value={account ? account.accountId : null}
+              value={account ? account.accountId : ''}
               id="select-account"
             >
               <option disabled value={-1}>

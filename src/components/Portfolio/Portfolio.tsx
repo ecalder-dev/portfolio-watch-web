@@ -62,7 +62,7 @@ const Portfolio = () => {
       {costBasisList.map(
         (costBasis: CostBasis, index: number) => {
           const quotes = quoteDtos.filter(quote => quote.symbol === costBasis.symbol);
-          return <CostBasisCard costBasis={costBasis} quoteDto={quotes[0]} key={index} totalAssetValue={totalAssetValue} />
+          return <CostBasisCard costBasis={costBasis} quoteDto={quotes[0]} key={`costbasis-${index}`} totalAssetValue={totalAssetValue} />
         }
       )}
     </div>
@@ -113,7 +113,7 @@ const LotListView = ({ lotList, hidden }) => {
         lots.map(
           (lot: Lot) => {
             return (
-              <div className='LotListCard'>
+              <div className='LotListCard' key={lot.lotId}>
                 <FieldValue field={'Shares'} value={formatter.formatNumber(lot.shares)} />
                 <FieldValue field={'Price Purchased'} value={formatter.formatDollar(lot.price)} />
                 <FieldValue field={'Date Transacted'} value={formatter.formatDate(lot.dateTransacted)} />
