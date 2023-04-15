@@ -127,7 +127,7 @@ const FieldInput = ({ field, fieldValue, originalValue, setFieldValue, className
   }
 
   const decrease = () => {
-    if (fieldValue >= 0) {
+    if (fieldValue > 0) {
       setFieldValue(fieldValue - 1);
     }
   }
