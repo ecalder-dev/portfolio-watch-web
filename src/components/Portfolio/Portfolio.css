@@ -5,63 +5,14 @@
   width: 850px;
 }
 
-.CostBasis {
-  margin-bottom: 3px;
+.Title {
   width: 100%;
-}
-
-.CostBasisHeader {
   display: flex;
-  padding: 10px 0px;
-  background-color: #d7e2ed;
+  justify-content: space-between;
 }
 
-.CostBasisHeader > div:nth-child(1) {
-  display: block;
-  width: 150px;
+.Title button {
   margin-top: auto;
   margin-bottom: auto;
-  font-size: 24px;
-  text-align: center;
-}
-.CostBasisHeader > div:nth-child(2) {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-}
-
-.CostBasisHeader > div:nth-child(2) > .FieldValue:first-child,
-.LotListCard > .FieldValue:first-child {
-  width: 50px;
-  display: block;
-}
-
-.CostBasisHeader > div:nth-child(2) > .FieldValue:not(:first-child),
-.LotListCard > .FieldValue:not(:first-child) {
-  width: 110px;
-  display: block;
-}
-
-.CostBasisHeader > div:nth-child(2) > .FieldValue > div:first-child,
-.LotListCard > .FieldValue > div:first-child {
-  font-size: 10px;
-}
-
-.LotListViewButton, .LotListViewButton:active {
-  font-size: 12px;
-}
-
-.LotListView {
-  padding: 15px 0px 10px 150px;
-  background-color: #f4f7f9;
-}
-
-.LotListCard {
-  width: 100%;
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.hidden {
-  display: none;
+  height: 30px;
 }

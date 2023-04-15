@@ -1,0 +1,98 @@
+.Simulation .CostBasis {
+    margin-bottom: 3px;
+    width: 100%;
+}
+
+.Simulation .CostBasis .CostBasisHeader {
+    display: flex;
+    padding: 10px 0px;
+    background-color: whitesmoke;
+}
+
+.Simulation .CostBasis .CostBasisHeader .Symbol {
+    display: block;
+    width: 150px;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 24px;
+    text-align: center;
+}
+
+
+.Simulation .CostBasis .CostBasisHeader .Simulated {
+    margin: auto;
+    font-size: 24px;
+    text-align: center;
+}
+
+.Simulation .CostBasis .CostBasisHeader .Simulated .Field {
+    font-size: 12px;
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput {
+    margin-top: auto;
+    margin-bottom: auto;
+
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .Field {
+    font-size: 12px;
+    width: 100px;
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .Value input {
+    display: inline;
+    font-family: inherit;
+    font-size: 20px;
+    padding: none;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    margin-right: 10px;
+}
+
+.shares-input  {
+    width: 55px;
+}
+
+.price-input  {
+    width: 75px;
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .Value .positive {
+    color: green;
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .Value .negative {
+    color: red;
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .Value input:focus{
+    outline: none;
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .CounterButtons {
+    margin-top: 3px;
+    display: flex;
+    flex-direction: row;
+}
+
+.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .CounterButtons button {
+    width: 23px;
+    text-align: center;
+    vertical-align:middle;
+}
+
+.Simulation .CostBasis .hidden {
+    display: none;
+}
