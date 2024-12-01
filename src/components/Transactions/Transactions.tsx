@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Transactions.css';
 import Transaction from '../../models/Transaction';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -6,24 +6,16 @@ import formatter from '../../utils/Formatter';
 import transactionService from '../../services/TransactionService';
 import { useHistory } from 'react-router-dom';
 
-const getDescriptionOfType = (type: string): string => {
+export const getDescriptionOfType = (type: string): string => {
   switch (type) {
-    case 'B':
+    case 'BUY':
       return 'Buy';
-    case 'S':
+    case 'SELL':
       return 'Sell';
-    case 'TO':
-      return 'Transfer Out';
-    case 'TI':
-      return 'Transfer In';
-    case 'M':
-      return 'Merger';
-    case 'G':
+    case 'GIFT':
       return 'Gift';
-    case 'SP':
-      return 'Split';
     default:
-      return type;
+      return null;
   }
 }
 
@@ -61,9 +53,9 @@ const Transactions = () => {
   return (
     <div className="Transactions">
       <div className="Transactions-body">
-        <h1 className="title">Here are your transactions.</h1>
+        <h1 className="title">Transactions.</h1>
         <div className="TransactionsAddNew">
-          <button onClick={() => goToAddNew()}>Add New Transaction</button>
+          <button onClick={() => goToAddNew()}>New</button>
         </div>
         <table className="Transaction-table">
           <thead>
@@ -78,15 +70,15 @@ const Transactions = () => {
           </thead>
           <tbody>
             {transactions != null && transactions.map((transaction: Transaction, index: number) =>
-            (<tr className="Transaction-tr" key={transaction.transactionId}
-              onClick={() => goToEdit(transaction.transactionId)}>
+            (<tr className="Transaction-tr" key={transaction.id}
+              onClick={() => goToEdit(transaction.id)}>
               <td className="Transaction-td">{getDescriptionOfType(transaction.type)}</td>
               <td className="Transaction-td account">{transaction.account.accountName
                 + ' (' + transaction.account.accountNumber + ')'}</td>
               <td className="Transaction-td">{transaction.symbol}</td>
               <td className="Transaction-td">{formatter.formatNumber(transaction.shares)}</td>
               <td className="Transaction-td">{formatter.formatDollar(transaction.price)}</td>
-              <td className="Transaction-td dateTransacted">{formatter.formatDate(transaction.dateTransacted)}</td>
+              <td className="Transaction-td dateTransacted">{formatter.getFormattedDateStr(transaction.dateTransacted)}</td>
             </tr>))
             }
           </tbody>

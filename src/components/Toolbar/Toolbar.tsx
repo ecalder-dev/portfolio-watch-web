@@ -26,9 +26,21 @@ const Toolbar = (props : RouteComponentProps) => {
         </button>
       </div>
       <div className="Toolbar-item">
+        <button onClick={() => goTo('/corporate-actions')}
+        className={`${page === '/corporate-actions' ? "isActive": ""}`}>
+          Corporate Actions
+        </button>
+      </div>
+      <div className="Toolbar-item">
         <button onClick={() => goTo('/transactions')}
         className={`${page === '/transactions' ? "isActive": ""}`}>
           Transactions
+        </button>
+      </div>
+      <div className="Toolbar-item">
+        <button onClick={() => goTo('/transfers')}
+        className={`${page === '/transfers' ? "isActive": ""}`}>
+          Transfers
         </button>
       </div>
       <div className="Toolbar-item">

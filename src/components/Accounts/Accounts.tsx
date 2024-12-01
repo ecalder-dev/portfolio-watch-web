@@ -8,7 +8,7 @@ import EditAccountRow from './EditAccountRow';
 import NewAccountRow from './NewAccountRow';
 
 const AccountsPage = () => {
-  const [accounts, setAccounts] = useState([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   const [isCreatingAccount, setCreatingAccount] = useState(false);
 
   const setEditable = (account: Account, value: boolean) => {
@@ -35,7 +35,7 @@ const AccountsPage = () => {
   return (
     <div className="Accounts">
       <div className="Accounts-body">
-        <h1 className="title">Here are your accounts.</h1>
+        <h1 className="title">Accounts.</h1>
         <p>You can add, update and remove your accounts here.</p>
         <table className="Account-table">
           <thead>
@@ -43,6 +43,8 @@ const AccountsPage = () => {
               <th className="Account-th">Account Name</th>
               <th className="Account-th">Account Number</th>
               <th className="Account-th">Date Opened</th>
+              <th className="Account-th">Date Closed</th>
+              <th className="Account-th">Is Hidden</th>
             </tr>
           </thead>
           <tbody>
@@ -57,9 +59,8 @@ const AccountsPage = () => {
               <NewAccountRow accounts={accounts} setAccounts={setAccounts} setCreatingAccount={setCreatingAccount} />
               :
               <tr key='add-new-row'>
-                <td colSpan={4}></td>
                 <td>
-                  <button onClick={() => addNewRow()}>Add New</button>
+                  <button onClick={() => addNewRow()}>New</button>
                 </td>
               </tr>
             }

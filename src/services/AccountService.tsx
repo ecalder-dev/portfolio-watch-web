@@ -3,30 +3,34 @@ import Account from '../models/Account';
 import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
-let serviceUrl = config.serviceUrl;
+let serviceUrl = config.serviceUrl + '/api/accounts';
 
 const getAccounts = () : Promise<AxiosResponse<Array<Account>>>  => {
-  return axios.get(serviceUrl + '/api/accounts', {
+  return axios.get(serviceUrl, {
+      cancelToken: source.token
+  });
+}
+
+const getVisibleAccountsOnly = () : Promise<AxiosResponse<Array<Account>>>  => {
+  return axios.get(serviceUrl + "?showHidden=false", {
       cancelToken: source.token
   });
 }
 
 const putAccount = (account: Account) : Promise<AxiosResponse<Account>> => {
-  return axios.put(serviceUrl + '/api/account', account, {
+  return axios.put(serviceUrl, account, {
     cancelToken: source.token
   });
 }
 
 const postAccount = (account: Account) : Promise<AxiosResponse<Account>>  => {
-  return axios.post(serviceUrl + '/api/account', account, {
+  return axios.post(serviceUrl, account, {
     cancelToken: source.token
   });
 }
 
-const deleteAccount = (account: Account) : Promise<AxiosResponse<boolean>>  => {
-  return axios.delete(serviceUrl + '/api/account', {data: account,
-    cancelToken: source.token
-  });
+const deleteAccount = (id: number) : Promise<AxiosResponse<void>>  => {
+  return axios.delete(serviceUrl + "/" + id);
 }
 
 const cancelRequest = () => {
@@ -37,6 +41,7 @@ const cancelRequest = () => {
 
 const accountService = {
   getAccounts,
+  getVisibleAccountsOnly,
   putAccount,
   postAccount,
   deleteAccount,

@@ -35,7 +35,7 @@ const CostBasisCard = ({ costBasis, quoteDto, totalAssetValue }) => {
           <div>
             <FieldValue field={'Shares'} value={costBasis.totalShares} />
             <FieldValue field={'Cost Basis'} value={formatter.formatDollar(costBasis.adjustedPrice)} />
-            <FieldValue field={'Last Transacted'} value={formatter.formatDate(costBasis.latestTransactionDate)} />
+            <FieldValue field={'Last Transacted'} value={costBasis.latestTransactionDate} />
             <FieldValue field={'Current Price'} value={currentPrice} />
             <FieldValue field={'Total Value'} value={currentValue} />
             <FieldValue field={'Diversification'} value={percent} />
@@ -64,7 +64,7 @@ const LotListView = ({ lotList, hidden }) => {
               <div className='LotListCard' key={lot.lotId}>
                 <FieldValue field={'Shares'} value={formatter.formatNumber(lot.shares)} />
                 <FieldValue field={'Price Purchased'} value={formatter.formatDollar(lot.price)} />
-                <FieldValue field={'Date Transacted'} value={formatter.formatDate(lot.dateTransacted)} />
+                <FieldValue field={'Date Transacted'} value={lot.dateTransacted} />
               </div>);
           }
         )

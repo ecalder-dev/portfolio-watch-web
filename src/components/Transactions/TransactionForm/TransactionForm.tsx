@@ -4,34 +4,12 @@ import Transaction from "../../../models/Transaction";
 import Account from "../../../models/Account";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { RouteComponentProps, useHistory, useParams, withRouter } from "react-router-dom";
+import { useHistory, useParams, withRouter } from "react-router-dom";
 import accountService from "../../../services/AccountService";
 import transactionService from "../../../services/TransactionService";
+import { getDescriptionOfType } from "../Transactions";
 
-const typeList = ['B', 'S', 'TO', 'TI', 'M', 'G', 'SP'];
-
-const getDescriptionOfType = (type: string) => {
-  switch (type) {
-    case 'B':
-      return 'Buy';
-    case 'S':
-      return 'Sell';
-    case 'TO':
-      return 'Transfer Out';
-    case 'TI':
-      return 'Transfer In';
-    case 'MT':
-      return 'Merger Target';
-    case 'MB':
-      return 'Merger Buyer';
-    case 'G':
-      return 'Gift';
-    case 'SP':
-      return 'Split';
-    default:
-      return type;
-  }
-}
+const typeList = ['BUY', 'SELL', 'GIFT'];
 
 const isValidNewTransaction = (transaction: Transaction): boolean => {
   if (!transaction.account) {
@@ -54,16 +32,15 @@ const isValidNewTransaction = (transaction: Transaction): boolean => {
   }
 }
 
-const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
+const TransactionForm = () => {
   const { id } = useParams<{ id }>()
   const [transactionId, setTransactionId] = useState(undefined);
-  const [type, setType] = useState('B');
+  const [type, setType] = useState('BUY');
   const [symbol, setSymbol] = useState('');
   const [shares, setShares] = useState(0);
   const [price, setPrice] = useState(0);
   const [account, setAccount] = useState(undefined);
   const [dateTransacted, setDateTransacted] = useState(new Date());
-  const [dateSettled, setDateSettled] = useState(undefined);
   const [accountList, setAccountList] = useState([]);
   const history = useHistory();
 
@@ -90,7 +67,7 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
         }
         case 'account': {
           let valInt = parseInt(value, 0);
-          let found = accountList.filter(acct => acct.accountId === valInt);
+          let found = accountList.filter(acct => acct.id === valInt);
           setAccount(found.length > 0 ? found[0] : null)
           break;
         }
@@ -102,23 +79,20 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
     let transaction: Transaction;
 
     transaction = {
-      transactionId: transactionId,
-      type: type,
+      id: transactionId,
+      price: price,
       symbol: symbol,
       shares: shares,
-      price: price,
-      account: account,
       dateTransacted: dateTransacted,
-      dateSettled: dateSettled,
-      datetimeInserted: null,
-      datetimeUpdated: null,
+      type: type,
+      account: account,
     };
 
     if (!isValidNewTransaction(transaction)) {
       return;
     }
 
-    if (transaction.transactionId) {
+    if (transaction.id) {
       transactionService.putTransaction(transaction).then((json) => {
         if (json.data) {
           history.push('/transactions');
@@ -134,21 +108,8 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
   }
 
   const deleteTransaction = () => {
-    if (window.confirm('Are you sure you want to delete this account?')) {
-      let transaction: Transaction;
-      transaction = {
-        transactionId: transactionId,
-        type: type,
-        symbol: symbol,
-        shares: shares,
-        price: price,
-        account: account,
-        dateTransacted: dateTransacted,
-        dateSettled: dateSettled,
-        datetimeInserted: null,
-        datetimeUpdated: null,
-      };
-      transactionService.deleteTransaction(transaction)
+    if (window.confirm('Are you sure you want to delete this transaction?')) {
+      transactionService.deleteTransaction(transactionId)
         .then(() => {
           history.push('/transactions');
         })
@@ -162,7 +123,7 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
   useEffect(() => {
     let isSubscribed = true;
     accountService
-      .getAccounts()
+      .getVisibleAccountsOnly()
       .then((json) => {
         let accountList = json.data;
         accountList.sort(function (a, b) {
@@ -191,13 +152,12 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
       transactionService.getTransaction(id).then((json) => {
         if (json.data && isSubscribed) {
           let transaction: Transaction = json.data;
-          setTransactionId(transaction.transactionId);
+          setTransactionId(transaction.id);
           setType(transaction.type);
           setSymbol(transaction.symbol);
           setShares(transaction.shares);
           setPrice(transaction.price);
-          setDateTransacted(transaction.dateTransacted);
-          setDateSettled(transaction.dateSettled);
+          setDateTransacted(new Date(transaction.dateTransacted));
           setAccount(transaction.account);
         } else {
           history.push('/transactions');
@@ -219,7 +179,7 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
             <select
               name="account"
               onChange={(e) => handleInputChange(e)}
-              value={account ? account.accountId : ''}
+              value={account ? account.id : ''}
               id="select-account"
             >
               <option disabled value={-1}>
@@ -227,7 +187,7 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
               </option>
               {accountList.map(
                 (account: Account, index: number) => (
-                  <option key={index} value={account.accountId}>
+                  <option key={index} value={account.id}>
                     {account.accountName + ' (' + account.accountNumber + ')'}
                   </option>
                 )
@@ -290,20 +250,12 @@ const TransactionForm = ( props : RouteComponentProps<{ id?: string; }>) => {
               dateFormat="M/d/yyyy"
             />
           </div>
-          <div className="entry">
-            <label>Date Settled</label>
-            <DatePicker
-              selected={dateSettled}
-              onChange={(date) => setDateSettled(date as Date)}
-              dateFormat="M/d/yyyy"
-            />
-          </div>
         </div>
       </form>
       <div className="entry-row">
         <button onClick={() => handleSubmit()}>Submit</button>
         <button onClick={() => { history.push('/transactions') }}>Cancel</button>
-        {transactionId && (
+        {id && (
           <button onClick={() => deleteTransaction()}>Delete</button>
         )}
       </div>

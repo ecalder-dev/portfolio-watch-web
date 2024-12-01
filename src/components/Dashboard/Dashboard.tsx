@@ -18,7 +18,9 @@ const Dashboard = () => {
     let oneDone = false;
     portfolioService.getOwnedSymbols()
       .then(response => {
-        temp.push([...response.data]);
+        if (response.data && response.data.length > 0) {
+          temp.push([...response.data]);
+        }        
         if (oneDone && isSubscribed) {
           setSymbols(temp);
         } else {
@@ -33,7 +35,9 @@ const Dashboard = () => {
       });
     watchlistService.getWatchedSymbols()
       .then(response => {
-        temp.push([...response.data.map(watched => watched.symbol)]);
+        if (response.data && response.data.length > 0) {
+          temp.push([...response.data.map(watched => watched.symbol)]);
+        }        
         if (oneDone && isSubscribed) {
           setSymbols(temp);
         } else {

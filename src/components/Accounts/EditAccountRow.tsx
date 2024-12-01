@@ -4,14 +4,16 @@ import Account from "../../models/Account";
 import accountService from "../../services/AccountService";
 
 const EditAccountRow = ({ setEditable, accounts, account }) => {
-  const [accountName, setAccountName] = useState(account.accountName);
-  const [accountNumber, setAccountNumber] = useState(account.accountNumber);
-  const [dateOpened, setDateOpened] = useState(account.dateOpened);
+  const [accountName, setAccountName] = useState<string>(account.accountName);
+  const [accountNumber, setAccountNumber] = useState<string>(account.accountNumber);
+  const [dateOpened, setDateOpened] = useState<Date>(new Date(account.dateOpened));
+  const [dateClosed, setDateClosed] = useState<Date>(account.dateClosed ? new Date(account.dateClosed) : null);
+  const [isHidden, setIsHidden] = useState(account.isHidden);
 
   const updateRow = (account: Account) => {
     accountService.putAccount(account)
       .then(() => {
-        const index = accounts.findIndex(ac => ac.accountId === account.accountId);
+        const index = accounts.findIndex(ac => ac.id === account.id);
         if (index >= 0) {
           accounts[index] = account;
         }
@@ -42,14 +44,30 @@ const EditAccountRow = ({ setEditable, accounts, account }) => {
         dateFormat='M/d/yyyy'
       />
     </td>
+    <td className="Account-td">
+      <DatePicker
+        selected={dateClosed}
+        onChange={e => setDateClosed(e as Date)} name="dateClosed"
+        dateFormat='M/d/yyyy'
+      />
+    </td>
+    <td className="Account-td">
+      <input
+          type="checkbox"
+          checked={isHidden}
+          onChange={e => {
+            setIsHidden(e.target.checked);
+          }} name="isHidden"
+      />
+    </td>
     <td>
       <button onClick={() => updateRow({
-        accountId: account.accountId,
+        id: account.id,
         accountName: accountName,
         accountNumber: accountNumber,
         dateOpened: dateOpened,
-        datetimeInserted: account.datetimeInserted,
-        datetimeUpdated: new Date()
+        dateClosed: dateClosed,
+        isHidden: isHidden
       })}>Save</button>
       <button onClick={() => cancelEditedRow(account)}>Cancel</button>
     </td>

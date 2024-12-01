@@ -2,7 +2,7 @@
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  font-family: Quicksand, serif;
+  font-family: 'Roboto', sans-serif;
   width: 100%;
 }
 
@@ -21,6 +21,10 @@
   vertical-align: middle;
   margin-top: 3px;
 
+}
+
+.App-name {
+  font-family: "Unica One", sans-serif;
 }
 
 .appToolbar, .appToolbarClosed {

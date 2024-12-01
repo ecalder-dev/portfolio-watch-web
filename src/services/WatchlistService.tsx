@@ -17,7 +17,7 @@ const postWatchedSymbol = (watchedSymbol: WatchedSymbol) : Promise<AxiosResponse
   });
 }
 
-const deleteWatchedSymbol = (watchedSymbol: WatchedSymbol) : Promise<AxiosResponse<Array<boolean>>>  => {
+const deleteWatchedSymbol = (watchedSymbol: WatchedSymbol) : Promise<AxiosResponse<Array<void>>>  => {
   return axios.delete(serviceUrl + '/api/watch?symbol=' + watchedSymbol, {
     cancelToken: source.token
   });

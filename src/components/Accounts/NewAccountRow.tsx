@@ -6,7 +6,9 @@ import accountService from "../../services/AccountService";
 const NewAccountRow = ({ accounts, setAccounts, setCreatingAccount }) => {
   const [accountName, setAccountName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
-  const [dateOpened, setDateOpened] = useState(new Date());
+  const [dateOpened, setDateOpened] = useState(null);
+  const [dateClosed, setDateClosed] = useState(null);
+  const [isHidden, setIsHidden] = useState(false);
 
   const saveNewRow = (account: Account) => {
     accountService.postAccount(account).then(json => {
@@ -39,14 +41,29 @@ const NewAccountRow = ({ accounts, setAccounts, setCreatingAccount }) => {
           dateFormat='M/d/yyyy'
         />
       </td>
+      <td className="Account-td">
+      <DatePicker
+        selected={dateClosed}
+        onChange={e => setDateClosed(e as Date)} name="dateClosed"
+        dateFormat='M/d/yyyy'
+      />
+    </td>
+      <td>
+      <input
+          type="checkbox"
+          checked={isHidden}
+          onChange={e => {
+            setIsHidden(e.target.checked);
+          }} name="isHidden"
+      />
+      </td>
       <td>
         <button onClick={() => saveNewRow({
-          accountId: 0,
           accountName: accountName,
           accountNumber: accountNumber,
           dateOpened: dateOpened,
-          datetimeInserted: null,
-          datetimeUpdated: null
+          dateClosed: dateClosed,
+          isHidden: isHidden
         })}>Save</button>
         <button onClick={cancelNewRow}>Cancel</button>
       </td>

@@ -17,11 +17,6 @@ code {
     monospace;
 }
 
-@font-face {
-  font-family: 'Quicksand';
-  src: local('Quicksand'), url(./resources/fonts/Quicksand/Quicksand-VariableFont_wght.ttf) format('truetype');
-}
-
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;

@@ -3,16 +3,16 @@ import CostBasis from '../models/CostBasis';
 import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
-let serviceUrl = config.serviceUrl;
+let serviceUrl = config.serviceUrl + '/api/lots';
 
 const getCostBasis = (): Promise<AxiosResponse<Array<CostBasis>>>  => {
-  return axios.get(serviceUrl + '/api/portfolio/cost-basis', {
+  return axios.get(serviceUrl + '/cost-basis', {
       cancelToken: source.token
   });
 }
 
 const getOwnedSymbols = (): Promise<AxiosResponse<Array<string>>> => {
-  return axios.get(serviceUrl + '/api/portfolio/owned', {
+  return axios.get(serviceUrl + '/owned', {
       cancelToken: source.token
   });
 }

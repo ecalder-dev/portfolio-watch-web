@@ -11,6 +11,8 @@ interface SimulationFields {
 
 const PortfolioSimulation = ({ costBasisList, quoteDtos }) => {
   const [totalAssetValue, setTotalAssetValue] = useState(1);
+  const [assetChangeValue, setAssetChangeValue] = useState(1);
+
   const [inputFields, setInputFields] = useState([]);
   const [isUpdateAssetValue, setIsUpdateAssetValue] = useState<boolean>(false);
 
@@ -33,9 +35,14 @@ const PortfolioSimulation = ({ costBasisList, quoteDtos }) => {
   useEffect(() => {
     if (isUpdateAssetValue) {
       if (inputFields && inputFields.length > 0) {
+        let orginalSum: number = 0;
         let sum: number = 0;
-        inputFields.forEach(field => sum += field.simulatedTotalShares * field.currentPrice);
+        inputFields.forEach(field => {
+          orginalSum += field.totalShares * field.currentPrice
+          sum += field.simulatedTotalShares * field.currentPrice
+        });
         setTotalAssetValue(sum);
+        setAssetChangeValue(sum - orginalSum);
       }
       setIsUpdateAssetValue(false);
     }
@@ -43,6 +50,7 @@ const PortfolioSimulation = ({ costBasisList, quoteDtos }) => {
 
   return (
     <div className="Simulation">
+      <AssetValueDisplay totalAssetValue={totalAssetValue} changeOfAssetValue={assetChangeValue}/>
       {inputFields.map(
         (simulationField: SimulationFields, index: number) => {
           return <CostBasisCard simulationField={simulationField} key={`simulation-${index}`} totalAssetValue={totalAssetValue} setIsUpdateAssetValue={setIsUpdateAssetValue} />
@@ -50,6 +58,14 @@ const PortfolioSimulation = ({ costBasisList, quoteDtos }) => {
       )}
     </div>
   )
+}
+
+const AssetValueDisplay = ( {totalAssetValue, changeOfAssetValue }) => {
+  return <div className="AssetValueDisplay">
+    Simulated Total: {formatter.formatDollar(totalAssetValue)} 
+      <span className={changeOfAssetValue > 0 ? 'positive' : 'negative'}> 
+      ({formatter.formatDollar(changeOfAssetValue)})</span>
+    </div>;
 }
 
 const CostBasisCard = ({ simulationField, totalAssetValue, setIsUpdateAssetValue }) => {

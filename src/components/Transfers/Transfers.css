@@ -1,8 +1,8 @@
-.Transactions-body {
+.Transfers-body {
   margin-left: 20px;
 }
 
-.Transaction-table {
+.Transfer-table {
   table-layout: fixed ;
   margin-bottom: 20px;
   width:  95% ;
@@ -10,31 +10,31 @@
   border-collapse: collapse;
 }
 
-.Transaction-tr {
+.Transfer-tr {
   width: 100%;
   border-bottom: 1px solid lightgray;
 }
 
-tbody .Transaction-tr:hover {
+tbody .Transfer-tr:hover {
   background-color: #f0f0f0;
   cursor: pointer;
 }
 
-.Transaction-th {
+.Transfer-th {
   font-weight: normal;
   font-size: 16px;
   padding: 6px;
   border-bottom: 1px solid lightgray;
 }
 
-.Transaction-td {
+.Transfer-td {
   font-size: 14px;
   padding: 6px;
   width: 16.67%;
   border-bottom: 1px solid lightgray;
 }
 
-.TransactionsAddNew {
+.TransfersAddNew {
   text-align: left;
   width: 90%;
   margin-bottom: 10px;
@@ -42,7 +42,7 @@ tbody .Transaction-tr:hover {
 
 @media (max-width:640px) {
 
-  .Transaction-th {
+  .Transfer-th {
     font-size: 15px;
   }
 

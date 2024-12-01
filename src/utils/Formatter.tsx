@@ -13,9 +13,7 @@ const percentFormatter = new Intl.NumberFormat('en-US', {
 
 const getFormattedDateStr = (date: Date) => {
   if (date) {
-    if (typeof date === 'number') {
-      date = new Date(date);
-    }
+    date = new Date(date);
     return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
   } else {
     return '';
@@ -47,9 +45,7 @@ const formatDate = (date: Date) => {
 
 const formatDatetime = (date: Date) => {
   if (date) {
-    if (typeof date === 'number') {
-      date = new Date(date);
-    }
+    date = new Date(date);
     return date.toLocaleString();
   } else {
     return '';

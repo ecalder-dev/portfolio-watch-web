@@ -69,14 +69,6 @@
     width: 75px;
 }
 
-.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .Value .positive {
-    color: green;
-}
-
-.Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .Value .negative {
-    color: red;
-}
-
 .Simulation .CostBasis .CostBasisHeader .CostBasisValues .Input .FieldInput .Value input:focus{
     outline: none;
 }
@@ -95,4 +87,17 @@
 
 .Simulation .CostBasis .hidden {
     display: none;
+}
+
+.AssetValueDisplay {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
 }
