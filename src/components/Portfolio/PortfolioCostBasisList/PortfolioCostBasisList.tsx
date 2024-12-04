@@ -33,7 +33,7 @@ const CostBasisCard = ({ costBasis, quoteDto, totalAssetValue }) => {
         <div className='CostBasisHeader'>
           <div>{costBasis.symbol}</div>
           <div>
-            <FieldValue field={'Shares'} value={costBasis.totalShares} />
+            <FieldValue field={'Shares'} value={formatter.formatNumber(costBasis.totalShares)} />
             <FieldValue field={'Cost Basis'} value={formatter.formatDollar(costBasis.adjustedPrice)} />
             <FieldValue field={'Last Transacted'} value={costBasis.latestTransactionDate} />
             <FieldValue field={'Current Price'} value={currentPrice} />
