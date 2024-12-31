@@ -51,6 +51,7 @@
   width: 150px;
 }
 
-.TransactionForms input:focus, select:focus {
+.TransactionForms input:focus,
+select:focus {
   outline: none;
 }

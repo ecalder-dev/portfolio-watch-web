@@ -2,7 +2,7 @@
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   width: 100%;
 }
 
@@ -10,7 +10,7 @@
   font-weight: bold;
   height: 40px;
   width: 100%;
-  background-color: #05386B;
+  background-color: #05386b;
   flex-grow: 0;
 }
 
@@ -20,20 +20,21 @@
   color: white;
   vertical-align: middle;
   margin-top: 3px;
-
 }
 
 .App-name {
   font-family: "Unica One", sans-serif;
 }
 
-.appToolbar, .appToolbarClosed {
+.appToolbar,
+.appToolbarClosed {
   height: calc(100% - 40px);
   width: 120px;
   overflow-x: hidden;
 }
 
-.appView, .appViewClosed {
+.appView,
+.appViewClosed {
   height: calc(100% - 40px);
   overflow-y: auto;
   width: calc(100% - 120px);
@@ -48,34 +49,34 @@
   display: none;
 }
 
-@media (max-width:640px ) {
-   .appToolbar {
-     width: 100%;
-     z-index: 999;
-   }
+@media (max-width: 640px) {
+  .appToolbar {
+    width: 100%;
+    z-index: 999;
+  }
 
-   .appToolbarClosed{
-     display: none;
-   }
+  .appToolbarClosed {
+    display: none;
+  }
 
-   .appView {
-     height: calc(100% - 40px);
-     overflow-y: auto;
-     width: 100%;
-   }
+  .appView {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    width: 100%;
+  }
 
-   .appViewClosed{
-     display: none;
-   }
+  .appViewClosed {
+    display: none;
+  }
 
-   .toolbarButton {
-     display: inline;
-     background-color: #05386B;
-     border: 0;
-     color: white;
-   }
+  .toolbarButton {
+    display: inline;
+    background-color: #05386b;
+    border: 0;
+    color: white;
+  }
 
-   .toolbarButton:active {
-     border: 0;
-   }
+  .toolbarButton:active {
+    border: 0;
+  }
 }

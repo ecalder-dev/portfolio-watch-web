@@ -1,5 +1,5 @@
-import IObjectKeys from './IObjectKeys';
-import Account from './Account';
+import IObjectKeys from "./IObjectKeys";
+import Account from "./Account";
 
 interface Transfer extends IObjectKeys {
   id: number;
@@ -9,6 +9,5 @@ interface Transfer extends IObjectKeys {
   fromAccount: Account;
   toAccount: Account;
 }
-
 
 export default Transfer;

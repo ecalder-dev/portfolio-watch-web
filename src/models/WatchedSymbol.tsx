@@ -1,4 +1,4 @@
-import IObjectKeys from './IObjectKeys';
+import IObjectKeys from "./IObjectKeys";
 
 interface WatchedSymbol extends IObjectKeys {
   symbol: string;

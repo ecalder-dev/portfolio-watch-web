@@ -2,51 +2,14 @@
   margin-left: 20px;
 }
 
-.CorporateAction-table {
-  table-layout: fixed ;
-  margin-bottom: 20px;
-  width:  95% ;
-  text-align: left;
-  border-collapse: collapse;
-}
-
-.CorporateAction-tr {
-  width: 100%;
-  border-bottom: 1px solid lightgray;
-}
-
-tbody .CorporateAction-tr:hover {
-  background-color: #f0f0f0;
-  cursor: pointer;
-}
-
-.CorporateAction-th {
-  font-weight: normal;
-  font-size: 16px;
-  padding: 6px;
-  border-bottom: 1px solid lightgray;
-}
-
-.CorporateAction-td {
-  font-size: 14px;
-  padding: 6px;
-  width: 16.67%;
-  border-bottom: 1px solid lightgray;
-}
-
 .CorporateActionsAddNew {
   text-align: left;
   width: 90%;
   margin-bottom: 10px;
 }
 
-@media (max-width:640px) {
-
-  .CorporateAction-th {
-    font-size: 15px;
+@media (max-width: 640px) {
+  .account {
+    display: none;
   }
-
-	.account {
-		display: none;
-	}
 }

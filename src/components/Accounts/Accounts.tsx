@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import './Accounts.css';
-import Account from '../../models/Account';
-import 'react-datepicker/dist/react-datepicker.css';
-import accountService from '../../services/AccountService';
-import ViewAccountRow from './ViewAccountRow';
-import EditAccountRow from './EditAccountRow';
-import NewAccountRow from './NewAccountRow';
+import { useState, useEffect } from "react";
+import "./Accounts.css";
+import Account from "../../models/Account";
+import "react-datepicker/dist/react-datepicker.css";
+import accountService from "../../services/AccountService";
+import ViewAccountRow from "./ViewAccountRow";
+import EditAccountRow from "./EditAccountRow";
+import NewAccountRow from "./NewAccountRow";
 
 const AccountsPage = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -14,22 +14,28 @@ const AccountsPage = () => {
   const setEditable = (account: Account, value: boolean) => {
     account.isInEdit = value;
     setAccounts([...accounts]);
-  }
+  };
 
   const addNewRow = () => {
     setCreatingAccount(true);
-  }
+  };
 
   useEffect(() => {
     let isSubscribed = true;
-    accountService.getAccounts()
-      .then(json => {
-        if (isSubscribed) setAccounts(json.data.map(account => ({ ...account, isInEdit: false })));
+    accountService
+      .getAccounts()
+      .then((json) => {
+        if (isSubscribed)
+          setAccounts(
+            json.data.map((account) => ({ ...account, isInEdit: false })),
+          );
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.message);
       });
-    return () => { isSubscribed = false };
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   return (
@@ -50,25 +56,40 @@ const AccountsPage = () => {
           <tbody>
             {accounts.map((account: Account, index: number) => {
               return !account.isInEdit ? (
-                <ViewAccountRow accounts={accounts} setAccounts={setAccounts} account={account} setEditable={setEditable} key={index} />
+                <ViewAccountRow
+                  accounts={accounts}
+                  setAccounts={setAccounts}
+                  account={account}
+                  setEditable={setEditable}
+                  key={index}
+                />
               ) : (
-                <EditAccountRow accounts={accounts} account={account} setEditable={setEditable} key={index} />
-              )
+                <EditAccountRow
+                  accounts={accounts}
+                  account={account}
+                  setEditable={setEditable}
+                  key={index}
+                />
+              );
             })}
-            {isCreatingAccount ?
-              <NewAccountRow accounts={accounts} setAccounts={setAccounts} setCreatingAccount={setCreatingAccount} />
-              :
-              <tr key='add-new-row'>
+            {isCreatingAccount ? (
+              <NewAccountRow
+                accounts={accounts}
+                setAccounts={setAccounts}
+                setCreatingAccount={setCreatingAccount}
+              />
+            ) : (
+              <tr key="add-new-row">
                 <td>
                   <button onClick={() => addNewRow()}>New</button>
                 </td>
               </tr>
-            }
+            )}
           </tbody>
         </table>
       </div>
     </div>
   );
-}
+};
 
 export default AccountsPage;

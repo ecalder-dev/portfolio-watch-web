@@ -1,16 +1,16 @@
-const numberFormatter = new Intl.NumberFormat('en-US', {
+const numberFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 4,
 });
 
-const currencyFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
 });
 
-const percentFormatter = new Intl.NumberFormat('en-US', {
-  style: 'percent',
+const percentFormatter = new Intl.NumberFormat("en-US", {
+  style: "percent",
   minimumFractionDigits: 2,
-  maximumFractionDigits: 2
+  maximumFractionDigits: 2,
 });
 
 const getFormattedDateStr = (date: Date) => {
@@ -26,41 +26,43 @@ const getFormattedDateStr = (date: Date) => {
 
     return `${year}-${month}-${day}`;
   } else {
-    return '';
+    return "";
   }
-}
+};
 
 const formatNumber = (num: number) => {
   return numberFormatter.format(num);
-}
+};
 
 const formatDollar = (num: number) => {
   return currencyFormatter.format(num);
-}
+};
 
 const formatPerc = (num: number) => {
   return percentFormatter.format(num);
-}
+};
 
 const formatDate = (date: Date) => {
   if (date) {
-    if (typeof date === 'number') {
+    if (typeof date === "number") {
       date = new Date(date);
     }
-    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    return (
+      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    );
   } else {
-    return '';
+    return "";
   }
-}
+};
 
 const formatDatetime = (date: Date) => {
   if (date) {
     date = new Date(date);
     return date.toLocaleString();
   } else {
-    return '';
+    return "";
   }
-}
+};
 
 const formatter = {
   getFormattedDateStr,
@@ -68,7 +70,7 @@ const formatter = {
   formatDollar,
   formatPerc,
   formatDate,
-  formatDatetime
-}
+  formatDatetime,
+};
 
 export default formatter;

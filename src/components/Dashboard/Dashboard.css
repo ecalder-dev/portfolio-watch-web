@@ -1,155 +1,156 @@
-.Dashboard {}
+.Dashboard {
+}
 
 .Dashboard-body {
-	margin-left: 20px;
-	margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .Summaries {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
 }
 
 .Positions {
-	width: 100%;
+  width: 100%;
 }
 
 .Dashboard-table {
-	table-layout: fixed;
-	margin-bottom: 20px;
-	width: 100%;
-	text-align: left;
-	border-collapse: collapse;
+  table-layout: fixed;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
 }
 
 .Dashboard-tr {
-	width: 100%;
+  width: 100%;
 }
 
 .Dashboard-th {
-	font-weight: normal;
-	padding: 6px;
-	font-size: 16px;
-	border-bottom: 1px solid lightgray;
+  font-weight: normal;
+  padding: 6px;
+  font-size: 16px;
+  border-bottom: 1px solid lightgray;
 }
 
 .Dashboard-td {
-	width: 20%;
-	padding: 6px;
-	font-size: 14px;
-	border-bottom: 1px solid lightgray;
+  width: 20%;
+  padding: 6px;
+  font-size: 14px;
+  border-bottom: 1px solid lightgray;
 }
 
 .Green {
-	color: green;
+  color: green;
 }
 
 .Red {
-	color: red;
+  color: red;
 }
 
 .News {
-	width: 30%;
+  width: 30%;
 }
 
 .NewsContent {
-	overflow-y: auto;
-	height: 750px;
-	border-top: 1px solid lightgray;
-	border-bottom: 1px solid lightgray;
+  overflow-y: auto;
+  height: 750px;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
 .NewsItem {
-	width: 100%;
-	padding-bottom: 10px;
-	padding-top: 10px;
-	border-bottom: 1px solid lightgray;
+  width: 100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid lightgray;
 }
 
 .NewsItem:last-child {
-	border-bottom: none;
+  border-bottom: none;
 }
 
 .NewsTitle {
-	font-size: 15px;
-	padding-right: 10px;
+  font-size: 15px;
+  padding-right: 10px;
 }
 
 .NewsTitle a {
-	color: #484848;
-	font-weight: bold;
-	text-decoration: none;
+  color: #484848;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .NewsDate {
-	font-size: 12px;
-	font-style: italic;
+  font-size: 12px;
+  font-style: italic;
 }
 
 .NewsText {
-	font-size: 12px;
-	padding-right: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
+  font-size: 12px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .NewsMentionedSymbols {
-	font-size: 12px;
-	font-style: italic;
+  font-size: 12px;
+  font-style: italic;
 }
 
 .Indices {
-	margin-top: 20px;
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .IndexCard {
-	text-align: left;
-	width: 25%;
+  text-align: left;
+  width: 25%;
 }
 
 .IndexCard:not(:last-child) {
-	padding-right: 10px;
+  padding-right: 10px;
 }
 
 .IndexName {
-	font-size: 20px;
-	font-weight: bold;
-	margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .IndexStatsLastPrice {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 .IndexStatsLastPrice:after {
-	content: " ";
+  content: " ";
 }
 
-@media (max-width:640px) {
-	.Positions h3 {
-		font-size: 16px;
-	}
-	.Dashboard-th {
-		font-size: 15px;
-	}
-	.volume,
-	.sector {
-		display: none;
-	}
-	.IndexName {
-		font-size: 16px;
-		font-weight: bold;
-		margin-bottom: 5px;
-	}
-	.IndexStatsLastPrice {
-		font-size: 15px;
-	}
-	.IndexStatsPercChange {
-		font-size: 12px;
-	}
+@media (max-width: 640px) {
+  .Positions h3 {
+    font-size: 16px;
+  }
+  .Dashboard-th {
+    font-size: 15px;
+  }
+  .volume,
+  .sector {
+    display: none;
+  }
+  .IndexName {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .IndexStatsLastPrice {
+    font-size: 15px;
+  }
+  .IndexStatsPercChange {
+    font-size: 12px;
+  }
 }

@@ -1,5 +1,5 @@
-import IObjectKeys from './IObjectKeys';
-import CostBasis from './CostBasis';
+import IObjectKeys from "./IObjectKeys";
+import CostBasis from "./CostBasis";
 
 interface Account extends IObjectKeys {
   id?: number;
@@ -8,7 +8,6 @@ interface Account extends IObjectKeys {
   dateOpened: Date;
   dateClosed: Date;
   isHidden: boolean;
-
   costBasisList?: CostBasis[];
   totalAnnualDividends?: number;
   isInEdit?: boolean;

@@ -1,5 +1,4 @@
 .Accounts {
-
 }
 
 .Accounts-body {
@@ -7,9 +6,9 @@
 }
 
 .Account-table {
-  table-layout: fixed ;
+  table-layout: fixed;
   margin-bottom: 20px;
-  width: 80% ;
+  width: 80%;
   text-align: left;
 }
 

@@ -1,5 +1,5 @@
-import Account from './Account';
-import IObjectKeys from './IObjectKeys';
+import Account from "./Account";
+import IObjectKeys from "./IObjectKeys";
 
 interface Lot extends IObjectKeys {
   id: number;

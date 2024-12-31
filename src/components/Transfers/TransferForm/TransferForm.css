@@ -51,6 +51,7 @@
   width: 150px;
 }
 
-.TransferForms input:focus, select:focus {
+.TransferForms input:focus,
+select:focus {
   outline: none;
 }

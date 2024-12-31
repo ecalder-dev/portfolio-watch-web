@@ -9,7 +9,7 @@
   background-color: #d7e2ed;
 }
 
-.CostBasisList .CostBasisHeader>div:nth-child(1) {
+.CostBasisList .CostBasisHeader > div:nth-child(1) {
   display: block;
   width: 150px;
   margin-top: auto;
@@ -18,26 +18,33 @@
   text-align: center;
 }
 
-.CostBasisList .CostBasisHeader>div:nth-child(2) {
+.CostBasisList .CostBasisHeader > div:nth-child(2) {
   display: flex;
   flex-wrap: wrap;
   width: 80%;
 }
 
-.CostBasisList .CostBasisHeader>div:nth-child(2)>.FieldValue:first-child,
-.CostBasisList .LotListCard>.FieldValue:first-child {
+.CostBasisList .CostBasisHeader > div:nth-child(2) > .FieldValue:first-child,
+.CostBasisList .LotListCard > .FieldValue:first-child {
   width: 50px;
   display: block;
 }
 
-.CostBasisList .CostBasisHeader>div:nth-child(2)>.FieldValue:not(:first-child),
-.CostBasisList .LotListCard>.FieldValue:not(:first-child) {
+.CostBasisList
+  .CostBasisHeader
+  > div:nth-child(2)
+  > .FieldValue:not(:first-child),
+.CostBasisList .LotListCard > .FieldValue:not(:first-child) {
   width: 110px;
   display: block;
 }
 
-.CostBasisList .CostBasisHeader>div:nth-child(2)>.FieldValue>div:first-child,
-.CostBasisList .LotListCard>.FieldValue>div:first-child {
+.CostBasisList
+  .CostBasisHeader
+  > div:nth-child(2)
+  > .FieldValue
+  > div:first-child,
+.CostBasisList .LotListCard > .FieldValue > div:first-child {
   font-size: 10px;
 }
 

@@ -9,34 +9,34 @@ import accountService from "../../../services/AccountService";
 import transactionService from "../../../services/TransactionService";
 import { getDescriptionOfType } from "../Transactions";
 
-const typeList = ['BUY', 'SELL', 'GIFT'];
+const typeList = ["BUY", "SELL", "GIFT"];
 
 const isValidNewTransaction = (transaction: Transaction): boolean => {
   if (!transaction.account) {
-    alert('Account should be selected.');
+    alert("Account should be selected.");
     return false;
   } else if (!transaction.symbol || transaction.symbol.length === 0) {
-    alert('Symbol should not be empty.');
+    alert("Symbol should not be empty.");
     return false;
   } else if (!transaction.shares || transaction.shares === 0) {
-    alert('Shares should should not be empty or 0.');
+    alert("Shares should should not be empty or 0.");
     return false;
   } else if (!transaction.dateTransacted) {
-    alert('Transaction date should not be null.');
+    alert("Transaction date should not be null.");
     return false;
   } else if (!transaction.type) {
-    alert('Type should not be null.');
+    alert("Type should not be null.");
     return false;
   } else {
     return true;
   }
-}
+};
 
 const TransactionForm = () => {
-  const { id } = useParams<{ id }>()
+  const { id } = useParams<{ id }>();
   const [transactionId, setTransactionId] = useState(undefined);
-  const [type, setType] = useState('BUY');
-  const [symbol, setSymbol] = useState('');
+  const [type, setType] = useState("BUY");
+  const [symbol, setSymbol] = useState("");
   const [shares, setShares] = useState(0);
   const [price, setPrice] = useState(0);
   const [account, setAccount] = useState(undefined);
@@ -53,27 +53,27 @@ const TransactionForm = () => {
       return;
     } else {
       switch (name) {
-        case 'symbol': {
-          setSymbol(value ? value.toUpperCase() : null)
+        case "symbol": {
+          setSymbol(value ? value.toUpperCase() : null);
           break;
         }
-        case 'shares': {
+        case "shares": {
           setShares(value);
           break;
         }
-        case 'price': {
+        case "price": {
           setPrice(value);
           break;
         }
-        case 'account': {
+        case "account": {
           let valInt = parseInt(value, 0);
-          let found = accountList.filter(acct => acct.id === valInt);
-          setAccount(found.length > 0 ? found[0] : null)
+          let found = accountList.filter((acct) => acct.id === valInt);
+          setAccount(found.length > 0 ? found[0] : null);
           break;
         }
       }
     }
-  }
+  };
 
   const handleSubmit = () => {
     let transaction: Transaction;
@@ -95,30 +95,31 @@ const TransactionForm = () => {
     if (transaction.id) {
       transactionService.putTransaction(transaction).then((json) => {
         if (json.data) {
-          history.push('/transactions');
+          history.push("/transactions");
         }
       });
     } else {
       transactionService.postTransaction(transaction).then((json) => {
         if (json.data) {
-          history.push('/transactions');
+          history.push("/transactions");
         }
       });
     }
-  }
+  };
 
   const deleteTransaction = () => {
-    if (window.confirm('Are you sure you want to delete this transaction?')) {
-      transactionService.deleteTransaction(transactionId)
+    if (window.confirm("Are you sure you want to delete this transaction?")) {
+      transactionService
+        .deleteTransaction(transactionId)
         .then(() => {
-          history.push('/transactions');
+          history.push("/transactions");
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.message);
-          alert('Transaction was not deleted.')
+          alert("Transaction was not deleted.");
         });
     }
-  }
+  };
 
   useEffect(() => {
     let isSubscribed = true;
@@ -143,30 +144,37 @@ const TransactionForm = () => {
       .catch((err) => {
         console.log(err.message);
       });
-      return () => { isSubscribed = false };
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
-  useEffect(() => {  
+  useEffect(() => {
     let isSubscribed = true;
     if (id && accountList && accountList.length > 0) {
-      transactionService.getTransaction(id).then((json) => {
-        if (json.data && isSubscribed) {
-          let transaction: Transaction = json.data;
-          setTransactionId(transaction.id);
-          setType(transaction.type);
-          setSymbol(transaction.symbol);
-          setShares(transaction.shares);
-          setPrice(transaction.price);
-          setDateTransacted(new Date(transaction.dateTransacted));
-          setAccount(transaction.account);
-        } else {
-          history.push('/transactions');
-        }
-      }).catch((err) => {
-        console.log(err.message);
-      });
+      transactionService
+        .getTransaction(id)
+        .then((json) => {
+          if (json.data && isSubscribed) {
+            let transaction: Transaction = json.data;
+            setTransactionId(transaction.id);
+            setType(transaction.type);
+            setSymbol(transaction.symbol);
+            setShares(transaction.shares);
+            setPrice(transaction.price);
+            setDateTransacted(new Date(transaction.dateTransacted));
+            setAccount(transaction.account);
+          } else {
+            history.push("/transactions");
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
-    return () => { isSubscribed = false };
+    return () => {
+      isSubscribed = false;
+    };
   }, [id, accountList, history]);
 
   return (
@@ -179,26 +187,24 @@ const TransactionForm = () => {
             <select
               name="account"
               onChange={(e) => handleInputChange(e)}
-              value={account ? account.id : ''}
+              value={account ? account.id : ""}
               id="select-account"
             >
               <option disabled value={-1}>
                 Select an Account
               </option>
-              {accountList.map(
-                (account: Account, index: number) => (
-                  <option key={index} value={account.id}>
-                    {account.accountName + ' (' + account.accountNumber + ')'}
-                  </option>
-                )
-              )}
+              {accountList.map((account: Account, index: number) => (
+                <option key={index} value={account.id}>
+                  {account.accountName + " (" + account.accountNumber + ")"}
+                </option>
+              ))}
             </select>
           </div>
           <div className="entry">
             <label>Type</label>
             <select
               name="type"
-              onChange={e => setType(e.target.value)}
+              onChange={(e) => setType(e.target.value)}
               value={type}
               id="select-type"
             >
@@ -244,9 +250,7 @@ const TransactionForm = () => {
             <label>Date Transacted</label>
             <DatePicker
               selected={dateTransacted}
-              onChange={(date) =>
-                setDateTransacted(date as Date)
-              }
+              onChange={(date) => setDateTransacted(date as Date)}
               dateFormat="M/d/yyyy"
             />
           </div>
@@ -254,13 +258,17 @@ const TransactionForm = () => {
       </form>
       <div className="entry-row">
         <button onClick={() => handleSubmit()}>Submit</button>
-        <button onClick={() => { history.push('/transactions') }}>Cancel</button>
-        {id && (
-          <button onClick={() => deleteTransaction()}>Delete</button>
-        )}
+        <button
+          onClick={() => {
+            history.push("/transactions");
+          }}
+        >
+          Cancel
+        </button>
+        {id && <button onClick={() => deleteTransaction()}>Delete</button>}
       </div>
     </div>
   );
-}
+};
 
 export default withRouter(TransactionForm);

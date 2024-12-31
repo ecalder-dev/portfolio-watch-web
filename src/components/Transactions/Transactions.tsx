@@ -1,40 +1,73 @@
-import { useEffect, useState } from 'react';
-import './Transactions.css';
-import Transaction from '../../models/Transaction';
-import 'react-datepicker/dist/react-datepicker.css';
-import formatter from '../../utils/Formatter';
-import transactionService from '../../services/TransactionService';
-import { useHistory } from 'react-router-dom';
+import { ReactElement, useEffect, useState } from "react";
+import "./Transactions.css";
+import Transaction from "../../models/Transaction";
+import "react-datepicker/dist/react-datepicker.css";
+import formatter from "../../utils/Formatter";
+import transactionService from "../../services/TransactionService";
+import { useHistory } from "react-router-dom";
+import TableView from "../Shared/TableView";
+import Account from "../../models/Account";
 
 export const getDescriptionOfType = (type: string): string => {
   switch (type) {
-    case 'BUY':
-      return 'Buy';
-    case 'SELL':
-      return 'Sell';
-    case 'GIFT':
-      return 'Gift';
+    case "BUY":
+      return "Buy";
+    case "SELL":
+      return "Sell";
+    case "GIFT":
+      return "Gift";
     default:
       return null;
   }
-}
+};
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const history = useHistory();
+  const columns = [
+    {
+      header: "Type",
+      accessor: "type",
+      render: (data) => getDescriptionOfType(data.type),
+    },
+    {
+      header: "Account",
+      accessor: "account",
+      render: (data) => createAccountDisplay(data.account),
+    },
+    { header: "Symbol", accessor: "symbol" },
+    {
+      header: "Shares",
+      accessor: "shares",
+      render: (data) => formatter.formatNumber(data.shares),
+    },
+    {
+      header: "Price",
+      accessor: "price",
+      render: (data) => formatter.formatDollar(data.price),
+    },
+    { header: "Date", accessor: "dateTransacted" },
+  ];
+
+  const createAccountDisplay = (account: Account): ReactElement => {
+    return (
+      <span>{account.accountName + " (" + account.accountNumber + ")"}</span>
+    );
+  };
 
   const goToAddNew = (): void => {
-    history.push('/transactions/form');
-  }
+    history.push("/transactions/form");
+  };
 
   const goToEdit = (id: number): void => {
-    history.push('/transactions/form/' + id);
-  }
+    history.push("/transactions/form/" + id);
+  };
 
   useEffect(() => {
     let isSubscribed = true;
-    transactionService.getTransactions()
-      .then(json => {
+    transactionService
+      .getTransactions()
+      .then((json) => {
         const temp = json.data;
         temp.sort(function (a, b) {
           if (a.dateTransacted > b.dateTransacted) return -1;
@@ -43,11 +76,13 @@ const Transactions = () => {
         });
         if (isSubscribed) setTransactions(temp);
       })
-      .catch(err => {
+      .catch((err) => {
         setTransactions([]);
         console.log(err.message);
       });
-    return () => { isSubscribed = false };
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   return (
@@ -57,35 +92,14 @@ const Transactions = () => {
         <div className="TransactionsAddNew">
           <button onClick={() => goToAddNew()}>New</button>
         </div>
-        <table className="Transaction-table">
-          <thead>
-            <tr className="Transaction-tr">
-              <th className="Transaction-th">Type</th>
-              <th className="Transaction-th account">Account</th>
-              <th className="Transaction-th">Symbol</th>
-              <th className="Transaction-th">Shares</th>
-              <th className="Transaction-th">Price</th>
-              <th className="Transaction-th dateTransacted">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions != null && transactions.map((transaction: Transaction, index: number) =>
-            (<tr className="Transaction-tr" key={transaction.id}
-              onClick={() => goToEdit(transaction.id)}>
-              <td className="Transaction-td">{getDescriptionOfType(transaction.type)}</td>
-              <td className="Transaction-td account">{transaction.account.accountName
-                + ' (' + transaction.account.accountNumber + ')'}</td>
-              <td className="Transaction-td">{transaction.symbol}</td>
-              <td className="Transaction-td">{formatter.formatNumber(transaction.shares)}</td>
-              <td className="Transaction-td">{formatter.formatDollar(transaction.price)}</td>
-              <td className="Transaction-td dateTransacted">{formatter.getFormattedDateStr(transaction.dateTransacted)}</td>
-            </tr>))
-            }
-          </tbody>
-        </table>
+        <TableView
+          columns={columns}
+          data={transactions}
+          onRowClick={(transaction) => goToEdit(transaction.id)}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default Transactions;

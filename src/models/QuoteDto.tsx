@@ -1,4 +1,4 @@
-import IObjectKeys from './IObjectKeys';
+import IObjectKeys from "./IObjectKeys";
 
 interface QuoteDto extends IObjectKeys {
   symbol: string;

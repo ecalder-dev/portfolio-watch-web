@@ -1,42 +1,41 @@
-import { useEffect, useState } from 'react';
-import './TransferForm.css';
-import Transfer from '../../../models/Transfer';
-import Account from '../../../models/Account';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useHistory, useParams, withRouter } from 'react-router-dom';
-import accountService from '../../../services/AccountService';
-import transferService from '../../../services/TransferService';
-
+import { useEffect, useState } from "react";
+import "./TransferForm.css";
+import Transfer from "../../../models/Transfer";
+import Account from "../../../models/Account";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useHistory, useParams, withRouter } from "react-router-dom";
+import accountService from "../../../services/AccountService";
+import transferService from "../../../services/TransferService";
 
 const isValidNewTransfer = (transfer: Transfer): boolean => {
   if (!transfer.fromAccount) {
-    alert('From account should be selected.');
+    alert("From account should be selected.");
     return false;
   } else if (!transfer.toAccount) {
-    alert('To account should be selected.');
+    alert("To account should be selected.");
     return false;
   } else if (transfer.fromAccount.id === transfer.toAccount.id) {
-    alert('To and From Account should not be the same.');
+    alert("To and From Account should not be the same.");
     return false;
   } else if (!transfer.symbol || transfer.symbol.length === 0) {
-    alert('Symbol should not be empty.');
+    alert("Symbol should not be empty.");
     return false;
   } else if (!transfer.shares || transfer.shares === 0) {
-    alert('Shares should should not be empty or 0.');
+    alert("Shares should should not be empty or 0.");
     return false;
   } else if (!transfer.dateTransacted) {
-    alert('Transfer date should not be null.');
+    alert("Transfer date should not be null.");
     return false;
   } else {
     return true;
   }
-}
+};
 
 const TransferForm = () => {
-  const { id } = useParams<{ id }>()
+  const { id } = useParams<{ id }>();
   const [transferId, setTransferId] = useState(undefined);
-  const [symbol, setSymbol] = useState('');
+  const [symbol, setSymbol] = useState("");
   const [shares, setShares] = useState(0);
   const [fromAccount, setFromAccount] = useState(undefined);
   const [toAccount, setToAccount] = useState(undefined);
@@ -53,29 +52,29 @@ const TransferForm = () => {
       return;
     } else {
       switch (name) {
-        case 'symbol': {
-          setSymbol(value ? value.toUpperCase() : null)
+        case "symbol": {
+          setSymbol(value ? value.toUpperCase() : null);
           break;
         }
-        case 'shares': {
+        case "shares": {
           setShares(value);
           break;
         }
-        case 'fromAccount': {
+        case "fromAccount": {
           let valInt = parseInt(value, 0);
-          let found = accountList.filter(acct => acct.id === valInt);
-          setFromAccount(found.length > 0 ? found[0] : null)
+          let found = accountList.filter((acct) => acct.id === valInt);
+          setFromAccount(found.length > 0 ? found[0] : null);
           break;
         }
-        case 'toAccount': {
+        case "toAccount": {
           let valInt = parseInt(value, 0);
-          let found = accountList.filter(acct => acct.id === valInt);
-          setToAccount(found.length > 0 ? found[0] : null)
+          let found = accountList.filter((acct) => acct.id === valInt);
+          setToAccount(found.length > 0 ? found[0] : null);
           break;
         }
       }
     }
-  }
+  };
 
   const handleSubmit = () => {
     let transfer: Transfer;
@@ -96,30 +95,31 @@ const TransferForm = () => {
     if (transfer.id) {
       transferService.putTransfer(transfer).then((json) => {
         if (json.data) {
-          history.push('/transfers');
+          history.push("/transfers");
         }
       });
     } else {
       transferService.postTransfer(transfer).then((json) => {
         if (json.data) {
-          history.push('/transfers');
+          history.push("/transfers");
         }
       });
     }
-  }
+  };
 
   const deleteTransfer = () => {
-    if (window.confirm('Are you sure you want to delete this transfer?')) {
-      transferService.deleteTransfer(transferId)
+    if (window.confirm("Are you sure you want to delete this transfer?")) {
+      transferService
+        .deleteTransfer(transferId)
         .then(() => {
-          history.push('/transfers');
+          history.push("/transfers");
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.message);
-          alert('Transfer was not deleted.')
+          alert("Transfer was not deleted.");
         });
     }
-  }
+  };
 
   useEffect(() => {
     let isSubscribed = true;
@@ -143,118 +143,122 @@ const TransferForm = () => {
       .catch((err) => {
         console.log(err.message);
       });
-      return () => { isSubscribed = false };
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
-  useEffect(() => {  
+  useEffect(() => {
     let isSubscribed = true;
     if (id && accountList && accountList.length > 0) {
-      transferService.getTransfer(id).then((json) => {
-        if (json.data && isSubscribed) {
-          let transfer: Transfer = json.data;
-          setTransferId(transfer.id);
-          setSymbol(transfer.symbol);
-          setShares(transfer.shares);
-          setDateTransacted(new Date(transfer.dateTransacted));
-          setFromAccount(transfer.fromAccount);
-          setToAccount(transfer.toAccount);
-
-        } else {
-          history.push('/transfers');
-        }
-      }).catch((err) => {
-        console.log(err.message);
-      });
+      transferService
+        .getTransfer(id)
+        .then((json) => {
+          if (json.data && isSubscribed) {
+            let transfer: Transfer = json.data;
+            setTransferId(transfer.id);
+            setSymbol(transfer.symbol);
+            setShares(transfer.shares);
+            setDateTransacted(new Date(transfer.dateTransacted));
+            setFromAccount(transfer.fromAccount);
+            setToAccount(transfer.toAccount);
+          } else {
+            history.push("/transfers");
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
-    return () => { isSubscribed = false };
+    return () => {
+      isSubscribed = false;
+    };
   }, [id, accountList, history]);
 
   return (
-    <div className='TransferForms'>
-      <h1 className='title'>New Transfer</h1>
+    <div className="TransferForms">
+      <h1 className="title">New Transfer</h1>
       <form>
-        <div className='entry-row'>
-          <div className='entry'>
+        <div className="entry-row">
+          <div className="entry">
             <label>From Account</label>
             <select
-              name='fromAccount'
+              name="fromAccount"
               onChange={(e) => handleInputChange(e)}
               value={fromAccount ? fromAccount.id : null}
-              id='select-account'
+              id="select-account"
             >
               <option disabled value={-1}>
                 Select an Account
               </option>
-              {accountList.map(
-                (account: Account, index: number) => (
-                  <option key={index} value={account.id}>
-                    {account.accountName + ' (' + account.accountNumber + ')'}
-                  </option>
-                )
-              )}
+              {accountList.map((account: Account, index: number) => (
+                <option key={index} value={account.id}>
+                  {account.accountName + " (" + account.accountNumber + ")"}
+                </option>
+              ))}
             </select>
           </div>
-          <div className='entry'>
+          <div className="entry">
             <label>To Account</label>
             <select
-              name='toAccount'
+              name="toAccount"
               onChange={(e) => handleInputChange(e)}
               value={toAccount ? toAccount.id : null}
-              id='select-account'
+              id="select-account"
             >
               <option disabled value={-1}>
                 Select an Account
               </option>
-              {accountList.map(
-                (account: Account, index: number) => (
-                  <option key={index} value={account.id}>
-                    {account.accountName + ' (' + account.accountNumber + ')'}
-                  </option>
-                )
-              )}
+              {accountList.map((account: Account, index: number) => (
+                <option key={index} value={account.id}>
+                  {account.accountName + " (" + account.accountNumber + ")"}
+                </option>
+              ))}
             </select>
           </div>
-      </div>
-        <div className='entry-row'>
-          <div className='entry'>
+        </div>
+        <div className="entry-row">
+          <div className="entry">
             <label>Symbol</label>
             <input
               value={symbol}
-              name='symbol'
-              pattern='^[A-z]{1,5}$'
+              name="symbol"
+              pattern="^[A-z]{1,5}$"
               onInput={(e) => handleInputChange(e)}
             />
           </div>
-          <div className='entry'>
+          <div className="entry">
             <label>Shares</label>
             <input
               value={shares}
-              pattern='^\d*(\.\d{0,10})?$'
-              name='shares'
+              pattern="^\d*(\.\d{0,10})?$"
+              name="shares"
               onInput={(e) => handleInputChange(e)}
             />
           </div>
-          <div className='entry'>
+          <div className="entry">
             <label>Date Transacted</label>
             <DatePicker
               selected={dateTransacted}
-              onChange={(date) =>
-                setDateTransacted(date as Date)
-              }
-              dateFormat='M/d/yyyy'
+              onChange={(date) => setDateTransacted(date as Date)}
+              dateFormat="M/d/yyyy"
             />
           </div>
         </div>
       </form>
-      <div className='entry-row'>
+      <div className="entry-row">
         <button onClick={() => handleSubmit()}>Submit</button>
-        <button onClick={() => { history.push('/transfers') }}>Cancel</button>
-        {id && (
-          <button onClick={() => deleteTransfer()}>Delete</button>
-        )}
+        <button
+          onClick={() => {
+            history.push("/transfers");
+          }}
+        >
+          Cancel
+        </button>
+        {id && <button onClick={() => deleteTransfer()}>Delete</button>}
       </div>
     </div>
   );
-}
+};
 
 export default withRouter(TransferForm);

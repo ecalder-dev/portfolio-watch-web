@@ -51,6 +51,7 @@
   width: 150px;
 }
 
-.CorporateActionForms input:focus, select:focus {
+.CorporateActionForms input:focus,
+select:focus {
   outline: none;
 }

@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import './Dashboard.css';
-import Index from '../../models/Index';
-import dashboardService from '../../services/DashboardService';
-import IndexCard from './IndexCard';
-import QuotesTable from './QuotesTable';
-import portfolioService from '../../services/PortfolioService';
-import watchlistService from '../../services/WatchlistService';
+import { useEffect, useState } from "react";
+import "./Dashboard.css";
+import Index from "../../models/Index";
+import dashboardService from "../../services/DashboardService";
+import IndexCard from "./IndexCard";
+import QuotesTable from "./QuotesTable";
+import portfolioService from "../../services/PortfolioService";
+import watchlistService from "../../services/WatchlistService";
 
 const Dashboard = () => {
-  const [symbols, setSymbols] = useState([])
+  const [symbols, setSymbols] = useState([]);
   const [quoteDtos, setQuoteDtos] = useState([]);
   const [indices, setIndices] = useState([]);
 
@@ -16,48 +16,53 @@ const Dashboard = () => {
     let isSubscribed = true;
     let temp = [];
     let oneDone = false;
-    portfolioService.getOwnedSymbols()
-      .then(response => {
+    portfolioService
+      .getOwnedSymbols()
+      .then((response) => {
         if (response.data && response.data.length > 0) {
           temp.push([...response.data]);
-        }        
+        }
         if (oneDone && isSubscribed) {
           setSymbols(temp);
         } else {
           oneDone = true;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         if (!oneDone) {
           oneDone = true;
         }
       });
-    watchlistService.getWatchedSymbols()
-      .then(response => {
+    watchlistService
+      .getWatchedSymbols()
+      .then((response) => {
         if (response.data && response.data.length > 0) {
-          temp.push([...response.data.map(watched => watched.symbol)]);
-        }        
+          temp.push([...response.data.map((watched) => watched.symbol)]);
+        }
         if (oneDone && isSubscribed) {
           setSymbols(temp);
         } else {
           oneDone = true;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         if (!oneDone) {
           oneDone = true;
         }
       });
-    return () => { isSubscribed = false };
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   useEffect(() => {
     let isSubscribed = true;
     if (symbols.length > 0) {
-      dashboardService.getQuotes(symbols)
-        .then(json => {
+      dashboardService
+        .getQuotes(symbols)
+        .then((json) => {
           const temp = json.data;
           temp.sort(function (a, b) {
             if (a.percentChange > b.percentChange) return -1;
@@ -66,30 +71,32 @@ const Dashboard = () => {
           });
           if (isSubscribed) setQuoteDtos(temp);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.message);
         });
 
-      dashboardService.getIndices()
-        .then(json => {
+      dashboardService
+        .getIndices()
+        .then((json) => {
           if (isSubscribed) setIndices(json.data);
-
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.message);
         });
     }
-    return () => { isSubscribed = false };
+    return () => {
+      isSubscribed = false;
+    };
   }, [symbols]);
 
   return (
     <div className="Dashboard">
       <div className="Dashboard-body">
         <div className="Indices">
-          {indices != null
-            && indices.map((marketIndex: Index, index: number) =>
-              <IndexCard marketIndex={marketIndex} key={'index' + index} />
-            )}
+          {indices != null &&
+            indices.map((marketIndex: Index, index: number) => (
+              <IndexCard marketIndex={marketIndex} key={"index" + index} />
+            ))}
         </div>
         <div className="Summaries">
           <div className="Positions">
@@ -100,6 +107,6 @@ const Dashboard = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;
