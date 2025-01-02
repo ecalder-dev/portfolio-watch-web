@@ -1,9 +1,9 @@
-import axios, { AxiosResponse } from "axios";
-import Transaction from "../models/Transaction";
-import config from "../resources/config.json";
+import axios, { AxiosResponse } from 'axios';
+import Transaction from '../models/Transaction';
+import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
-let serviceUrl = config.serviceUrl + "/api/transactions";
+let serviceUrl = config.serviceUrl + '/api/transactions';
 
 const getTransactions = (): Promise<AxiosResponse<Array<Transaction>>> => {
   return axios.get(serviceUrl, {
@@ -12,7 +12,7 @@ const getTransactions = (): Promise<AxiosResponse<Array<Transaction>>> => {
 };
 
 const getTransaction = (id: number): Promise<AxiosResponse<Transaction>> => {
-  return axios.get(serviceUrl + "/" + id, {
+  return axios.get(serviceUrl + '/' + id, {
     cancelToken: source.token,
   });
 };
@@ -34,7 +34,7 @@ const postTransaction = (
 };
 
 const deleteTransaction = (id: string): Promise<AxiosResponse<void>> => {
-  return axios.delete(serviceUrl + "/" + id, {
+  return axios.delete(serviceUrl + '/' + id, {
     cancelToken: source.token,
   });
 };

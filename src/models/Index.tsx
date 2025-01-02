@@ -1,4 +1,4 @@
-import IObjectKeys from "./IObjectKeys";
+import IObjectKeys from './IObjectKeys';
 
 interface Index extends IObjectKeys {
   ticker: string;

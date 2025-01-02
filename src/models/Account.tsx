@@ -1,5 +1,5 @@
-import IObjectKeys from "./IObjectKeys";
-import CostBasis from "./CostBasis";
+import IObjectKeys from './IObjectKeys';
+import CostBasis from './CostBasis';
 
 interface Account extends IObjectKeys {
   id?: number;

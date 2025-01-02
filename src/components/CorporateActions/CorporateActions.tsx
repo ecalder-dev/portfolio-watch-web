@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import "./CorporateActions.css";
-import CorporateAction from "../../models/CorporateAction";
-import "react-datepicker/dist/react-datepicker.css";
-import formatter from "../../utils/Formatter";
-import { useHistory } from "react-router-dom";
-import corporateActionService from "../../services/CorporateActionService";
-import TableView from "../Shared/TableView";
+import { useEffect, useState } from 'react';
+import './CorporateActions.css';
+import CorporateAction from '../../models/CorporateAction';
+import 'react-datepicker/dist/react-datepicker.css';
+import formatter from '../../utils/Formatter';
+import { useHistory } from 'react-router-dom';
+import corporateActionService from '../../services/CorporateActionService';
+import TableView from '../Shared/TableView';
 
 const CorporateActions = () => {
   const [corporateActions, setCorporateActions] = useState<CorporateAction[]>(
@@ -13,25 +13,25 @@ const CorporateActions = () => {
   );
   const history = useHistory();
   const columns = [
-    { header: "Type", accessor: "type" },
-    { header: "Old Symbol", accessor: "oldSymbol" },
-    { header: "New Symbol", accessor: "newSymbol" },
-    { header: "Original Price", accessor: "originalPrice" },
-    { header: "Spin-Off Price", accessor: "spinOffPrice" },
+    { header: 'Type', accessor: 'type' },
+    { header: 'Old Symbol', accessor: 'oldSymbol' },
+    { header: 'New Symbol', accessor: 'newSymbol' },
+    { header: 'Original Price', accessor: 'originalPrice' },
+    { header: 'Spin-Off Price', accessor: 'spinOffPrice' },
     {
-      header: "Ratio",
-      accessor: "ratio",
+      header: 'Ratio',
+      accessor: 'ratio',
       render: (data) => toRatio(data.ratioAntecedent, data.ratioConsequent),
     },
-    { header: "Date of Event", accessor: "dateOfEvent" },
+    { header: 'Date of Event', accessor: 'dateOfEvent' },
   ];
 
   const goToAddNew = (): void => {
-    history.push("/corporate-actions/form");
+    history.push('/corporate-actions/form');
   };
 
   const goToEdit = (id: number): void => {
-    history.push("/corporate-actions/form/" + id);
+    history.push('/corporate-actions/form/' + id);
   };
 
   const toRatio = (
@@ -40,7 +40,7 @@ const CorporateActions = () => {
   ): String => {
     return (
       formatter.formatNumber(ratioAntecedent) +
-      ":" +
+      ':' +
       formatter.formatNumber(ratioConsequent)
     );
   };

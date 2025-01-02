@@ -1,5 +1,5 @@
-import React from "react";
-import "./TableView.css";
+import React from 'react';
+import './TableView.css';
 
 interface Column {
   header: string;

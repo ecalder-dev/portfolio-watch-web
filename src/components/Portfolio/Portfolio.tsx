@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import CostBasis from "../../models/CostBasis";
-import QuoteDto from "../../models/QuoteDto";
-import dashboardService from "../../services/DashboardService";
-import portfolioService from "../../services/PortfolioService";
-import "./Portfolio.css";
-import PortfolioCostBasisList from "./PortfolioCostBasisList/PortfolioCostBasisList";
-import PortfolioSimulation from "./PortfolioSimulation/PortfolioSimulation";
+import { useEffect, useState } from 'react';
+import CostBasis from '../../models/CostBasis';
+import QuoteDto from '../../models/QuoteDto';
+import dashboardService from '../../services/DashboardService';
+import portfolioService from '../../services/PortfolioService';
+import './Portfolio.css';
+import PortfolioCostBasisList from './PortfolioCostBasisList/PortfolioCostBasisList';
+import PortfolioSimulation from './PortfolioSimulation/PortfolioSimulation';
 
 const Portfolio = () => {
   const [costBasisList, setCostBasisList] = useState<CostBasis[]>([]);

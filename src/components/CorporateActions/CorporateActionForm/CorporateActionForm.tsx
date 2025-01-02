@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import "./CorporateActionForm.css";
-import CorporateAction from "../../../models/CorporateAction";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useHistory, useParams, withRouter } from "react-router-dom";
-import corporateActionService from "../../../services/CorporateActionService";
+import { useEffect, useState } from 'react';
+import './CorporateActionForm.css';
+import CorporateAction from '../../../models/CorporateAction';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useHistory, useParams, withRouter } from 'react-router-dom';
+import corporateActionService from '../../../services/CorporateActionService';
 
-const typeList = ["MERGE", "SPIN", "SPLIT"];
+const typeList = ['MERGE', 'SPIN', 'SPLIT'];
 
 export const getDescriptionOfType = (type: string): string => {
   switch (type) {
-    case "MERGE":
-      return "Merger";
-    case "SPIN":
-      return "Spin Off";
-    case "SPLIT":
-      return "Split";
+    case 'MERGE':
+      return 'Merger';
+    case 'SPIN':
+      return 'Spin Off';
+    case 'SPLIT':
+      return 'Split';
     default:
       return null;
   }
@@ -30,9 +30,9 @@ const isValidNewCorporateAction = (
 const CorporateActionForm = () => {
   const { id } = useParams<{ id }>();
   const [corporateActionId, setCorporateActionId] = useState(undefined);
-  const [type, setType] = useState("MERGE");
-  const [oldSymbol, setOldSymbol] = useState("");
-  const [newSymbol, setNewSymbol] = useState("");
+  const [type, setType] = useState('MERGE');
+  const [oldSymbol, setOldSymbol] = useState('');
+  const [newSymbol, setNewSymbol] = useState('');
   const [originalPrice, setOriginalPrice] = useState(0);
   const [spinOffPrice, setSpinOffPrice] = useState(0);
   const [ratioAntecedent, setRatioAntecedent] = useState(0);
@@ -49,31 +49,31 @@ const CorporateActionForm = () => {
       return;
     } else {
       switch (name) {
-        case "type": {
+        case 'type': {
           setType(value);
           break;
         }
-        case "oldSymbol": {
+        case 'oldSymbol': {
           setOldSymbol(value ? value.toUpperCase() : null);
           break;
         }
-        case "newSymbol": {
+        case 'newSymbol': {
           setNewSymbol(value ? value.toUpperCase() : null);
           break;
         }
-        case "originalPrice": {
+        case 'originalPrice': {
           setOriginalPrice(value);
           break;
         }
-        case "spinOffPrice": {
+        case 'spinOffPrice': {
           setSpinOffPrice(value);
           break;
         }
-        case "ratioAntecedent": {
+        case 'ratioAntecedent': {
           setRatioAntecedent(value);
           break;
         }
-        case "ratioConsequent": {
+        case 'ratioConsequent': {
           setRatioConsequent(value);
           break;
         }
@@ -105,7 +105,7 @@ const CorporateActionForm = () => {
         .putCorporateAction(corporateAction)
         .then((json) => {
           if (json.data) {
-            history.push("/corporate-actions");
+            history.push('/corporate-actions');
           }
         });
     } else {
@@ -113,7 +113,7 @@ const CorporateActionForm = () => {
         .postCorporateAction(corporateAction)
         .then((json) => {
           if (json.data) {
-            history.push("/corporate-actions");
+            history.push('/corporate-actions');
           }
         });
     }
@@ -121,16 +121,16 @@ const CorporateActionForm = () => {
 
   const deleteCorporateAction = () => {
     if (
-      window.confirm("Are you sure you want to delete this corporate action?")
+      window.confirm('Are you sure you want to delete this corporate action?')
     ) {
       corporateActionService
         .deleteCorporateAction(corporateActionId)
         .then(() => {
-          history.push("/corporate-actions");
+          history.push('/corporate-actions');
         })
         .catch((err) => {
           console.log(err.message);
-          alert("CorporateAction was not deleted.");
+          alert('CorporateAction was not deleted.');
         });
     }
   };
@@ -153,7 +153,7 @@ const CorporateActionForm = () => {
             setRatioConsequent(corporateAction.ratioConsequent);
             setDateOfEvent(new Date(corporateAction.dateOfEvent));
           } else {
-            history.push("/corporate-actions");
+            history.push('/corporate-actions');
           }
         })
         .catch((err) => {
@@ -179,7 +179,7 @@ const CorporateActionForm = () => {
               id="select-type"
             >
               {typeList.map((type: string, index: number) => (
-                <option key={"type-" + index} value={type}>
+                <option key={'type-' + index} value={type}>
                   {getDescriptionOfType(type)}
                 </option>
               ))}
@@ -261,7 +261,7 @@ const CorporateActionForm = () => {
         <button onClick={() => handleSubmit()}>Submit</button>
         <button
           onClick={() => {
-            history.push("/corporate-actions");
+            history.push('/corporate-actions');
           }}
         >
           Cancel

@@ -1,14 +1,14 @@
-import Account from "../../models/Account";
-import accountService from "../../services/AccountService";
-import formatter from "../../utils/Formatter";
+import Account from '../../models/Account';
+import accountService from '../../services/AccountService';
+import formatter from '../../utils/Formatter';
 
 const showHiddenValue = (isHidden: boolean) => {
-  return isHidden ? "Hidden" : "Shown";
+  return isHidden ? 'Hidden' : 'Shown';
 };
 
 const ViewAccountRow = ({ accounts, setAccounts, account, setEditable }) => {
   const deleteRow = (account: Account) => {
-    if (window.confirm("Are you sure you want to delete this account?")) {
+    if (window.confirm('Are you sure you want to delete this account?')) {
       accountService
         .deleteAccount(account.id)
         .then(() => {

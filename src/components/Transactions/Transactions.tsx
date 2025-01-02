@@ -1,21 +1,21 @@
-import { ReactElement, useEffect, useState } from "react";
-import "./Transactions.css";
-import Transaction from "../../models/Transaction";
-import "react-datepicker/dist/react-datepicker.css";
-import formatter from "../../utils/Formatter";
-import transactionService from "../../services/TransactionService";
-import { useHistory } from "react-router-dom";
-import TableView from "../Shared/TableView";
-import Account from "../../models/Account";
+import { ReactElement, useEffect, useState } from 'react';
+import './Transactions.css';
+import Transaction from '../../models/Transaction';
+import 'react-datepicker/dist/react-datepicker.css';
+import formatter from '../../utils/Formatter';
+import transactionService from '../../services/TransactionService';
+import { useHistory } from 'react-router-dom';
+import TableView from '../Shared/TableView';
+import Account from '../../models/Account';
 
 export const getDescriptionOfType = (type: string): string => {
   switch (type) {
-    case "BUY":
-      return "Buy";
-    case "SELL":
-      return "Sell";
-    case "GIFT":
-      return "Gift";
+    case 'BUY':
+      return 'Buy';
+    case 'SELL':
+      return 'Sell';
+    case 'GIFT':
+      return 'Gift';
     default:
       return null;
   }
@@ -26,41 +26,41 @@ const Transactions = () => {
   const history = useHistory();
   const columns = [
     {
-      header: "Type",
-      accessor: "type",
+      header: 'Type',
+      accessor: 'type',
       render: (data) => getDescriptionOfType(data.type),
     },
     {
-      header: "Account",
-      accessor: "account",
+      header: 'Account',
+      accessor: 'account',
       render: (data) => createAccountDisplay(data.account),
     },
-    { header: "Symbol", accessor: "symbol" },
+    { header: 'Symbol', accessor: 'symbol' },
     {
-      header: "Shares",
-      accessor: "shares",
+      header: 'Shares',
+      accessor: 'shares',
       render: (data) => formatter.formatNumber(data.shares),
     },
     {
-      header: "Price",
-      accessor: "price",
+      header: 'Price',
+      accessor: 'price',
       render: (data) => formatter.formatDollar(data.price),
     },
-    { header: "Date", accessor: "dateTransacted" },
+    { header: 'Date', accessor: 'dateTransacted' },
   ];
 
   const createAccountDisplay = (account: Account): ReactElement => {
     return (
-      <span>{account.accountName + " (" + account.accountNumber + ")"}</span>
+      <span>{account.accountName + ' (' + account.accountNumber + ')'}</span>
     );
   };
 
   const goToAddNew = (): void => {
-    history.push("/transactions/form");
+    history.push('/transactions/form');
   };
 
   const goToEdit = (id: number): void => {
-    history.push("/transactions/form/" + id);
+    history.push('/transactions/form/' + id);
   };
 
   useEffect(() => {

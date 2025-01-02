@@ -1,9 +1,9 @@
-import axios, { AxiosResponse } from "axios";
-import CorporateAction from "../models/CorporateAction";
-import config from "../resources/config.json";
+import axios, { AxiosResponse } from 'axios';
+import CorporateAction from '../models/CorporateAction';
+import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
-let serviceUrl = config.serviceUrl + "/api/corporate-actions";
+let serviceUrl = config.serviceUrl + '/api/corporate-actions';
 
 const getCorporateActions = (): Promise<
   AxiosResponse<Array<CorporateAction>>
@@ -16,7 +16,7 @@ const getCorporateActions = (): Promise<
 const getCorporateAction = (
   id: number,
 ): Promise<AxiosResponse<CorporateAction>> => {
-  return axios.get(serviceUrl + "/" + id, {
+  return axios.get(serviceUrl + '/' + id, {
     cancelToken: source.token,
   });
 };
@@ -38,7 +38,7 @@ const postCorporateAction = (
 };
 
 const deleteCorporateAction = (id: string): Promise<AxiosResponse<void>> => {
-  return axios.delete(serviceUrl + "/" + id, {
+  return axios.delete(serviceUrl + '/' + id, {
     cancelToken: source.token,
   });
 };

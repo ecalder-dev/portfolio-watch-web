@@ -1,4 +1,4 @@
-import formatter from "../../utils/Formatter";
+import formatter from '../../utils/Formatter';
 
 const IndexCard = ({ marketIndex }) => {
   return (
@@ -9,7 +9,7 @@ const IndexCard = ({ marketIndex }) => {
           {formatter.formatNumber(marketIndex.lastPrice)}
         </span>
         <span
-          className={`IndexStatsPercChange ${marketIndex.percentChange >= 0 ? "Green" : "Red"}`}
+          className={`IndexStatsPercChange ${marketIndex.percentChange >= 0 ? 'Green' : 'Red'}`}
         >
           {marketIndex.percentChange} %
         </span>

@@ -1,8 +1,8 @@
-import { useState } from "react";
-import CostBasis from "../../../models/CostBasis";
-import Lot from "../../../models/Lot";
-import formatter from "../../../utils/Formatter";
-import "./PortfolioCostBasisList.css";
+import { useState } from 'react';
+import CostBasis from '../../../models/CostBasis';
+import Lot from '../../../models/Lot';
+import formatter from '../../../utils/Formatter';
+import './PortfolioCostBasisList.css';
 
 const PortfolioCostBasisList = ({
   costBasisList,
@@ -33,13 +33,13 @@ const CostBasisCard = ({ costBasis, quoteDto, totalAssetValue }) => {
     ? formatter.formatPerc(
         (costBasis.totalShares * quoteDto.currentPrice) / totalAssetValue,
       )
-    : "--%";
+    : '--%';
   const currentPrice = quoteDto
     ? formatter.formatDollar(quoteDto.currentPrice)
-    : "--";
+    : '--';
   const currentValue = quoteDto
     ? formatter.formatDollar(costBasis.totalShares * quoteDto.currentPrice)
-    : "--%";
+    : '--%';
   const [lotListHidden, setLotListHidden] = useState(true);
 
   const onButtonClick = () => {
@@ -53,23 +53,23 @@ const CostBasisCard = ({ costBasis, quoteDto, totalAssetValue }) => {
           <div>{costBasis.symbol}</div>
           <div>
             <FieldValue
-              field={"Shares"}
+              field={'Shares'}
               value={formatter.formatNumber(costBasis.totalShares)}
             />
             <FieldValue
-              field={"Cost Basis"}
+              field={'Cost Basis'}
               value={formatter.formatDollar(costBasis.adjustedPrice)}
             />
             <FieldValue
-              field={"Last Transacted"}
+              field={'Last Transacted'}
               value={costBasis.latestTransactionDate}
             />
-            <FieldValue field={"Current Price"} value={currentPrice} />
-            <FieldValue field={"Total Value"} value={currentValue} />
-            <FieldValue field={"Diversification"} value={percent} />
+            <FieldValue field={'Current Price'} value={currentPrice} />
+            <FieldValue field={'Total Value'} value={currentValue} />
+            <FieldValue field={'Diversification'} value={percent} />
             <div>
               <button className="LotListViewButton" onClick={onButtonClick}>
-                {lotListHidden ? "Details" : "Hide"}
+                {lotListHidden ? 'Details' : 'Hide'}
               </button>
             </div>
           </div>
@@ -83,19 +83,19 @@ const CostBasisCard = ({ costBasis, quoteDto, totalAssetValue }) => {
 const LotListView = ({ lotList, hidden }) => {
   const lots = lotList ? (lotList as Lot[]) : ([] as Lot[]);
   return (
-    <div className={`LotListView ${hidden ? "hidden" : ""}`}>
+    <div className={`LotListView ${hidden ? 'hidden' : ''}`}>
       {lots.map((lot: Lot) => {
         return (
           <div className="LotListCard" key={lot.lotId}>
             <FieldValue
-              field={"Shares"}
+              field={'Shares'}
               value={formatter.formatNumber(lot.shares)}
             />
             <FieldValue
-              field={"Price Purchased"}
+              field={'Price Purchased'}
               value={formatter.formatDollar(lot.price)}
             />
-            <FieldValue field={"Date Transacted"} value={lot.dateTransacted} />
+            <FieldValue field={'Date Transacted'} value={lot.dateTransacted} />
           </div>
         );
       })}

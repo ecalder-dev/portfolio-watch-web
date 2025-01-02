@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import "./Accounts.css";
-import Account from "../../models/Account";
-import "react-datepicker/dist/react-datepicker.css";
-import accountService from "../../services/AccountService";
-import ViewAccountRow from "./ViewAccountRow";
-import EditAccountRow from "./EditAccountRow";
-import NewAccountRow from "./NewAccountRow";
+import { useState, useEffect } from 'react';
+import './Accounts.css';
+import Account from '../../models/Account';
+import 'react-datepicker/dist/react-datepicker.css';
+import accountService from '../../services/AccountService';
+import ViewAccountRow from './ViewAccountRow';
+import EditAccountRow from './EditAccountRow';
+import NewAccountRow from './NewAccountRow';
 
 const AccountsPage = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);

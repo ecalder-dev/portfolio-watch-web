@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import "./Dashboard.css";
-import Index from "../../models/Index";
-import dashboardService from "../../services/DashboardService";
-import IndexCard from "./IndexCard";
-import QuotesTable from "./QuotesTable";
-import portfolioService from "../../services/PortfolioService";
-import watchlistService from "../../services/WatchlistService";
+import { useEffect, useState } from 'react';
+import './Dashboard.css';
+import Index from '../../models/Index';
+import dashboardService from '../../services/DashboardService';
+import IndexCard from './IndexCard';
+import QuotesTable from './QuotesTable';
+import portfolioService from '../../services/PortfolioService';
+import watchlistService from '../../services/WatchlistService';
 
 const Dashboard = () => {
   const [symbols, setSymbols] = useState([]);
@@ -95,7 +95,7 @@ const Dashboard = () => {
         <div className="Indices">
           {indices != null &&
             indices.map((marketIndex: Index, index: number) => (
-              <IndexCard marketIndex={marketIndex} key={"index" + index} />
+              <IndexCard marketIndex={marketIndex} key={'index' + index} />
             ))}
         </div>
         <div className="Summaries">

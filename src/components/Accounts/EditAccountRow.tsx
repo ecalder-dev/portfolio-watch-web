@@ -1,7 +1,7 @@
-import { useState } from "react";
-import DatePicker from "react-datepicker";
-import Account from "../../models/Account";
-import accountService from "../../services/AccountService";
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import Account from '../../models/Account';
+import accountService from '../../services/AccountService';
 
 const EditAccountRow = ({ setEditable, accounts, account }) => {
   const [accountName, setAccountName] = useState<string>(account.accountName);

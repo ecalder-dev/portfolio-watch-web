@@ -1,9 +1,9 @@
-import axios, { AxiosResponse } from "axios";
-import Account from "../models/Account";
-import config from "../resources/config.json";
+import axios, { AxiosResponse } from 'axios';
+import Account from '../models/Account';
+import config from '../resources/config.json';
 
 let source = axios.CancelToken.source();
-let serviceUrl = config.serviceUrl + "/api/accounts";
+let serviceUrl = config.serviceUrl + '/api/accounts';
 
 const getAccounts = (): Promise<AxiosResponse<Array<Account>>> => {
   return axios.get(serviceUrl, {
@@ -12,7 +12,7 @@ const getAccounts = (): Promise<AxiosResponse<Array<Account>>> => {
 };
 
 const getVisibleAccountsOnly = (): Promise<AxiosResponse<Array<Account>>> => {
-  return axios.get(serviceUrl + "?showHidden=false", {
+  return axios.get(serviceUrl + '?showHidden=false', {
     cancelToken: source.token,
   });
 };
@@ -30,12 +30,12 @@ const postAccount = (account: Account): Promise<AxiosResponse<Account>> => {
 };
 
 const deleteAccount = (id: number): Promise<AxiosResponse<void>> => {
-  return axios.delete(serviceUrl + "/" + id);
+  return axios.delete(serviceUrl + '/' + id);
 };
 
 const cancelRequest = () => {
   if (source) {
-    source.cancel("Cancelling request.");
+    source.cancel('Cancelling request.');
   }
 };
 

@@ -1,5 +1,5 @@
-import IObjectKeys from "./IObjectKeys";
-import Lot from "./Lot";
+import IObjectKeys from './IObjectKeys';
+import Lot from './Lot';
 
 interface CostBasis extends IObjectKeys {
   symbol: string;

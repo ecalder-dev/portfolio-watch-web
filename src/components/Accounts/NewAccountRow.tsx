@@ -1,11 +1,11 @@
-import { useState } from "react";
-import DatePicker from "react-datepicker";
-import Account from "../../models/Account";
-import accountService from "../../services/AccountService";
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import Account from '../../models/Account';
+import accountService from '../../services/AccountService';
 
 const NewAccountRow = ({ accounts, setAccounts, setCreatingAccount }) => {
-  const [accountName, setAccountName] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
+  const [accountName, setAccountName] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
   const [dateOpened, setDateOpened] = useState(null);
   const [dateClosed, setDateClosed] = useState(null);
   const [isHidden, setIsHidden] = useState(false);

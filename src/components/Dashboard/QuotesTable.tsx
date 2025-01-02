@@ -1,5 +1,5 @@
-import QuoteDto from "../../models/QuoteDto";
-import formatter from "../../utils/Formatter";
+import QuoteDto from '../../models/QuoteDto';
+import formatter from '../../utils/Formatter';
 
 const QuotesTable = ({ quoteDtos }) => {
   return (
@@ -16,13 +16,13 @@ const QuotesTable = ({ quoteDtos }) => {
       <tbody>
         {quoteDtos != null &&
           quoteDtos.map((quoteDto: QuoteDto, index: number) => (
-            <tr className="Dashboard-tr" key={"quoteDto" + index}>
+            <tr className="Dashboard-tr" key={'quoteDto' + index}>
               <td className="Dashboard-td symbol">{quoteDto.symbol}</td>
               <td className="Dashboard-td price">
                 {formatter.formatDollar(quoteDto.currentPrice)}
               </td>
               <td
-                className={`Dashboard-td percent ${quoteDto.percentChange >= 0 ? "Green" : "Red"}`}
+                className={`Dashboard-td percent ${quoteDto.percentChange >= 0 ? 'Green' : 'Red'}`}
               >
                 {formatter.formatPerc(quoteDto.percentChange / 100)}
               </td>

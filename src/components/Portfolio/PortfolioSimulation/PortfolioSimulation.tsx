@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import formatter from "../../../utils/Formatter";
-import "./PortfolioSimulation.css";
+import { useEffect, useState } from 'react';
+import formatter from '../../../utils/Formatter';
+import './PortfolioSimulation.css';
 
 interface SimulationFields {
   symbol: number;
@@ -74,7 +74,7 @@ const AssetValueDisplay = ({ totalAssetValue, changeOfAssetValue }) => {
   return (
     <div className="AssetValueDisplay">
       Simulated Total: {formatter.formatDollar(totalAssetValue)}
-      <span className={changeOfAssetValue > 0 ? "positive" : "negative"}>
+      <span className={changeOfAssetValue > 0 ? 'positive' : 'negative'}>
         ({formatter.formatDollar(changeOfAssetValue)})
       </span>
     </div>
@@ -110,7 +110,7 @@ const CostBasisCard = ({
 
   const getPercent = (totalShares: number, currentPrice: number) => {
     if (totalAssetValue === 0) {
-      return "0%";
+      return '0%';
     }
     return formatter.formatPerc((totalShares * currentPrice) / totalAssetValue);
   };
@@ -123,7 +123,7 @@ const CostBasisCard = ({
           <div className="CostBasisValues">
             <div className="Input">
               <FieldInput
-                field={"Shares"}
+                field={'Shares'}
                 fieldValue={simulatedTotalShares}
                 setFieldValue={setSimulatedTotalShares}
                 originalValue={simulationField.totalShares}
@@ -131,7 +131,7 @@ const CostBasisCard = ({
                 withCounter={true}
               />
               <FieldInput
-                field={"Current Price"}
+                field={'Current Price'}
                 fieldValue={currentPrice}
                 setFieldValue={setCurrentPrice}
                 originalValue={currentPrice}
@@ -142,13 +142,13 @@ const CostBasisCard = ({
           </div>
           <div className="Simulated">
             <FieldValue
-              field={"Simulated Total Value"}
+              field={'Simulated Total Value'}
               value={getCurrentValue(simulatedTotalShares, currentPrice)}
             />
           </div>
           <div className="Simulated">
             <FieldValue
-              field={"Simulated Diversification"}
+              field={'Simulated Diversification'}
               value={getPercent(simulatedTotalShares, currentPrice)}
             />
           </div>
@@ -200,7 +200,7 @@ const FieldInput = ({
   let difference = fieldValue - originalValue;
   let sign = null;
   if (difference !== 0) {
-    sign = fieldValue > originalValue ? "positive" : "negative";
+    sign = fieldValue > originalValue ? 'positive' : 'negative';
   }
 
   return (
@@ -215,7 +215,7 @@ const FieldInput = ({
         />
         {sign && <span className={sign}>({fieldValue - originalValue})</span>}
         {withCounter && (
-          <div className={"CounterButtons"}>
+          <div className={'CounterButtons'}>
             <button onClick={decrease}>-</button>
             <button onClick={increase}>+</button>
           </div>

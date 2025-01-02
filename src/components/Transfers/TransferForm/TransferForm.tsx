@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
-import "./TransferForm.css";
-import Transfer from "../../../models/Transfer";
-import Account from "../../../models/Account";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useHistory, useParams, withRouter } from "react-router-dom";
-import accountService from "../../../services/AccountService";
-import transferService from "../../../services/TransferService";
+import { useEffect, useState } from 'react';
+import './TransferForm.css';
+import Transfer from '../../../models/Transfer';
+import Account from '../../../models/Account';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useHistory, useParams, withRouter } from 'react-router-dom';
+import accountService from '../../../services/AccountService';
+import transferService from '../../../services/TransferService';
 
 const isValidNewTransfer = (transfer: Transfer): boolean => {
   if (!transfer.fromAccount) {
-    alert("From account should be selected.");
+    alert('From account should be selected.');
     return false;
   } else if (!transfer.toAccount) {
-    alert("To account should be selected.");
+    alert('To account should be selected.');
     return false;
   } else if (transfer.fromAccount.id === transfer.toAccount.id) {
-    alert("To and From Account should not be the same.");
+    alert('To and From Account should not be the same.');
     return false;
   } else if (!transfer.symbol || transfer.symbol.length === 0) {
-    alert("Symbol should not be empty.");
+    alert('Symbol should not be empty.');
     return false;
   } else if (!transfer.shares || transfer.shares === 0) {
-    alert("Shares should should not be empty or 0.");
+    alert('Shares should should not be empty or 0.');
     return false;
   } else if (!transfer.dateTransacted) {
-    alert("Transfer date should not be null.");
+    alert('Transfer date should not be null.');
     return false;
   } else {
     return true;
@@ -35,7 +35,7 @@ const isValidNewTransfer = (transfer: Transfer): boolean => {
 const TransferForm = () => {
   const { id } = useParams<{ id }>();
   const [transferId, setTransferId] = useState(undefined);
-  const [symbol, setSymbol] = useState("");
+  const [symbol, setSymbol] = useState('');
   const [shares, setShares] = useState(0);
   const [fromAccount, setFromAccount] = useState(undefined);
   const [toAccount, setToAccount] = useState(undefined);
@@ -52,21 +52,21 @@ const TransferForm = () => {
       return;
     } else {
       switch (name) {
-        case "symbol": {
+        case 'symbol': {
           setSymbol(value ? value.toUpperCase() : null);
           break;
         }
-        case "shares": {
+        case 'shares': {
           setShares(value);
           break;
         }
-        case "fromAccount": {
+        case 'fromAccount': {
           let valInt = parseInt(value, 0);
           let found = accountList.filter((acct) => acct.id === valInt);
           setFromAccount(found.length > 0 ? found[0] : null);
           break;
         }
-        case "toAccount": {
+        case 'toAccount': {
           let valInt = parseInt(value, 0);
           let found = accountList.filter((acct) => acct.id === valInt);
           setToAccount(found.length > 0 ? found[0] : null);
@@ -95,28 +95,28 @@ const TransferForm = () => {
     if (transfer.id) {
       transferService.putTransfer(transfer).then((json) => {
         if (json.data) {
-          history.push("/transfers");
+          history.push('/transfers');
         }
       });
     } else {
       transferService.postTransfer(transfer).then((json) => {
         if (json.data) {
-          history.push("/transfers");
+          history.push('/transfers');
         }
       });
     }
   };
 
   const deleteTransfer = () => {
-    if (window.confirm("Are you sure you want to delete this transfer?")) {
+    if (window.confirm('Are you sure you want to delete this transfer?')) {
       transferService
         .deleteTransfer(transferId)
         .then(() => {
-          history.push("/transfers");
+          history.push('/transfers');
         })
         .catch((err) => {
           console.log(err.message);
-          alert("Transfer was not deleted.");
+          alert('Transfer was not deleted.');
         });
     }
   };
@@ -163,7 +163,7 @@ const TransferForm = () => {
             setFromAccount(transfer.fromAccount);
             setToAccount(transfer.toAccount);
           } else {
-            history.push("/transfers");
+            history.push('/transfers');
           }
         })
         .catch((err) => {
@@ -193,7 +193,7 @@ const TransferForm = () => {
               </option>
               {accountList.map((account: Account, index: number) => (
                 <option key={index} value={account.id}>
-                  {account.accountName + " (" + account.accountNumber + ")"}
+                  {account.accountName + ' (' + account.accountNumber + ')'}
                 </option>
               ))}
             </select>
@@ -211,7 +211,7 @@ const TransferForm = () => {
               </option>
               {accountList.map((account: Account, index: number) => (
                 <option key={index} value={account.id}>
-                  {account.accountName + " (" + account.accountNumber + ")"}
+                  {account.accountName + ' (' + account.accountNumber + ')'}
                 </option>
               ))}
             </select>
@@ -250,7 +250,7 @@ const TransferForm = () => {
         <button onClick={() => handleSubmit()}>Submit</button>
         <button
           onClick={() => {
-            history.push("/transfers");
+            history.push('/transfers');
           }}
         >
           Cancel

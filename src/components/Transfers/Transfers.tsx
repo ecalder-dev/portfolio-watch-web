@@ -1,48 +1,48 @@
-import { ReactElement, useEffect, useState } from "react";
-import "./Transfers.css";
-import Transfer from "../../models/Transfer";
-import "react-datepicker/dist/react-datepicker.css";
-import formatter from "../../utils/Formatter";
-import { useHistory } from "react-router-dom";
-import transferService from "../../services/TransferService";
-import Account from "../../models/Account";
-import TableView from "../Shared/TableView";
+import { ReactElement, useEffect, useState } from 'react';
+import './Transfers.css';
+import Transfer from '../../models/Transfer';
+import 'react-datepicker/dist/react-datepicker.css';
+import formatter from '../../utils/Formatter';
+import { useHistory } from 'react-router-dom';
+import transferService from '../../services/TransferService';
+import Account from '../../models/Account';
+import TableView from '../Shared/TableView';
 
 const Transfers = () => {
   const [transfers, setTransfers] = useState<Transfer[]>([]);
   const history = useHistory();
   const columns = [
-    { header: "Symbol", accessor: "symbol" },
+    { header: 'Symbol', accessor: 'symbol' },
     {
-      header: "Shares",
-      accessor: "shares",
+      header: 'Shares',
+      accessor: 'shares',
       render: (data) => formatter.formatNumber(data.shares),
     },
     {
-      header: "From Account",
-      accessor: "fromAccount",
+      header: 'From Account',
+      accessor: 'fromAccount',
       render: (data) => createAccountDisplay(data.fromAccount),
     },
     {
-      header: "To Account",
-      accessor: "toAccount",
+      header: 'To Account',
+      accessor: 'toAccount',
       render: (data) => createAccountDisplay(data.toAccount),
     },
-    { header: "Date", accessor: "dateTransacted" },
+    { header: 'Date', accessor: 'dateTransacted' },
   ];
 
   const createAccountDisplay = (account: Account): ReactElement => {
     return (
-      <span>{account.accountName + " (" + account.accountNumber + ")"}</span>
+      <span>{account.accountName + ' (' + account.accountNumber + ')'}</span>
     );
   };
 
   const goToAddNew = (): void => {
-    history.push("/transfers/form");
+    history.push('/transfers/form');
   };
 
   const goToEdit = (id: number): void => {
-    history.push("/transfers/form/" + id);
+    history.push('/transfers/form/' + id);
   };
 
   useEffect(() => {
