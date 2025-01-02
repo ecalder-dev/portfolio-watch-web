@@ -2,9 +2,14 @@ const numberFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 4,
 });
 
-const currencyFormatter = new Intl.NumberFormat('en-US', {
+const usdCurrencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
+});
+
+const jpyCurrencyFormatter = new Intl.NumberFormat('ja-JP', {
+  style: 'currency',
+  currency: 'JPY',
 });
 
 const percentFormatter = new Intl.NumberFormat('en-US', {
@@ -34,8 +39,20 @@ const formatNumber = (num: number) => {
   return numberFormatter.format(num);
 };
 
+const formatMoney = (num: number, currency: string) => {
+  if (currency === 'JPY') {
+    return jpyCurrencyFormatter.format(num);
+  } else {
+    return usdCurrencyFormatter.format(num);
+  }
+};
+
 const formatDollar = (num: number) => {
-  return currencyFormatter.format(num);
+  return usdCurrencyFormatter.format(num);
+};
+
+const formatYen = (num: number) => {
+  return jpyCurrencyFormatter.format(num);
 };
 
 const formatPerc = (num: number) => {
@@ -68,6 +85,8 @@ const formatter = {
   getFormattedDateStr,
   formatNumber,
   formatDollar,
+  formatYen,
+  formatMoney,
   formatPerc,
   formatDate,
   formatDatetime,

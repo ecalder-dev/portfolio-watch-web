@@ -61,6 +61,14 @@ const Toolbar = (props: RouteComponentProps) => {
           Accounts
         </button>
       </div>
+      <div className="Toolbar-item">
+        <button
+          onClick={() => goTo('/earnings')}
+          className={`${page === '/earnings' ? 'isActive' : ''}`}
+        >
+          Earnings
+        </button>
+      </div>
     </div>
   );
 };

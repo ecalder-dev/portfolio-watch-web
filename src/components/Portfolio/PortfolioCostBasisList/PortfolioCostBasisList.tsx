@@ -3,6 +3,7 @@ import CostBasis from '../../../models/CostBasis';
 import Lot from '../../../models/Lot';
 import formatter from '../../../utils/Formatter';
 import './PortfolioCostBasisList.css';
+import FieldValue from '../../Shared/FieldView';
 
 const PortfolioCostBasisList = ({
   costBasisList,
@@ -99,15 +100,6 @@ const LotListView = ({ lotList, hidden }) => {
           </div>
         );
       })}
-    </div>
-  );
-};
-
-const FieldValue = ({ field, value }) => {
-  return (
-    <div className="FieldValue">
-      <div>{field}</div>
-      <div>{value}</div>
     </div>
   );
 };

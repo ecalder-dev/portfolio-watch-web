@@ -13,6 +13,7 @@ import Transfers from '../Transfers/Transfers';
 import TransferForm from '../Transfers/TransferForm/TransferForm';
 import CorporateActions from '../CorporateActions/CorporateActions';
 import CorporateActionForm from '../CorporateActions/CorporateActionForm/CorporateActionForm';
+import Earnings from '../Earnings/Earnings';
 
 const App = () => {
   const [isToolbarOpen, setIsToolbarOpen] = useState(false);
@@ -38,6 +39,7 @@ const App = () => {
           <Switch>
             <Route path="/accounts" component={AccountsPage} />
             <Route path="/cost-basis" component={Portfolio} />
+            <Route path="/corporate-actions" component={CorporateActions} />
             <Route
               path="/corporate-actions/form/:id"
               component={CorporateActionForm}
@@ -46,13 +48,13 @@ const App = () => {
               path="/corporate-actions/form"
               component={CorporateActionForm}
             />
-            <Route path="/corporate-actions" component={CorporateActions} />
+            <Route path="/earnings" component={Earnings} />
+            <Route path="/transactions" component={Transactions} />
             <Route path="/transactions/form/:id" component={TransactionForm} />
             <Route path="/transactions/form" component={TransactionForm} />
-            <Route path="/transactions" component={Transactions} />
+            <Route path="/transfers" component={Transfers} />
             <Route path="/transfers/form/:id" component={TransferForm} />
             <Route path="/transfers/form" component={TransferForm} />
-            <Route path="/transfers" component={Transfers} />
             <Route path="*" component={Dashboard} />
           </Switch>
         </div>

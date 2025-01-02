@@ -1,0 +1,109 @@
+.CurrencySelector {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.Earnings-body {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.entry-row {
+  display: flex;
+  width: 100%;
+}
+
+.entry {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.entry label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.Earnings input {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid black;
+  width: 150px;
+}
+
+.Earnings select {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  -webkit-appearance: none !important;
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.EarningsCard {
+  margin-bottom: 3px;
+  width: 100%;
+}
+
+.EarningsList .EarningsHeader {
+  display: flex;
+  padding: 10px 0px;
+  background-color: #d7e2ed;
+}
+
+.EarningsYear {
+  display: block;
+  width: 150px;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 24px;
+  text-align: center;
+}
+
+.EarningsFields {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.FieldValue {
+  width: 25%;
+  display: block;
+}
+
+.FieldValue > div:first-child {
+  font-size: 10px;
+}
+
+.EarningsList .LotSaleListViewButton,
+.EarningsList .LotSaleListViewButton:active {
+  font-size: 12px;
+}
+
+.EarningsList .LotSaleListView {
+  padding: 25px;
+  width: 100%;
+  background-color: #f4f7f9;
+}
+
+.EarningsList .LotSaleListCard {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.hidden {
+  display: none;
+}
