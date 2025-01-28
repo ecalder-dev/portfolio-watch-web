@@ -39,7 +39,6 @@ const App = () => {
           <Switch>
             <Route path="/accounts" component={AccountsPage} />
             <Route path="/cost-basis" component={Portfolio} />
-            <Route path="/corporate-actions" component={CorporateActions} />
             <Route
               path="/corporate-actions/form/:id"
               component={CorporateActionForm}
@@ -48,13 +47,16 @@ const App = () => {
               path="/corporate-actions/form"
               component={CorporateActionForm}
             />
+            <Route path="/corporate-actions" component={CorporateActions} />
             <Route path="/earnings" component={Earnings} />
-            <Route path="/transactions" component={Transactions} />
             <Route path="/transactions/form/:id" component={TransactionForm} />
             <Route path="/transactions/form" component={TransactionForm} />
-            <Route path="/transfers" component={Transfers} />
+            <Route path="/transactions" component={Transactions} />
+
             <Route path="/transfers/form/:id" component={TransferForm} />
             <Route path="/transfers/form" component={TransferForm} />
+            <Route path="/transfers" component={Transfers} />
+
             <Route path="*" component={Dashboard} />
           </Switch>
         </div>
